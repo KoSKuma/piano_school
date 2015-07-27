@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Role;
+use DB;
+
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -32,4 +35,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    public function is($roleName)
+    {
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->name == $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function registerRoleByRoleName($user_id, $role_name)
+    {
+        $role = Role::getRoleByRoleName( ucwords($role_name) );
+        DB::table('role_user')->insert(
+            array(  'user_id' => $user_id,
+                    'role_id' => $role->id
+                )
+        );
+    }
+
+    public function registerRole($role_id)
+    {
+        DB::table('role_user')->insert(
+            array(  'user_id' => $this->id,
+                    'role_id' => $role_id
+                )
+        );
+    }
 }

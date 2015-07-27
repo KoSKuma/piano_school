@@ -38,7 +38,16 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Piano Classroom</div> <br />
+                Welcome to piano classroom management <br /><br />
+                If you are a student, <a href="{{url("/home/student")}}">please go here</a> <br />
+                If you are a teacher, <a href="{{url("/home/teacher")}}">please go here</a> <br /><br />
+                Don't have an account? <a href="{{url("/auth/register")}}">register</a> <br /><br />
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
             </div>
         </div>
     </body>

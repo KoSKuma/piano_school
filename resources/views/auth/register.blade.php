@@ -1,6 +1,6 @@
 <!-- resources/views/auth/register.blade.php -->
 
-<form method="POST" action="/pianoclass/public/auth/register">
+<form method="POST" action="{{url("auth/register")}}">
     {!! csrf_field() !!}
 
     <div>
@@ -21,6 +21,14 @@
     <div>
         Confirm Password
         <input type="password" name="password_confirmation">
+    </div>
+
+    <div>
+        Register as
+        <select name="role">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+        </select>
     </div>
 
     <div>

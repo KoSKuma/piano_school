@@ -23,3 +23,18 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('home', [
+	'middleware'	=>	'auth',
+	'uses'	=>	'UserController@home',
+]);
+
+Route::get('home/student', [
+	'middleware'	=>	'auth',
+	'uses'	=>	'UserController@studentHome',
+]);
+
+Route::get('home/teacher', [
+	'middleware'	=>	'auth',
+	'uses'	=>	'UserController@teacherHome',
+]);
