@@ -21,6 +21,12 @@ class AuthController extends Controller
     |
     */
 
+    // Redirected page after login
+    //protected $redirectPath = '/dashboard';
+
+    // Redirected page after failed-login
+    //protected $loginPath = '/login';
+
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
