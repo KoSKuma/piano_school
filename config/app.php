@@ -144,7 +144,8 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        'Zizaco\Entrust\EntrustServiceProvider'
+        'Zizaco\Entrust\EntrustServiceProvider',
+        Acacha\AdminLTETemplateLaravel\app\Providers\AdminLTETemplateServiceProvider::class
 
     ],
 
@@ -194,6 +195,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Entrust'   => 'Zizaco\Entrust\EntrustFacade'
+
     ],
 
 ];

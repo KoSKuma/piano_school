@@ -1,54 +1,48 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>Laravel</title>
+	<head>
+		<title>Laravel</title>
+		
+		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				color: #B0BEC5;
+				display: table;
+				font-weight: 100;
+				font-family: 'Lato';
+			}
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+			.container {
+				text-align: center;
+				display: table-cell;
+				vertical-align: middle;
+			}
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+			.content {
+				text-align: center;
+				display: inline-block;
+			}
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+			.title {
+				font-size: 96px;
+				margin-bottom: 40px;
+			}
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Piano Classroom</div> <br />
-                Welcome to piano classroom management <br /><br />
-                If you are a student, <a href="{{url("/home/student")}}">please go here</a> <br />
-                If you are a teacher, <a href="{{url("/home/teacher")}}">please go here</a> <br /><br />
-                Don't have an account? <a href="{{url("/auth/register")}}">register</a> <br /><br />
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
-            </div>
-        </div>
-    </body>
+			.quote {
+				font-size: 24px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="content">
+				<div class="title">Laravel 5 with AdminLTE</div>
+				<div class="quote">{{ Inspiring::quote() }}</div>
+			</div>
+		</div>
+	</body>
 </html>

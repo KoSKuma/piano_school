@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1f07eaef5996f536a36d0a47a6bdd9c7",
+    "hash": "7572ae91e8d46cde01b13c3b9912562e",
     "packages": [
+        {
+            "name": "acacha/admin-lte-template-laravel",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/acacha/adminlte-laravel.git",
+                "reference": "2632e77e8b5f790e372e89121aeb65d9e818c2dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/acacha/adminlte-laravel/zipball/2632e77e8b5f790e372e89121aeb65d9e818c2dc",
+                "reference": "2632e77e8b5f790e372e89121aeb65d9e818c2dc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "Acacha\\AdminLTETemplateLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergi Tur Badenas",
+                    "email": "sergiturbadenas@gmail.com",
+                    "homepage": "http://acacha.org"
+                }
+            ],
+            "description": "AdminLTE template applied to Laravel Scaffolding",
+            "keywords": [
+                "AdminLTE",
+                "admin",
+                "admin-lte",
+                "administrator",
+                "bootstrap",
+                "laravel",
+                "template",
+                "theme"
+            ],
+            "time": "2015-07-26 20:48:54"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "2.0.0",
@@ -1696,6 +1747,46 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "almasaeed2010/adminlte",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/almasaeed2010/AdminLTE.git",
+                "reference": "a6c2500da3cb4a333ca436f4f78cf09dd00ca9ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/a6c2500da3cb4a333ca436f4f78cf09dd00ca9ba",
+                "reference": "a6c2500da3cb4a333ca436f4f78cf09dd00ca9ba",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abdullah Almsaeed",
+                    "email": "support@almsaeedstudio.com"
+                }
+            ],
+            "description": "AdminLTE - admin control panel and dashboard that's based on Bootstrap 3",
+            "homepage": "http://almsaeedstudio.com/",
+            "keywords": [
+                "JS",
+                "admin",
+                "back-end",
+                "css",
+                "less",
+                "responsive",
+                "template",
+                "theme",
+                "web"
+            ],
+            "time": "2015-07-08 21:18:12"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
