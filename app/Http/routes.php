@@ -15,6 +15,11 @@ Route::get('sample', function () {
     return view('pages.sample');
 });
 
+Route::get('student/add', function () {
+    return view('student.add');
+});
+
+
 // Authentication routes...
 /*Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
