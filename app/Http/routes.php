@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('register', function () {
-    return view('pages.register');
+Route::get('sample', function () {
+    return view('pages.sample');
 });
 
 // Authentication routes...
