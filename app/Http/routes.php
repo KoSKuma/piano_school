@@ -15,6 +15,16 @@ Route::get('sample', function () {
     return view('pages.sample');
 });
 
+Route::get('room/add', function () {
+    return view('room.add');
+});
+
+//Route::post('room/add', 'RoomController@store');
+Route::post('room/add', [
+	'uses'	=> 'RoomController@store'
+]);
+
+//Route::post('auth/login', 'Auth\AuthController@postLogin');
 // Authentication routes...
 /*Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
