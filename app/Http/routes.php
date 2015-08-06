@@ -11,6 +11,7 @@
 |
 */
 
+<<<<<<< HEAD
 Route::get('sample', function () {
     return view('pages.sample');
 });
@@ -29,6 +30,8 @@ Route::get('room/edit/{id}','RoomController@edit');
 Route::post('room/update/{id}','RoomController@update');
 Route::get('room/destroy/{id}','RoomController@destroy');
 
+=======
+>>>>>>> 858132e84bbfe5962e3fa29b0abe8e8e779a4f5b
 //Route::post('auth/login', 'Auth\AuthController@postLogin');
 // Authentication routes...
 /*Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -55,3 +58,22 @@ Route::get('home/teacher', [
 ]);
 
 */
+
+Route::get('sample', function () {
+    return view('pages.sample');
+});
+
+Route::get('student/add', function () {
+    return view('student.add');
+});
+
+
+Route::get('room/add', function () {
+    return view('room.add');
+});
+
+//Route::post('room/add', 'RoomController@store');
+Route::post('room/add', [
+	'uses'	=> 'RoomController@store'
+]);
+
