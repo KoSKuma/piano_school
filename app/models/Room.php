@@ -23,4 +23,5 @@ class Room extends Model
 
 	        return $room;
 	    }
+	
 }

@@ -24,6 +24,11 @@ Route::post('room/add', [
 	'uses'	=> 'RoomController@store'
 ]);
 
+Route::get('room/show','RoomController@show' );
+Route::get('room/edit/{id}','RoomController@edit');
+Route::post('room/update/{id}','RoomController@update');
+Route::get('room/destroy/{id}','RoomController@destroy');
+
 //Route::post('auth/login', 'Auth\AuthController@postLogin');
 // Authentication routes...
 /*Route::get('auth/login', 'Auth\AuthController@getLogin');

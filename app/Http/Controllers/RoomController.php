@@ -10,35 +10,22 @@ use App\models\Room;
 
 class RoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
+  
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
+    
     public function store(Request $request)
     {
-        $v = $this->validate($request, [
+       /* $v = $this->validate($request, [
         ['name' => 'required|unique:posts|max:255'],
          ['location' => 'required']
         ]);
@@ -46,54 +33,50 @@ class RoomController extends Controller
             {
                 return redirect()->back()->withErrors($v);
             }
-        //echo $request->input("name");
+        //echo $request->input("name");*/
         $room = Room::insert($request);
-        return view('room.add');
+       // redirectToShow();
+       return redirect('room/show');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $-d
-     * @return Response
-     */
-    public function show($id)
+    
+    public function show()
     {
-        //
+        $room = Room::all();
+        
+        return view('room.show',['roomview'=>$room]);
+
+      
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+ 
     public function edit($id)
     {
-        //
+        $room = Room::find($id);
+
+        return view('room.edit',['room'=>$room]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
+    
     public function update(Request $request, $id)
     {
-        //
+        $room = Room::find($id);
+        $room->name = $request->name;
+        $room->location = $request->location;
+        $room->description= $request->description;
+        $room->save();
+        return redirect('room/show');
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+   
     public function destroy($id)
     {
-        //
+        $room = Room::find($id);
+        $room->delete(); 
+        return redirect('room/show');
     }
+
 }
+
