@@ -6,6 +6,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html>
 
 @include('partials.htmlheader')
+@include('partials.scripts')
 
 <!--
 BODY TAG OPTIONS:
@@ -52,7 +53,6 @@ desired effect
 
 </div><!-- ./wrapper -->
 
-@include('partials.scripts')
 
 </body>
 </html>

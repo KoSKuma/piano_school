@@ -10,7 +10,7 @@
                 <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p>{ Auth::user()->name }</p>
+                <p>{{ Auth::user()->name }}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -29,15 +29,53 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">HEADER</li>
+            <!-- <li class="header">HEADER</li> -->
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>Home</span></a></li>
-            <li><a href="{{url('room/show')}}"><i class='fa fa-bank'></i> <span>ClassRoom</span></a></li>
+           <!--  <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>Home</span></a></li>
+            <li>
+                <a href="{{url('room/show')}}">
+                    <i class='fa fa-bank'></i> 
+                    <span>ClassRoom</span>
+                </a>
+            </li> -->
             <li class="treeview">
-                <a href="#"><i class='fa fa-link'></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#">
+                    <i class='fa  fa-user-plus'></i> 
+                    <span>Add User</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
+                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
+                    <li><a href="{{url('student/add')}}">Student</a></li>
+                </ul>
+            </li>
+             <li>
+                <a href="{{url('room/show')}}">
+                    <i class='fa fa-book'></i> 
+                    <span>Courses Management</span>
+                </a>
+            </li>
+              <li class="treeview">
+                <a href="#">
+                    <i class='fa   fa-calendar'></i> 
+                    <span>schedule</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
+                    <li><a href="{{url('student/add')}}">Student</a></li>
+                </ul>
+            </li>
+            
+              <li class="treeview">
+                <a href="#">
+                    <i class='fa   fa-user'></i> 
+                    <span>User Profile</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
+                    <li><a href="{{url('student/add')}}">Student</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

@@ -25,17 +25,59 @@ Add a new student
         <div class="box-body">
           <div class="form-group">
             <label class="col-sm-3 control-label" for="name">Name</label>
-            <div class="col-sm-4"><input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" /></div>
-            <div class="col-sm-4"><input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" /></div>
+            <div class="col-sm-4">
+              <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" />
+            </div>
+            <div class="col-sm-4">
+              <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" />
+            </div>
           </div>
+
+           <div class="form-group">
+            <label class="col-sm-3 control-label" for="name">Nick Name</label>
+            <div class="col-sm-4">
+              <input type="text" name="nickname" class="form-control" id="nickname" placeholder="nickname" />
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-3 control-label" for="email">Email address</label>
             <div class="col-sm-8"><input type="email" class="form-control" id="email" placeholder="Enter email" /></div>
           </div>
+
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="address">Address</label>
-            <div class="col-sm-8"><textarea name="address" class="form-control" id="address" placeholder="Enter address" row="4"></textarea></div>
+            <label class="col-sm-3 control-label" for="name">Phone</label>
+            <div class="col-sm-4">
+              <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone1" />
+            </div>
+            <div class="col-sm-4">
+              <input type="text" name="note1" class="form-control" id="note1" placeholder="Note" />
+            </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="name"></label>
+            <div class="col-sm-4">
+              <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone2" />
+            </div>
+            <div class="col-sm-4">
+              <input type="text" name="note1" class="form-control" id="note2" placeholder="Note" />
+            </div>
+          </div>
+
+           <div class="form-group">
+            <label class="col-sm-3 control-label" for="name"></label>
+            <div class="col-sm-4">
+              <input type="text" name="phone3" class="form-control" id="phone3" placeholder="Phone3" />
+            </div>
+            <div class="col-sm-4">
+              <input type="text" name="note3" class="form-control" id="note3" placeholder="Note" />
+            </div>
+          </div>
+          
+          
+
+       
           <div class="form-group">
             <label class="col-sm-3 control-label" for="date_of_birth">Date of Birth</label>
             <div class="col-sm-8">
@@ -47,7 +89,16 @@ Add a new student
               </div>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="exampleInputFile" class="col-sm-3 control-label">File input</label>
+                <input type="file" id="exampleInputFile">
+            <p class="help-block col-sm-3 ">Example block-level help text here.</p>
+          </div>
+
         </div><!-- /.box-body -->
+
+      
 
         <div class="box-footer">
           <button type="submit" class="btn btn-primary">Submit</button>

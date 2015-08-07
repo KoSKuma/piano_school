@@ -75,9 +75,15 @@ Sample page
 					            	<a href= "{{url('room/edit/'.$room->id)}}" class="btn btn-default" >
 									  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
 									</a>
-									<a href= "{{url('room/destroy/'.$room->id)}}" class="btn btn-default" >
-									  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Delete
+									<a href= "{{url('room/destroy/'.$room->id)}}" class="btn btn-default btn-delete">
+									  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
 									</a>
+                  <script type="text/javascript">
+                      $(".btn-delete").click(function(e){
+                        return confirm("Do you want to Delete");
+                        
+                      });
+                  </script>
 
 					            </td>    
           					</tr>

@@ -11,7 +11,10 @@
 |
 */
 
-<<<<<<< HEAD
+Route::get('/',function () {
+	return view('auth/login');
+});
+
 Route::get('sample', function () {
     return view('pages.sample');
 });
@@ -30,18 +33,21 @@ Route::get('room/edit/{id}','RoomController@edit');
 Route::post('room/update/{id}','RoomController@update');
 Route::get('room/destroy/{id}','RoomController@destroy');
 
-=======
->>>>>>> 858132e84bbfe5962e3fa29b0abe8e8e779a4f5b
+Route::get('teacher/add', function () {
+    return view('teacher/add');
+});
+
+
 //Route::post('auth/login', 'Auth\AuthController@postLogin');
 // Authentication routes...
-/*Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-
+/*
 Route::get('home', [
 	'middleware'	=>	'auth',
 	'uses'	=>	'UserController@home',
@@ -68,12 +74,4 @@ Route::get('student/add', function () {
 });
 
 
-Route::get('room/add', function () {
-    return view('room.add');
-});
-
-//Route::post('room/add', 'RoomController@store');
-Route::post('room/add', [
-	'uses'	=> 'RoomController@store'
-]);
 
