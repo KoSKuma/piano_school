@@ -7,9 +7,18 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
 
+<!-- <script src="{{ asset('/fullcalendar/lib/jquery.min.js') }}" type="text/javascript"></script> -->
+<script src="{{ asset('/fullcalendar/lib/moment.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/fullcalendar/fullcalendar.js') }}" type="text/javascript"></script>
+
+
+<script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+
+
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the
       user experience. Slimscroll is required when using the
       fixed layout. -->
 
-@yield('script');
+@yield('script')

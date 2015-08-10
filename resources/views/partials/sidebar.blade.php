@@ -49,12 +49,13 @@
                     <li><a href="{{url('student/add')}}">Student</a></li>
                 </ul>
             </li>
-             <li>
-                <a href="{{url('room/show')}}">
+             <li >
+                <a href="{{url('courses/add')}}">
                     <i class='fa fa-book'></i> 
                     <span>Courses Management</span>
                 </a>
             </li>
+            
               <li class="treeview">
                 <a href="#">
                     <i class='fa   fa-calendar'></i> 

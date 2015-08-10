@@ -73,5 +73,9 @@ Route::get('student/add', function () {
     return view('student.add');
 });
 
+Route::get('courses/add',function () {
+	return view('courses.add');
+});
+
 
 

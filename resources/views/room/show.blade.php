@@ -18,10 +18,10 @@ Sample page
     		<div class="col-xs-6">
     			<h3 class="box-title">Class Rooms List</h3>
     		</div>
-      		<div class="col-xs-6 text-right">
+      		<div class="col-xs-12">
       			<a href= "{{url('room/add')}}" class="btn btn-default" >
-				  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-				</a>
+				       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+				    </a>
       			<!-- <button type="button" class="btn btn-default" >
 				  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 				</button> -->

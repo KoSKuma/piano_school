@@ -90,11 +90,7 @@ Add a new student
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="exampleInputFile" class="col-sm-3 control-label">File input</label>
-                <input type="file" id="exampleInputFile">
-            <p class="help-block col-sm-3 ">Example block-level help text here.</p>
-          </div>
+       
 
         </div><!-- /.box-body -->
 
