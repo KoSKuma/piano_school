@@ -8,7 +8,7 @@
 <body class="login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/home') }}"><b>Admin</b>LTE</a>
+            <a href="{{ url('/home') }}"><b>PianoSchool</b></a>
         </div><!-- /.login-logo -->
 
     @if (count($errors) > 0)
