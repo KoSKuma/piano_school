@@ -21,68 +21,83 @@ Add a new student
         <h3 class="box-title">Add a New Teacher</h3>
       </div><!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" role="form">
-        <div class="box-body">
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="name">Name</label>
-            <div class="col-sm-4">
-              <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" />
-            </div>
-            <div class="col-sm-4">
-              <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" />
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="experience">Experience</label>
-             <div class="col-sm-8">
-              <input type="text" name="experience" class="form-control" id="experience" placeholder="Experience"/>
-            </div>
-          </div>
+      <form class="form-horizontal" role="form" action="{{url("teacher")}}" method="post">
+        {!! csrf_field() !!}
+          <div class="box-body">
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="experience">Degrees</label>
-             <div class="col-sm-8">
-              <input type="text" name="degrees" class="form-control" id="degrees" placeholder="Degrees"/>
-             </div>
-          </div>
+            @if ($errors->has())
+            <div class="alert alert-danger">
+              @foreach ($errors->all() as $error)
+                    {{ $error }} <br>
+              @endforeach
+            </div>
+            @endif
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="experience">Institute</label>
-             <div class="col-sm-8">
-              <input type="text" name="institute" class="form-control" id="institute" placeholder="Institute"/>
-             </div>
-          </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="name">Name</label>
+              <div class="col-sm-4">
+                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" />
+              </div>
+              <div class="col-sm-4">
+                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="name">Nick Name</label>
+              <div class="col-sm-4">
+                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" />
+              </div>
+            </div>
 
             
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="email">Email address</label>
-            <div class="col-sm-8">
-              <input type="email" class="form-control" id="email" placeholder="Enter email" />
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="experience">Experience</label>
+               <div class="col-sm-8">
+                <input type="text" name="experience" class="form-control" id="experience" placeholder="Experience"/>
+              </div>
             </div>
-          </div>
 
-       <!--    <div class="form-group"> -->
-<!--             <label class="col-sm-3 control-label" for="email">Tel.</label> -->
-<!--               <i class="fa fa-phone"></i> -->
-<!--               <div class="col-sm-8">  -->
-<!--                  -->
-<!--                 <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask=""> -->
-<!--               </div>  -->
-<!--           </div> -->
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="date_of_birth">Mobile Phone</label>
-            <div class="col-sm-8">
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-phone"></i>
-                </div>
-                  <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="">
-                </div>
-
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="experience">Degrees</label>
+               <div class="col-sm-8">
+                <input type="text" name="degrees" class="form-control" id="degrees" placeholder="Degrees"/>
+               </div>
             </div>
-          </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="experience">Institute</label>
+               <div class="col-sm-8">
+                <input type="text" name="institute" class="form-control" id="institute" placeholder="Institute"/>
+               </div>
+            </div>
+
+              
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="email">Email address</label>
+              <div class="col-sm-8">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Password</label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Confirm Password</label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password_confirmation">
+              </div>
+            </div>
+
+     
 
           <div class="form-group">
             <label class="col-sm-3 control-label" for="date_of_birth">Telephone</label>
@@ -106,14 +121,14 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask />
+                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="date_of_birth"/>
                 </div>
 
             </div>
           </div>
         </div><!-- /.box-body -->
 
-        <div class="box-footer">
+        <div class="box-footer text-center">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>

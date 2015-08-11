@@ -27,7 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['firstname', 'lastname', 'nickname','email','date_of_birth'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,40 +36,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function roles()
-    {
-        return $this->belongsToMany('App\Role');
-    }
 
-    public function is($roleName)
-    {
-        foreach ($this->roles()->get() as $role)
-        {
-            if ($role->name == $roleName)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static function registerRoleByRoleName($user_id, $role_name)
-    {
-        $role = Role::getRoleByRoleName( ucwords($role_name) );
-        DB::table('role_user')->insert(
-            array(  'user_id' => $user_id,
-                    'role_id' => $role->id
-                )
-        );
-    }
-
-    public function registerRole($role_id)
-    {
-        DB::table('role_user')->insert(
-            array(  'user_id' => $this->id,
-                    'role_id' => $role_id
-                )
-        );
-    }
 }

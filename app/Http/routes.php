@@ -33,9 +33,7 @@ Route::get('room/edit/{id}','RoomController@edit');
 Route::post('room/update/{id}','RoomController@update');
 Route::get('room/destroy/{id}','RoomController@destroy');
 
-Route::get('teacher/add', function () {
-    return view('teacher/add');
-});
+Route::resource('teacher', 'TeacherController');
 
 
 //Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -76,6 +74,8 @@ Route::get('student/add', function () {
 Route::get('courses/add',function () {
 	return view('courses.add');
 });
+
+
 
 
 
