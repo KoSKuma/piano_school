@@ -45,10 +45,20 @@ Add a new student
             <div class="col-sm-8"><input type="email" class="form-control" id="email" placeholder="Enter email" /></div>
           </div>
 
+           <div class="form-group">
+            <label class="col-sm-3 control-label" for="email">Password</label>
+            <div class="col-sm-8"><input type="text" class="form-control" id="password" placeholder="Password" /></div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="email">Confirm Password</label>
+            <div class="col-sm-8"><input type="text" class="form-control" id="confirmpassword" placeholder="Confirm Password" /></div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-3 control-label" for="name">Phone</label>
             <div class="col-sm-4">
-              <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone1" />
+              <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone" />
             </div>
             <div class="col-sm-4">
               <input type="text" name="note1" class="form-control" id="note1" placeholder="Note" />
@@ -58,24 +68,12 @@ Add a new student
           <div class="form-group">
             <label class="col-sm-3 control-label" for="name"></label>
             <div class="col-sm-4">
-              <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone2" />
+              <input type="text" name="parentphone" class="form-control" id="phone2" placeholder="ParentPhone" />
             </div>
             <div class="col-sm-4">
               <input type="text" name="note1" class="form-control" id="note2" placeholder="Note" />
             </div>
           </div>
-
-           <div class="form-group">
-            <label class="col-sm-3 control-label" for="name"></label>
-            <div class="col-sm-4">
-              <input type="text" name="phone3" class="form-control" id="phone3" placeholder="Phone3" />
-            </div>
-            <div class="col-sm-4">
-              <input type="text" name="note3" class="form-control" id="note3" placeholder="Note" />
-            </div>
-          </div>
-          
-          
 
        
           <div class="form-group">
@@ -116,7 +114,7 @@ Add a new student
 <script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
 <script type="text/javascript">
   $(function () {
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    $("#datemask").inputmask("yyyy/mm/dd", {"placeholder": "yyyy/mm/dd"});
     $("[data-mask]").inputmask();
   });
 </script>

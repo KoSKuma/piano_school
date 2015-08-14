@@ -22,6 +22,7 @@ Add a new student
       </div><!-- /.box-header -->
       <!-- form start -->
       <form class="form-horizontal" role="form" action="{{url("teacher")}}" method="post">
+
         {!! csrf_field() !!}
           <div class="box-body">
 
@@ -100,19 +101,21 @@ Add a new student
      
 
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="date_of_birth">Telephone</label>
+            <label class="col-sm-3 control-label" >Telephone</label>
             <div class="col-sm-8">
               <div class="input-group">
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                  <input type="text" name="telephone" class="form-control" id="Telephone" placeholder="Telephone"/>
+                  <input type="text" name="teacher_phone" class="form-control" id="teacher_phone" placeholder="Telephone"/>
                 </div>
 
             </div>
           </div>
 
        
+
+
 
           <div class="form-group">
             <label class="col-sm-3 control-label" for="date_of_birth">Date of Birth</label>
@@ -121,8 +124,7 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="date_of_birth"/>
-                </div>
+                <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"/>
 
             </div>
           </div>

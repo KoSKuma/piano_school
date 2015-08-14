@@ -59,44 +59,19 @@ Sample page
 				          		aria-controls="example2" 
 				          		rowspan="1" colspan="1"
 				          		aria-label="Browser: activate to sort column ascending">Nick Name</th>
+          
 
-				          	<th class="sorting" 
-				              	tabindex="0" 
-				              	aria-controls="example2" 
-				              	rowspan="1" colspan="1" 
-				              	aria-label="Platform(s): activate to sort column ascending">E-mail</th>
-
-				            <th class="sorting" 
-				              	tabindex="0" 
-				              	aria-controls="example2" 
-				              	rowspan="1" colspan="1" 
-				              	aria-label="Platform(s): activate to sort column ascending">Date of Birth</th>
+                    <th class="sorting" 
+                        tabindex="0" 
+                        aria-controls="example2" 
+                        rowspan="1" colspan="1" 
+                        aria-label="Platform(s): activate to sort column ascending">Phone</th>
 
                      <th class="sorting" 
                         tabindex="0" 
                         aria-controls="example2" 
                         rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Experience</th>
-
-                      <th class="sorting" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Degrees</th>
-
-                      <th class="sorting" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Institute</th>
-
-          
-
-                      <th class="sorting" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Phone</th>
+                        aria-label="Platform(s): activate to sort column ascending">Option</th>
 
 			          	
 			        	</tr>
@@ -108,17 +83,17 @@ Sample page
                       <td class="sorting_1">{{$teacher->firstname}}</td>
                       <td>{{$teacher->lastname}}</td>
                       <td>{{$teacher->nickname}}</td>
-                      <td>{{$teacher->email}}</td>
-                      <td>{{$teacher->date_of_birth}}</td>
-                      <td>{{$teacher->experience}}</td>
-                      <td>{{$teacher->degrees}}</td>
-                      <td>{{$teacher->institute}}</td>
                       <td>{{$teacher->teacher_phone}}</td>
-                       
-
-                      </td>    
+                      <td>
+                            <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-default" >
+                              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                            </a>
+                            <a href= "#" class="btn btn-default btn-delete">
+                              <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+                            </a>
+                      </td>
                     </tr>
-                @endforeach
+            @endforeach
 
 
 

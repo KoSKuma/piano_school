@@ -10,7 +10,7 @@ use App\models\Teacher;
 use App\User;
 use Validator;
 use DB;
-
+use Log;
 
 
 class TeacherController extends Controller
@@ -30,7 +30,7 @@ class TeacherController extends Controller
     {
         $teacher = DB::table('users')
             ->join('teachers','users.teachers_id', '=', 'teachers.id')
-            ->select('users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
+            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
             ->get();
         return view('teacher.index',['teacherlist'=>$teacher]);
     }
@@ -57,7 +57,7 @@ class TeacherController extends Controller
             'degrees' => 'required' ,
             'experience' => 'required' ,
             'institute' => 'required' ,
-            'telephone' => 'required' ,
+            'teacher_phone' => 'required' ,
             'date_of_birth' => 'required',
             'password' => 'confirmed|required'
             );
@@ -66,7 +66,7 @@ class TeacherController extends Controller
 
         if ($validator->fails()) {
 
-            return redirect('teacher')->withErrors($validator);
+            return redirect('teacher/create')->withErrors($validator);
 
         } 
 
@@ -120,7 +120,14 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teacher = DB::table('users')
+            ->join('teachers','users.teachers_id', '=', 'teachers.id')
+            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
+            ->where('teachers.id','=',$id);
+
+        $teacher = $teacher->first();
+
+        return view('teacher.edit',['teacher'=>$teacher]);
     }
 
     /**
@@ -132,7 +139,26 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $users  = User::find($id);
+            $users->firstname = $request->firstname;
+            $users->lastname = $request->lastname;
+            $users->nickname = $request->nickname;
+            $users->date_of_birth = $request->date_of_birth;
+
+            $users->save();
+
+        $users = User::find($id);
+            $teacher->degrees = $request->degrees;
+            $teacher->experience = $request->experience;
+            $teacher->institute = $request->institute;
+            $teacher->teacher_phone = $request->teacher_phone;
+            
+            $teacher->save();
+
+            $users->teachers_id = $teacher->id;
+            $users->save();
+
+        return  redirect('teacher');
     }
 
     /**
