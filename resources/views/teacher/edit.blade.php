@@ -22,7 +22,8 @@ Add a new student
       </div><!-- /.box-header -->
       <!-- form start -->
 
-      <form class="form-horizontal" role="form" action="{{url("teacher/".$teacher->id)}}" method="PUT">
+      <form class="form-horizontal" role="form" action="{{url("teacher/".$teacher->id)}}" method="post">
+        <input type="hidden" name="_method" value="PUT">
 
        
 

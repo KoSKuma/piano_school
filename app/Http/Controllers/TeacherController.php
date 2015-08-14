@@ -49,20 +49,10 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
 
-       $rules = array(
-            'firstname' => 'required' ,
-            'lastname' => 'required' ,
-            'email' => 'required|email' ,
-            'nickname' => 'required' ,
-            'degrees' => 'required' ,
-            'experience' => 'required' ,
-            'institute' => 'required' ,
-            'teacher_phone' => 'required' ,
-            'date_of_birth' => 'required',
-            'password' => 'confirmed|required'
-            );
 
-        $validator = Validator::make($request->all(), $rules );
+       
+
+        $validator = Validator::make($request->all(), Teacher::$rules );
 
         if ($validator->fails()) {
 
@@ -139,7 +129,16 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $users  = User::find($id);
+        $validator = Validator::make($request->all(), Teacher::$rules );
+
+        if ($validator->fails()) {
+
+            return redirect('teacher')->withErrors($validator);
+
+        } 
+
+        else { 
+        $users  = User::where('teachers_id',$id)->first();
             $users->firstname = $request->firstname;
             $users->lastname = $request->lastname;
             $users->nickname = $request->nickname;
@@ -147,7 +146,7 @@ class TeacherController extends Controller
 
             $users->save();
 
-        $users = User::find($id);
+        $teacher = Teacher::find($id);
             $teacher->degrees = $request->degrees;
             $teacher->experience = $request->experience;
             $teacher->institute = $request->institute;
@@ -155,10 +154,10 @@ class TeacherController extends Controller
             
             $teacher->save();
 
-            $users->teachers_id = $teacher->id;
-            $users->save();
+           
 
         return  redirect('teacher');
+        }
     }
 
     /**
