@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('/',function () {
 	return view('auth/login');
@@ -35,6 +36,8 @@ Route::get('room/destroy/{id}','RoomController@destroy');
 
 Route::resource('teacher', 'TeacherController');
 
+Route::resource('student', 'StudentController');
+
 
 //Route::post('auth/login', 'Auth\AuthController@postLogin');
 // Authentication routes...
@@ -45,31 +48,13 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-/*
-Route::get('home', [
-	'middleware'	=>	'auth',
-	'uses'	=>	'UserController@home',
-]);
 
-Route::get('home/student', [
-	'middleware'	=>	'auth',
-	'uses'	=>	'UserController@studentHome',
-]);
-
-Route::get('home/teacher', [
-	'middleware'	=>	'auth',
-	'uses'	=>	'UserController@teacherHome',
-]);
-
-*/
 
 Route::get('sample', function () {
     return view('pages.sample');
 });
 
-Route::get('student/add', function () {
-    return view('student.add');
-});
+
 
 Route::get('courses/add',function () {
 	return view('courses.add');

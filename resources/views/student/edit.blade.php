@@ -21,7 +21,8 @@ Add a new student
         <h3 class="box-title">Add a New Student</h3>
       </div><!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" role="form" action="{{url("student")}}" method="post">
+      <form class="form-horizontal" role="form" action="{{url("student/".$student->id)}}" method="post">
+        <input type="hidden" name="_method" value="PUT">
 
         {!! csrf_field() !!}
           <div class="box-body">
@@ -39,17 +40,17 @@ Add a new student
             <div class="form-group">
               <label class="col-sm-3 control-label" for="name">Name</label>
               <div class="col-sm-4">
-                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" />
+                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$student->firstname}}" />
               </div>
               <div class="col-sm-4">
-                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" />
+                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$student->lastname}}" />
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label" for="name">Nick Name</label>
               <div class="col-sm-4">
-                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" />
+                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$student->nickname}}" />
               </div>
             </div>
 
@@ -57,22 +58,7 @@ Add a new student
             <div class="form-group">
               <label class="col-sm-3 control-label" for="email">Email address</label>
               <div class="col-sm-8">
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Password</label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
-              </div>
-            </div>
-
-
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Confirm Password</label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password_confirmation">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" value="{{$student->email}}" />
               </div>
             </div>
 
@@ -85,7 +71,7 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                  <input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Studentphone"/>
+                  <input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Studentphone" value="{{$student->student_phone}}"/>
                 </div>
 
             </div>
@@ -99,7 +85,7 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                  <input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parentphone"/>
+                  <input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parentphone"  value="{{$student->parent_phone}}"/>
                 </div>
 
             </div>
@@ -116,14 +102,14 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"/>
+                <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{$student->date_of_birth}}"/>
 
             </div>
           </div>
         </div><!-- /.box-body -->
 
         <div class="box-footer text-center">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Update</button>
         </div>
       </form>
     </div>

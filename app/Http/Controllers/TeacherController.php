@@ -11,7 +11,7 @@ use App\User;
 use Validator;
 use DB;
 use Log;
-
+use App\models\Role;
 
 class TeacherController extends Controller
 {
@@ -129,15 +129,16 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), Teacher::$rules );
+
+      $validator = Validator::make($request->all(), Teacher::$ruleswithoutpassword );
 
         if ($validator->fails()) {
 
-            return redirect('teacher')->withErrors($validator);
+            return redirect('teacher/'.$id.'/edit')->withErrors($validator);
 
         } 
 
-        else { 
+    else {
         $users  = User::where('teachers_id',$id)->first();
             $users->firstname = $request->firstname;
             $users->lastname = $request->lastname;
@@ -154,10 +155,9 @@ class TeacherController extends Controller
             
             $teacher->save();
 
-           
-
         return  redirect('teacher');
         }
+        
     }
 
     /**
@@ -168,6 +168,15 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('teachers_id',$id)->first();
+        $users  = User::find($user->id);
+        $users->delete();
+
+        $teacher = Teacher::find($id);
+        $teacher->delete();
+        
+        
+
+         return redirect('teacher');
     }
 }

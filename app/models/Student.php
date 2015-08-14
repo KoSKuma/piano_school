@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class Student extends Model
 {
     public $timestamps = false;
     public static $rules = array(
@@ -10,11 +10,9 @@ class Teacher extends Model
             'lastname' => 'required' ,
             'email' => 'required|email' ,
             'nickname' => 'required' ,
-            'degrees' => 'required' ,
-            'experience' => 'required' ,
-            'institute' => 'required' ,
-            'teacher_phone' => 'required' ,
+            'student_phone' => 'required' ,
             'date_of_birth' => 'required',
+            'parent_phone' => 'required',
             'password' => 'confirmed|required'
             );
 
@@ -23,10 +21,8 @@ class Teacher extends Model
             'lastname' => 'required' ,
             'email' => 'required|email' ,
             'nickname' => 'required' ,
-            'degrees' => 'required' ,
-            'experience' => 'required' ,
-            'institute' => 'required' ,
-            'teacher_phone' => 'required' ,
-            'date_of_birth' => 'required'
+            'student_phone' => 'required' ,
+            'date_of_birth' => 'required',
+            'parent_phone' => 'required'
             );
 }

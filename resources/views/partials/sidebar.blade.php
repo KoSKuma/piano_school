@@ -46,29 +46,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{url('teacher')}}">Teacher</a></li>
-                    <li><a href="{{url('student/add')}}">Student</a></li>
+                    <li><a href="{{url('student')}}">Student</a></li>
                 </ul>
             </li>
-             <li >
-                <a href="{{url('courses/add')}}">
-                    <i class='fa fa-book'></i> 
-                    <span>Courses Management</span>
-                </a>
-            </li>
-            
-              <li class="treeview">
-                <a href="#">
-                    <i class='fa   fa-calendar'></i> 
-                    <span>schedule</span> 
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
-                    <li><a href="{{url('student/add')}}">Student</a></li>
-                </ul>
-            </li>
-            
-              <li class="treeview">
+                 <li class="treeview">
                 <a href="#">
                     <i class='fa   fa-user'></i> 
                     <span>User Profile</span> 
@@ -79,6 +60,26 @@
                     <li><a href="{{url('student/add')}}">Student</a></li>
                 </ul>
             </li>
+             <li >
+                <a href="{{url('courses/add')}}">
+                    <i class='fa fa-calendar'></i> 
+                    <span>Calendar</span>
+                </a>
+            </li>
+            
+              <li class="treeview">
+                <a href="#">
+                    <i class='fa   fa-calendar-o'></i> 
+                    <span>schedule</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
+                    <li><a href="{{url('student/add')}}">Student</a></li>
+                </ul>
+            </li>
+            
+             
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
