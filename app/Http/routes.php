@@ -38,6 +38,8 @@ Route::resource('teacher', 'TeacherController');
 
 Route::resource('student', 'StudentController');
 
+Route::resource('schedule', 'ScheduleController');
+
 
 //Route::post('auth/login', 'Auth\AuthController@postLogin');
 // Authentication routes...
@@ -60,6 +62,9 @@ Route::get('courses/add',function () {
 	return view('courses.add');
 });
 
+Route::get('jquery/test',function(){
+		return view('jquery/test');
+});
 
 
 

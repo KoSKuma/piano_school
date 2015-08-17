@@ -49,7 +49,8 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
             //'role' => 'required',
@@ -63,16 +64,21 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
+    { 
         $user = User::create([
-            'fistname' => $data['name'],
+            'fistname' => $data['firstname'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'lastname' => $data['lastname']
         ]);
+
+        $user->firstname = $data['firstname'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
 
         //$role = Role::getRoleByRoleName( ucwords($data['role']) );
         //$user->registerRole($role->id);
 
         return $user;
     }
+
 }

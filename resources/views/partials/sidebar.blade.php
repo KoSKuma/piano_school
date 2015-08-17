@@ -66,18 +66,14 @@
                     <span>Calendar</span>
                 </a>
             </li>
-            
-              <li class="treeview">
-                <a href="#">
-                    <i class='fa   fa-calendar-o'></i> 
-                    <span>schedule</span> 
-                    <i class="fa fa-angle-left pull-right"></i>
+              <li >
+                <a href="{{url('schedule')}}">
+                    <i class='fa fa-calendar-o'></i> 
+                    <span>Schedule</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
-                    <li><a href="{{url('student/add')}}">Student</a></li>
-                </ul>
             </li>
+            
+           
             
              
         </ul><!-- /.sidebar-menu -->

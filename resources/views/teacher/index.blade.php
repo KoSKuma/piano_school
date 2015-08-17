@@ -111,7 +111,7 @@ Sample page
                     </tr>
             @endforeach
 
-            <form action="{{url('teacher/'.$teacher->id)}}" method="POST" id="confirm-delete"> 
+            <form action="" method="POST" id="confirm-delete"> 
                               
 
               <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -1,6 +1,7 @@
 <?php namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Teacher extends Model
 {
@@ -29,4 +30,12 @@ class Teacher extends Model
             'teacher_phone' => 'required' ,
             'date_of_birth' => 'required'
             );
+    public static function teacherList() {
+        $teacher = DB::table('users')
+            ->join('teachers','users.teachers_id', '=', 'teachers.id')
+            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
+            ->get();
+
+        return $teacher;
+    }
 }

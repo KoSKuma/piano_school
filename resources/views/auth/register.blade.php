@@ -9,7 +9,7 @@
     <body class="register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a href="{{ url('/home') }}"><b>Admin</b>LTE</a>
+            <a href="{{ url('/home') }}">PianoSchool</a>
         </div>
 
         @if (count($errors) > 0)
@@ -28,7 +28,11 @@
             <form action="{{ url('/auth/register') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Full name" name="name" value="{{ old('name') }}"/>
+                    <input type="text" class="form-control" placeholder="First Name" name="firstname" value="{{ old('name') }}"/>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Last Name" name="lastname" value="{{ old('name') }}"/>
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
@@ -57,11 +61,11 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center">
+          <!--   <div class="social-auth-links text-center">
                 <p>- OR -</p>
                 <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using Facebook</a>
                 <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign up using Google+</a>
-            </div>
+            </div> -->
 
             <a href="{{ url('/auth/login') }}" class="text-center">I already have a membership</a>
         </div><!-- /.form-box -->
