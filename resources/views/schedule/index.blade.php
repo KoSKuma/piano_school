@@ -30,7 +30,7 @@ Sample page
     <div class="box-header">
     	<div class="row">
     		<div class="col-xs-6">
-    			<h3 class="box-title">Teacher List</h3>
+    			<h3 class="box-title">Schedule List</h3>
     		</div>
       		<div class="col-xs-12 text-right">
       			<a href= "{{url('schedule/create')}}" class="btn btn-default" >

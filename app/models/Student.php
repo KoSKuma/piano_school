@@ -20,7 +20,6 @@ class Student extends Model
      public static $ruleswithoutpassword = array(
             'firstname' => 'required' ,
             'lastname' => 'required' ,
-            'email' => 'required|email' ,
             'nickname' => 'required' ,
             'student_phone' => 'required' ,
             'date_of_birth' => 'required',

@@ -58,8 +58,8 @@ Route::get('sample', function () {
 
 
 
-Route::get('courses/add',function () {
-	return view('courses.add');
+Route::get('calendar',function () {
+	return view('calendar.calendar');
 });
 
 Route::get('jquery/test',function(){

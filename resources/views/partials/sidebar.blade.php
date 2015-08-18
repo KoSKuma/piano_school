@@ -41,7 +41,7 @@
             <li class="treeview">
                 <a href="#">
                     <i class='fa  fa-user-plus'></i> 
-                    <span>Add User</span> 
+                    <span>User</span> 
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
@@ -49,19 +49,9 @@
                     <li><a href="{{url('student')}}">Student</a></li>
                 </ul>
             </li>
-                 <li class="treeview">
-                <a href="#">
-                    <i class='fa   fa-user'></i> 
-                    <span>User Profile</span> 
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{url('teacher/add')}}">Teacher</a></li>
-                    <li><a href="{{url('student/add')}}">Student</a></li>
-                </ul>
-            </li>
+
              <li >
-                <a href="{{url('courses/add')}}">
+                <a href="{{url('calendar')}}">
                     <i class='fa fa-calendar'></i> 
                     <span>Calendar</span>
                 </a>

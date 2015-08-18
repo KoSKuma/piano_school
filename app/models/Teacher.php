@@ -22,7 +22,6 @@ class Teacher extends Model
      public static $ruleswithoutpassword = array(
             'firstname' => 'required' ,
             'lastname' => 'required' ,
-            'email' => 'required|email' ,
             'nickname' => 'required' ,
             'degrees' => 'required' ,
             'experience' => 'required' ,
