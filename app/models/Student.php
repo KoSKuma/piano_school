@@ -1,6 +1,7 @@
 <?php namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use DB;
 
 class Student extends Model

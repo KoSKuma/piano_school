@@ -93,7 +93,14 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = DB::table('users')
+            ->join('students','users.students_id', '=', 'students.id')
+            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone')
+            ->where('students.id','=',$id);
+
+        $student = $student->first();
+
+        return view('student.view',['student'=>$student]);
     }
 
     /**
@@ -131,15 +138,23 @@ class StudentController extends Controller
 
         } 
 
-        else {       
-           $users  = User::where('students_id',$id)->first();
+        else {
+
+            // File upload
+            if($request->hasFile('profile_picture')){
+                if($request->file('profile_picture')->isValid()){
+                    $filename = $id.'.'.$request->file('profile_picture')->getExtension();
+                    $request->file('profile_picture')->move('uploads/profile_pictures', $filename);
+                }
+            }
+
+            $users  = User::where('students_id',$id)->first();
 
             $users->firstname = $request->firstname;
             $users->lastname = $request->lastname;
             $users->nickname = $request->nickname;
             $users->email = $request->email;
             $users->date_of_birth = $request->date_of_birth;
-
 
             $users->save();
 
@@ -154,10 +169,7 @@ class StudentController extends Controller
        
             $student->save();
 
-            
-           
-
-        return  redirect('student');
+        return  redirect('student/'.$id);
         }
     }
 
