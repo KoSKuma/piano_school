@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\models\Teacher;
 use App\models\Student;
-
+use App\models\Schedule;
 class ScheduleController extends Controller
 {
     /**
@@ -44,7 +44,16 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $schedule = new Schedule;
+
+        $schedule->teachers_id = $request->teachers_id;
+        $schedule->students_id = $request->students_id;
+        $schedule->start_time = $request->start_time;
+        $schedule->end_time = $request->end_time;
+        $schedule->location = $request->location;
+
+        $schedule->save();
+
     }
 
     /**

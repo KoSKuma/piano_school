@@ -21,16 +21,26 @@ Add a new student
         <h3 class="box-title">Booking</h3>
       </div><!-- /.box-header -->
       <!-- form start -->
-        <form action="{{url("schedule")}}" method="post">
-          Teacher id : <span class="teacher_id" ></span></br>
+        <form action="{{url("schedule")}}" method="post"> 
+          {!! csrf_field() !!}
+          Teacher ID : <input type="text" value="" id="teacher_id_input" name="teachers_id"/></br>
+        
+          
           Teacher name : <span class="teacher_name"></span></br>
-          Student id : <span  class="student_id" ></span></br>
+          Student ID : <input type="text" value="" id="student_id_input" name="students_id"/></br>
           Student name : <span class="student_name"></span></br>
           Start Time : <input type="text" name="start_time" /></br>
           End Time : <input type="text" name="end_time" /></br>
-          Location : <input type="text" name="localtion" /></br>
-          <button>Save</button>
-        </form>     
+          Location : <input type="text" name="location" /></br>
+          <input type="submit" name="Save">
+          
+        </form>  
+
+            </td>
+          </tr>
+      
+      </table>
+       
      
 
           <div class="box-body">
@@ -156,6 +166,8 @@ Add a new student
                     
                     $('.teacher_id').html(teacher_id);
                     $('.teacher_name').html(teacher_name);
+                    $('#teacher_id_input').val(teacher_id);
+                    
                   });
 
                   $('.select-student').click(function(){
@@ -164,6 +176,7 @@ Add a new student
 
                     $('.student_id').html(student_id);
                     $('.student_name').html(student_name);
+                    $('#student_id_input').val(student_id);
 
                   });
                 </script>
