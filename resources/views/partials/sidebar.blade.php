@@ -50,19 +50,24 @@
                 </ul>
             </li>
 
-             <li >
+            <li >
                 <a href="{{url('calendar')}}">
                     <i class='fa fa-calendar'></i> 
                     <span>Calendar</span>
                 </a>
             </li>
-              <li >
+            <li >
                 <a href="{{url('schedule')}}">
                     <i class='fa fa-calendar-o'></i> 
                     <span>Schedule</span>
                 </a>
             </li>
-            
+            <li>
+                <a href="{{url('payment')}}">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Payment</span>
+                </a>
+            </li>
            
             
              

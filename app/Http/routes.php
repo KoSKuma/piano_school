@@ -65,3 +65,5 @@ Route::get('calendar',function () {
 Route::get('jquery/test',function(){
 		return view('jquery/test');
 });
+
+Route::resource('payment', 'PaymentController');
