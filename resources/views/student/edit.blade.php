@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Student <small>add</small></h1>
+<h1>Student <small>Update</small></h1>
 @endsection
 
 
@@ -18,7 +18,7 @@ Add a new student
   <div class="col-md-8">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Add a New Student</h3>
+        <h3 class="box-title">Update Student</h3>
       </div><!-- /.box-header -->
       <!-- form start -->
       <form class="form-horizontal" role="form" action="{{url("student/".$student->id)}}" method="post">

@@ -59,59 +59,56 @@ Sample page
 				          		aria-controls="example2" 
 				          		rowspan="1" colspan="1" 
 				          		aria-label="Rendering engine: activate to sort column descending" 
-				          		aria-sort="ascending">First Name</th>
-                    <th 
-                      class="sorting_asc" 
-                      tabindex="0" 
-                      aria-controls="example2" 
-                      rowspan="1" colspan="1" 
-                      aria-label="Rendering engine: activate to sort column descending" 
-                      aria-sort="ascending">Last Name</th>
-
-				          	<th class="sorting" 
-				          		tabindex="0" 
-				          		aria-controls="example2" 
-				          		rowspan="1" colspan="1"
-				          		aria-label="Browser: activate to sort column ascending">Nick Name</th>
-          
-
-                    <th class="sorting" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Student Phone</th>
-
-                    <th class="sorting" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Parent Phone</th>
-
+				          		aria-sort="ascending">Student Detail</th>
+                  
                      <th class="sorting" 
                         tabindex="0" 
                         aria-controls="example2" 
                         rowspan="1" colspan="1" 
                         aria-label="Platform(s): activate to sort column ascending">Option</th>
-
 			          	
 			        	</tr>
+                <tr>
+                  <td class="hidden-xs hidden-sm">
+                    <div class="row">
+                        <div class="col-md-3 hidden-xs hidden-sm"><b>Nick Name</b></div>
+                        <div class="col-md-3 hidden-xs hidden-sm"><b>Full Name</b></div>
+                        <div class="col-md-3 hidden-xs hidden-sm"><b>Student Tel.</b></div>
+                        <div class="col-md-3 hidden-xs hidden-sm"><b>Parent Tel.</b></div>
+                        <div class="col-md-3 hidden-xs hidden-sm"></div>
+                  </td>
+
+                </tr> 
 			        </thead>
         			<tbody>
 
               @foreach ($studentlist as $student)
                   <tr role="row" class="odd">
-                      <td class="sorting_1">{{$student->firstname}}</td>
-                      <td>{{$student->lastname}}</td>
-                      <td>{{$student->nickname}}</td>
-                      <td>{{$student->student_phone}}</td>
-                       <td>{{$student->parent_phone}}</td>
-                      <td>
-                           
+                      <td class="sorting_1"> 
+                        <div class="row">
+                          <div class="col-md-3 col-xs-12"> {{$student->nickname}} </div>     
+                          <div class="col-md-3 col-xs-12"> {{$student->firstname."  ".$student->lastname}} </div>
+                          
+                          <div class="col-md-3 col-xs-12">
+                            <!-- <div class="visible-xs ">Student:</div> -->
+                            
+                            {{$student->student_phone}}
+                            <span class="visible-xs-inline">(Student)</span>
+                          </div>
+                          
+                          <div class="col-md-3 col-xs-12">
+                            <!-- <div class=" visible-xs">Parent:</div> -->
+                            {{$student->parent_phone}}
+                            <span class="visible-xs-inline">(Parent)</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>    
                             <a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default" >
-                              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
                             <button class="btn btn-danger" data-toggle="modal" data-target="#myModal" student_id="{{$student->id}}" student_name="{{$student->firstname}}">
-                              <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+                              <span class="fa fa-trash" aria-hidden="true"> </span>
                             </button>
            
                       </td>
