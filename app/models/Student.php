@@ -1,6 +1,7 @@
 <?php namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use DB;
 
@@ -8,27 +9,27 @@ class Student extends Model
 {
     public $timestamps = false;
     public static $rules = array(
-            'firstname' => 'required' ,
-            'lastname' => 'required' ,
-            'email' => 'required|email' ,
-            'nickname' => 'required' ,
-            'student_phone' => 'required' ,
-            'date_of_birth' => 'required',
-            'parent_phone' => 'required',
-            'password' => 'confirmed|required'
-            );
+        'firstname' => 'required' ,
+        'lastname' => 'required' ,
+        'email' => 'required|email' ,
+        'nickname' => 'required' ,
+        'student_phone' => 'required' ,
+        'date_of_birth' => 'required',
+        'parent_phone' => 'required',
+        'password' => 'confirmed|required'
+    );
 
-     public static $ruleswithoutpassword = array(
-            'firstname' => 'required' ,
-            'lastname' => 'required' ,
-            'nickname' => 'required' ,
-            'student_phone' => 'required' ,
-            'date_of_birth' => 'required',
-            'parent_phone' => 'required'
-            );
+    public static $ruleswithoutpassword = array(
+        'firstname' => 'required' ,
+        'lastname' => 'required' ,
+        'nickname' => 'required' ,
+        'student_phone' => 'required' ,
+        'date_of_birth' => 'required',
+        'parent_phone' => 'required'
+    );
 
 
-     public static function studentList() {
+    public static function studentList() {
 
          $student = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
@@ -36,6 +37,18 @@ class Student extends Model
             ->get();
         
         return $student;
-       } 
+    }
+
+    //
+    public static function newStudent(Request $request){
+        $student = new Student;
+    
+        $student->student_phone = $request->student_phone;
+        $student->parent_phone =  $request->parent_phone;
+
+        $student->save();
+
+        return $student;
+    }
 
 }

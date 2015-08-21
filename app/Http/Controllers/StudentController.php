@@ -1,8 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\models\Student;
 use App\User;
@@ -20,7 +18,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-         $student = DB::table('users')
+        $student = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
             ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone')
             ->get();
@@ -55,31 +53,12 @@ class StudentController extends Controller
         } 
 
         else {       
-            $users = new User;
-
-            $users->firstname = $request->firstname;
-            $users->lastname = $request->lastname;
-            $users->nickname = $request->nickname;
-            $users->email = $request->email;
-            $users->password = bcrypt($request->password);
-            $users->date_of_birth = $request->date_of_birth;
-
-
-            $users->save();
-
-
-            $student = new Student;
-
-    
-            $student->student_phone = $request->student_phone;
-            $student->parent_phone =  $request->parent_phone;
-
             
-       
-            $student->save();
+            $user = User::newUser($request);
+            $student = Student::newStudent($request);
 
-            $users->students_id = $student->id;
-            $users->save();
+            $user->students_id = $student->id;
+            $user->save();
 
         return  redirect('student');
         }
@@ -185,7 +164,7 @@ class StudentController extends Controller
         $users  = User::find($user->id);
         $users->delete();
 
-        $student = student::find($id);
+        $student = Student::find($id);
         $student->delete();
         
         

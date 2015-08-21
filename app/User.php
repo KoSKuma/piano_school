@@ -4,7 +4,7 @@ namespace App;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use DB;
-
+use Illuminate\Http\Request;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -36,5 +36,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public static function newUser(Request $request){
+
+        $user = new User;
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->nickname = $request->nickname;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->date_of_birth = $request->date_of_birth;
+
+        $user->save();
+
+        return $user;
+    }
 
 }

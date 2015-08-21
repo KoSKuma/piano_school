@@ -1,8 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\models\Teacher;
 use App\User;
@@ -46,10 +44,6 @@ class TeacherController extends Controller
    
     public function store(Request $request)
     {
-
-
-       
-
         $validator = Validator::make($request->all(), Teacher::$rules );
 
         if ($validator->fails()) {
@@ -85,7 +79,7 @@ class TeacherController extends Controller
             $users->teachers_id = $teacher->id;
             $users->save();
 
-        return  redirect('teacher');
+        return redirect('teacher');
         }
     }
 
@@ -97,7 +91,14 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        
+        $teacher = DB::table('users')
+            ->join('teachers','users.teachers_id', '=', 'teachers.id')
+            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
+            ->where('teachers.id','=',$id);
+
+        $teacher = $teacher->first();
+
+        return view('teacher.view', ['teacher'=>$teacher]);
     }
 
     /**

@@ -19,7 +19,12 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return view('schedule.index');
+        $scheduleList = DB::table('students_teachers')
+            ->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
+            ->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
+            ->select('students_teachers.id as id', 'students_teachers.start_time as start_time', 'students_teachers.end_time as end_time', 'students_teachers.teachers_id as teachers_is', 'students_teachers.students_id as students_id', 'students.nickname as student_nickname', 'students.firstname as student_firstname', 'students.lastname as student_lastname', 'teachers.nickname as teacher_nickname', 'teachers.firstname as teacher_firstname', 'teachers.lastname as teacher_lastname')
+            ->get();
+        return view('schedule.index', ['scheduleList' => $scheduleList]);
     }
 
     /**
@@ -48,11 +53,13 @@ class ScheduleController extends Controller
 
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
-        $schedule->start_time = $request->start_time;
-        $schedule->end_time = $request->end_time;
+        $schedule->start_time = $request->class_date . " " . $request->start_time;
+        $schedule->end_time = $request->class_date . " " . $request->end_time;
         $schedule->location = $request->location;
 
         $schedule->save();
+
+        return redirect('schedule');
 
     }
 
@@ -99,5 +106,9 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         //
+        $schedule = Schedule::find($id);
+        $schedule->delete();
+
+        return redirect('schedule');
     }
 }

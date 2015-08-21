@@ -17,9 +17,12 @@
     <link href="{{ asset('/css/skins/skin-blue.css') }}" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="{{ asset('/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('/fullcalendar/fullcalendar.css')}}" rel='stylesheet' type="text/css" />
 
-     <link href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet" type="text/css" />
+    <!-- included for projects -->
+    <link href="{{ asset('/fullcalendar/fullcalendar.css')}}" rel='stylesheet' type="text/css" />
+    <link href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet" type="text/css" />
+
+    @yield('style')
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
