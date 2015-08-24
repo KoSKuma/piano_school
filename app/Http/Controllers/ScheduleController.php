@@ -51,10 +51,11 @@ class ScheduleController extends Controller
     {
         $schedule = new Schedule;
 
+
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
-        $schedule->start_time = $request->class_date . " " . $request->start_time;
-        $schedule->end_time = $request->class_date . " " . $request->end_time;
+        $schedule->start_time = $request->class_date . " " . $request->class_start_time;
+        $schedule->end_time = $request->class_date . " " . $request->class_end_time;
         $schedule->location = $request->location;
 
         $schedule->save();

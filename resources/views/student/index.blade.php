@@ -71,11 +71,11 @@ Sample page
 						<tr>
 							<td class="hidden-xs hidden-sm">
 								<div class="row">
-									<div class="col-md-3 hidden-xs hidden-sm"><b>Nick Name</b></div>
-									<div class="col-md-3 hidden-xs hidden-sm"><b>Full Name</b></div>
-									<div class="col-md-3 hidden-xs hidden-sm"><b>Student Tel.</b></div>
-									<div class="col-md-3 hidden-xs hidden-sm"><b>Parent Tel.</b></div>
-									<div class="col-md-3 hidden-xs hidden-sm"></div>
+									<div class="col-md-2 hidden-xs hidden-sm"><b>Nick Name</b></div>
+									<div class="col-md-2 hidden-xs hidden-sm"><b>Picture</b></div>
+									<div class="col-md-3 hidden-xs hidden-sm"><b>Student Name</b></div>
+									<div class="col-md-2 hidden-xs hidden-sm"><b>Student Tel.</b></div>
+									<div class="col-md-2 hidden-xs hidden-sm"><b>Parent Tel.</b></div>
 								</td>
 
 							</tr> 
@@ -86,17 +86,18 @@ Sample page
 							<tr role="row" class="odd">
 								<td class="sorting_1"> 
 									<div class="row">
-										<div class="col-md-3 col-xs-12"> {{$student->nickname}} </div>     
+										<div class="col-md-2 col-xs-12"> {{$student->nickname}} </div>  
+										<div class="col-md-2 col-xs-12"><img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="80" /></div>   
 										<div class="col-md-3 col-xs-12"> {{$student->firstname."  ".$student->lastname}} </div>
 
-										<div class="col-md-3 col-xs-12">
+										<div class="col-md-2 col-xs-12">
 											<!-- <div class="visible-xs ">Student:</div> -->
 
 											{{$student->student_phone}}
 											<span class="visible-xs-inline">(Student)</span>
 										</div>
 
-										<div class="col-md-3 col-xs-12">
+										<div class="col-md-2 col-xs-12">
 											<!-- <div class=" visible-xs">Parent:</div> -->
 											{{$student->parent_phone}}
 											<span class="visible-xs-inline">(Parent)</span>

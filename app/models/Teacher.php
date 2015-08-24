@@ -16,7 +16,8 @@ class Teacher extends Model
             'institute' => 'required' ,
             'teacher_phone' => 'required' ,
             'date_of_birth' => 'required',
-            'password' => 'confirmed|required'
+            'password' => 'confirmed|required',
+            'profile_picture' => 'image|max:1000'
             );
 
      public static $ruleswithoutpassword = array(
@@ -27,8 +28,10 @@ class Teacher extends Model
             'experience' => 'required' ,
             'institute' => 'required' ,
             'teacher_phone' => 'required' ,
-            'date_of_birth' => 'required'
+            'date_of_birth' => 'required',
+            'profile_picture' => 'image|max:1000'
             );
+     
     public static function teacherList() {
         $teacher = DB::table('users')
             ->join('teachers','users.teachers_id', '=', 'teachers.id')

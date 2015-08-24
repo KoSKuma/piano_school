@@ -26,6 +26,13 @@ Add a new student
 
                 <div class="box-body">
 
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="name">Name</label>
                         <div class="col-sm-4">

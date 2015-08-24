@@ -21,7 +21,7 @@ Add a new student
         <h3 class="box-title">Add a New Teacher</h3>
       </div><!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" role="form" action="{{url("teacher")}}" method="post">
+      <form class="form-horizontal" role="form" action="{{url("teacher")}}" method="post" enctype="multipart/form-data">
 
         {!! csrf_field() !!}
           <div class="box-body">
@@ -129,6 +129,16 @@ Add a new student
             </div>
           </div>
         </div><!-- /.box-body -->
+
+
+         <div class="form-group">
+            <label class="col-sm-3 control-label" for="profile_picture">Profile Picture</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="file" name="profile_picture" id="profile_picture" />
+              </div>
+            </div>
+         </div>
 
         <div class="box-footer text-center">
           <button type="submit" class="btn btn-primary">Submit</button>
