@@ -10,7 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+// Debug
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+// Initialize permission
+//Route::get('initialize', 'PermissionInitializer@initializePermissions');
 
 Route::get('/',function () {
 	return view('auth/login');

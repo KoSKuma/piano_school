@@ -32,14 +32,13 @@ Sample page
             <div class="col-xs-6">
                 <h3 class="box-title">Teacher List</h3>
             </div>
+            @if (Entrust::can('create-teacher'))
             <div class="col-xs-12 text-right">
                 <a href= "{{url('teacher/create')}}" class="btn btn-default" >
                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
                </a>
-                        <!-- <button type="button" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-                </button> -->
             </div>
+            @endif
         </div>
 
     </div><!-- /.box-header -->
@@ -96,17 +95,24 @@ Sample page
                                     <span class="visible-xs-inline">(Teacher)</span>
                                 </div>
                             </td>
-                            <td>     
+                            <td>
+                                @if (Entrust::can('view-teacher'))
                                 <a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn-default" >
                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                 </a>
+                                @endif
+
+                                @if (Entrust::can('edit-teacher'))
                                 <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-default" >
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </a>
+                                @endif
+
+                                @if (Entrust::can('delete-teacher'))
                                 <button class="btn btn-danger" data-toggle="modal" data-target="#myModal" teacher_id="{{$teacher->id}}" teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
                                     <span class="fa fa-trash" aria-hidden="true"> </span>
                                 </button>
-
+                                @endif
                             </td>
                         </tr>
                         @endforeach

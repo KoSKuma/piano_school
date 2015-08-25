@@ -62,12 +62,14 @@
                     <span>Schedule</span>
                 </a>
             </li>
+            @if (Entrust::can(['view-payment']))
             <li>
                 <a href="{{url('payment')}}">
                     <i class="fa fa-credit-card"></i>
                     <span>Payment</span>
                 </a>
             </li>
+            @endif
            
             
              

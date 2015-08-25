@@ -24,6 +24,7 @@ class Student extends Model
         'firstname' => 'required' ,
         'lastname' => 'required' ,
         'nickname' => 'required' ,
+        'email' => 'required|email' ,
         'student_phone' => 'required' ,
         'date_of_birth' => 'required',
         'parent_phone' => 'required',

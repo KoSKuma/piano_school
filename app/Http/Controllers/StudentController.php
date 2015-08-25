@@ -54,7 +54,7 @@ class StudentController extends Controller
 
         else {       
             
-            $user = User::newUser($request);
+            $user = User::createUser($request);
             $student = Student::newStudent($request);
 
             $user->students_id = $student->id;
@@ -180,8 +180,6 @@ class StudentController extends Controller
         $student = Student::find($id);
         $student->delete();
         
-        
-
-         return redirect('student');
+        return redirect('student');
     }
 }
