@@ -32,16 +32,14 @@ Sample page
 			<div class="col-xs-6">
 				<h3 class="box-title">Student List</h3>
 			</div>
+			@if (Entrust::can('create-student'))
 			<div class="col-xs-12 text-right">
 				<a href= "{{url('student/create')}}" class="btn btn-default" >
 					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 				</a>
-						<!-- <button type="button" class="btn btn-default" >
-					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-				</button> -->
 			</div>
+			@endif
 		</div>
-
 	</div><!-- /.box-header -->
 	<div class="box-body">
 		<div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -104,17 +102,24 @@ Sample page
 										</div>
 									</div>
 								</td>
-								<td>  
+								<td>
+									@if (Entrust::can('view-student'))
 									<a href= "{{url('student/'.$student->id)}}" class="btn btn-default" >
 										<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 									</a>
+									@endif
+
+									@if (Entrust::can('edit-student'))
 									<a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default" >
 										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 									</a>
+									@endif
+
+									@if (Entrust::can('delete-student'))
 									<button class="btn btn-danger" data-toggle="modal" data-target="#myModal" student_id="{{$student->id}}" student_name="{{$student->nickname . '(' . $student->firstname . ' ' . $student->lastname . ')'}}">
 										<span class="fa fa-trash" aria-hidden="true"> </span>
 									</button>
-
+									@endif
 								</td>
 							</tr>
 							@endforeach
@@ -144,16 +149,11 @@ Sample page
 										</div>
 									</div>
 								</div>
-
 							</form>
-
 						</tbody>
-
 					</table>
-
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div><!-- /.box-body -->

@@ -54,30 +54,27 @@ class TeacherController extends Controller
 
 		else {   
 
+			$user = new User;
 
+			$user->firstname = $request->firstname;
+			$user->lastname = $request->lastname;
+			$user->nickname = $request->nickname;
+			$user->email = $request->email;
+			$user->password = bcrypt($request->password);
+			$user->date_of_birth = $request->date_of_birth;
 
+			$teacherRole = Role::where('name', '=', 'teacher');
 
-
-			$users = new User;
-
-			$users->firstname = $request->firstname;
-			$users->lastname = $request->lastname;
-			$users->nickname = $request->nickname;
-			$users->email = $request->email;
-			$users->password = bcrypt($request->password);
-			$users->date_of_birth = $request->date_of_birth;
-
-
-			$users->save();
+			$user->attachRole($teacherRole);
+			$user->save();
 
 			if($request->hasFile('profile_picture')){
 				if($request->file('profile_picture')->isValid()){
-					$filename = $users->id.'.'.$request->file('profile_picture')->guessExtension();
+					$filename = $user->id.'.'.$request->file('profile_picture')->guessExtension();
 					$request->file('profile_picture')->move('uploads/profile_pictures', $filename);
-					$users->picture = $filename;
+					$user->picture = $filename;
 				}
 			}
-
 
 			$teacher = new Teacher;
 
@@ -89,8 +86,8 @@ class TeacherController extends Controller
 			
 			$teacher->save();
 
-			$users->teachers_id = $teacher->id;
-			$users->save();
+			$user->teachers_id = $teacher->id;
+			$user->save();
 
 			return redirect('teacher');
 		}
@@ -151,25 +148,25 @@ class TeacherController extends Controller
 		} 
 
 		else {
-			$users  = User::where('teachers_id',$id)->first();
+			$user  = User::where('teachers_id',$id)->first();
 
 		 // File upload
 			if($request->hasFile('profile_picture')){
 				if($request->file('profile_picture')->isValid()){
 					$filename = $id.'.'.$request->file('profile_picture')->guessExtension();
 					$request->file('profile_picture')->move('uploads/profile_pictures', $filename);
-					$users->picture = $filename;
+					$user->picture = $filename;
 				}
 			}
 
 
 			
-			$users->firstname = $request->firstname;
-			$users->lastname = $request->lastname;
-			$users->nickname = $request->nickname;
-			$users->date_of_birth = $request->date_of_birth;
+			$user->firstname = $request->firstname;
+			$user->lastname = $request->lastname;
+			$user->nickname = $request->nickname;
+			$user->date_of_birth = $request->date_of_birth;
 
-			$users->save();
+			$user->save();
 
 			$teacher = Teacher::find($id);
 			$teacher->degrees = $request->degrees;
@@ -193,8 +190,8 @@ class TeacherController extends Controller
 	public function destroy($id)
 	{
 		$user = User::where('teachers_id',$id)->first();
-		$users  = User::find($user->id);
-		$users->delete();
+		$user = User::find($user->id);
+		$user->delete();
 
 		$teacher = Teacher::find($id);
 		$teacher->delete();
