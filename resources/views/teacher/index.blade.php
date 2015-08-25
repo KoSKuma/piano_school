@@ -72,7 +72,8 @@ Sample page
                     <tr >
                         <td class="hidden-xs hidden-sm">
                             <div class="row">
-                                <div class="col-md-3 hidden-xs hidden-sm"><b>Nick Name</b></div>
+                                <div class="col-md-2 hidden-xs hidden-sm"><b>Nick Name</b></div>
+                                <div class="col-md-2 hidden-xs hidden-sm"><b>Pictuer</b></div>
                                 <div class="col-md-4 hidden-xs hidden-sm"><b>Full Name</b></div>
                                 <div class="col-md-4 hidden-xs hidden-sm"><b>Teacher Tel.</b></div>
 
@@ -87,7 +88,8 @@ Sample page
                         <tr role="row" class="odd">
                             <td class="sorting_1"> 
                                 <div class="row" > </div>
-                                <div class="col-md-3 col-xs-12">ครู{{$teacher->nickname}} </div>
+                                <div class="col-md-2 col-xs-12">ครู{{$teacher->nickname}} </div>
+                                <div class="col-md-2 col-xs-12"><img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="80" /></div> 
                                 <div class="col-md-4 col-xs-12">{{$teacher->firstname ." ".$teacher->lastname }} </div>
                                 <div class="col-md-4 col-xs-12">
                                     {{$teacher->teacher_phone}} 

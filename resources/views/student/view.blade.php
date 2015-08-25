@@ -33,7 +33,13 @@ Add a new student
 					</div>
 					@endif
 
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="200" />
+						</div>
+					</div>
 
+					<br />
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Name</label>

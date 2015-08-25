@@ -12,170 +12,195 @@ use App\models\Role;
 class TeacherController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $teacher = DB::table('users')
-            ->join('teachers','users.teachers_id', '=', 'teachers.id')
-            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
-            ->get();
-        return view('teacher.index',['teacherlist'=>$teacher]);
-    }
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$teacher = DB::table('users')
+		->join('teachers','users.teachers_id', '=', 'teachers.id')
+		->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone','users.picture')
+		->get();
+		return view('teacher.index',['teacherlist'=>$teacher]);
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('teacher.add');
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return view('teacher.add');
+	}
 
-   
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), Teacher::$rules );
+	
+	public function store(Request $request)
+	{
+		$validator = Validator::make($request->all(), Teacher::$rules );
 
-        if ($validator->fails()) {
+		if ($validator->fails()) {
 
-            return redirect('teacher/create')->withErrors($validator);
+			return redirect('teacher/create')->withErrors($validator);
 
-        } 
+		} 
 
-        else {       
-            $users = new User;
-
-            $users->firstname = $request->firstname;
-            $users->lastname = $request->lastname;
-            $users->nickname = $request->nickname;
-            $users->email = $request->email;
-            $users->password = bcrypt($request->password);
-            $users->date_of_birth = $request->date_of_birth;
+		else {   
 
 
-            $users->save();
 
 
-            $teacher = new Teacher;
 
-            $teacher->degrees = $request->degrees;
-            $teacher->experience = $request->experience;
-            $teacher->institute = $request->institute;
-            $teacher->teacher_phone = $request->teacher_phone;
-            
-       
-            $teacher->save();
+			$users = new User;
 
-            $users->teachers_id = $teacher->id;
-            $users->save();
+			$users->firstname = $request->firstname;
+			$users->lastname = $request->lastname;
+			$users->nickname = $request->nickname;
+			$users->email = $request->email;
+			$users->password = bcrypt($request->password);
+			$users->date_of_birth = $request->date_of_birth;
 
-        return redirect('teacher');
-        }
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $teacher = DB::table('users')
-            ->join('teachers','users.teachers_id', '=', 'teachers.id')
-            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
-            ->where('teachers.id','=',$id);
+			$users->save();
 
-        $teacher = $teacher->first();
+			if($request->hasFile('profile_picture')){
+				if($request->file('profile_picture')->isValid()){
+					$filename = $users->id.'.'.$request->file('profile_picture')->guessExtension();
+					$request->file('profile_picture')->move('uploads/profile_pictures', $filename);
+					$users->picture = $filename;
+				}
+			}
 
-        return view('teacher.view', ['teacher'=>$teacher]);
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $teacher = DB::table('users')
-            ->join('teachers','users.teachers_id', '=', 'teachers.id')
-            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
-            ->where('teachers.id','=',$id);
+			$teacher = new Teacher;
 
-        $teacher = $teacher->first();
+			$teacher->degrees = $request->degrees;
+			$teacher->experience = $request->experience;
+			$teacher->institute = $request->institute;
+			$teacher->teacher_phone = $request->teacher_phone;
+			
+			
+			$teacher->save();
 
-        return view('teacher.edit',['teacher'=>$teacher]);
-    }
+			$users->teachers_id = $teacher->id;
+			$users->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
+			return redirect('teacher');
+		}
+	}
 
-      $validator = Validator::make($request->all(), Teacher::$ruleswithoutpassword );
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$teacher = DB::table('users')
+		->join('teachers','users.teachers_id', '=', 'teachers.id')
+		->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
+		->where('teachers.id','=',$id);
 
-        if ($validator->fails()) {
+		$teacher = $teacher->first();
 
-            return redirect('teacher/'.$id.'/edit')->withErrors($validator);
+		return view('teacher.view', ['teacher'=>$teacher]);
+	}
 
-        } 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$teacher = DB::table('users')
+		->join('teachers','users.teachers_id', '=', 'teachers.id')
+		->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
+		->where('teachers.id','=',$id);
 
-    else {
-        $users  = User::where('teachers_id',$id)->first();
-            $users->firstname = $request->firstname;
-            $users->lastname = $request->lastname;
-            $users->nickname = $request->nickname;
-            $users->date_of_birth = $request->date_of_birth;
+		$teacher = $teacher->first();
 
-            $users->save();
+		return view('teacher.edit',['teacher'=>$teacher]);
+	}
 
-        $teacher = Teacher::find($id);
-            $teacher->degrees = $request->degrees;
-            $teacher->experience = $request->experience;
-            $teacher->institute = $request->institute;
-            $teacher->teacher_phone = $request->teacher_phone;
-            
-            $teacher->save();
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  Request  $request
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, $id)
+	{
 
-        return  redirect('teacher');
-        }
-        
-    }
+		$validator = Validator::make($request->all(), Teacher::$ruleswithoutpassword );
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        $user = User::where('teachers_id',$id)->first();
-        $users  = User::find($user->id);
-        $users->delete();
+		if ($validator->fails()) {
 
-        $teacher = Teacher::find($id);
-        $teacher->delete();
-        
-        
+			return redirect('teacher/'.$id.'/edit')->withErrors($validator);
 
-         return redirect('teacher');
-    }
+		} 
+
+		else {
+			$users  = User::where('teachers_id',$id)->first();
+
+		 // File upload
+			if($request->hasFile('profile_picture')){
+				if($request->file('profile_picture')->isValid()){
+					$filename = $id.'.'.$request->file('profile_picture')->guessExtension();
+					$request->file('profile_picture')->move('uploads/profile_pictures', $filename);
+					$users->picture = $filename;
+				}
+			}
+
+
+			
+			$users->firstname = $request->firstname;
+			$users->lastname = $request->lastname;
+			$users->nickname = $request->nickname;
+			$users->date_of_birth = $request->date_of_birth;
+
+			$users->save();
+
+			$teacher = Teacher::find($id);
+			$teacher->degrees = $request->degrees;
+			$teacher->experience = $request->experience;
+			$teacher->institute = $request->institute;
+			$teacher->teacher_phone = $request->teacher_phone;
+			
+			$teacher->save();
+
+			return  redirect('teacher');
+		}
+		
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		$user = User::where('teachers_id',$id)->first();
+		$users  = User::find($user->id);
+		$users->delete();
+
+		$teacher = Teacher::find($id);
+		$teacher->delete();
+		
+		
+
+		return redirect('teacher');
+	}
 }

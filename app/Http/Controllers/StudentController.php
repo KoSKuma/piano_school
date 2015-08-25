@@ -20,7 +20,7 @@ class StudentController extends Controller
     {
         $student = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
-            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone')
+            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone', 'users.picture')
             ->get();
         
         return view('student.index',['studentlist'=>$student]);
@@ -58,6 +58,16 @@ class StudentController extends Controller
             $student = Student::newStudent($request);
 
             $user->students_id = $student->id;
+            
+
+            if($request->hasFile('profile_picture')){
+                if($request->file('profile_picture')->isValid()){
+                    $filename = $user->id.'.'.$request->file('profile_picture')->guessExtension();
+                    $request->file('profile_picture')->move('uploads/profile_pictures', $filename);
+                    $user->picture = $filename;
+                }
+            }
+
             $user->save();
 
         return  redirect('student');
@@ -74,7 +84,7 @@ class StudentController extends Controller
     {
         $student = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
-            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone')
+            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone', 'users.picture')
             ->where('students.id','=',$id);
 
         $student = $student->first();
@@ -92,7 +102,7 @@ class StudentController extends Controller
     {
              $student = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
-            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone')
+            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone', 'users.picture')
             ->where('students.id','=',$id);
 
         $student = $student->first();
@@ -119,20 +129,23 @@ class StudentController extends Controller
 
         else {
 
+            $users  = User::where('students_id',$id)->first();
+
             // File upload
             if($request->hasFile('profile_picture')){
                 if($request->file('profile_picture')->isValid()){
                     $filename = $id.'.'.$request->file('profile_picture')->guessExtension();
                     $request->file('profile_picture')->move('uploads/profile_pictures', $filename);
+                    $users->picture = $filename;
                 }
             }
 
-            $users  = User::where('students_id',$id)->first();
+            
 
             $users->firstname = $request->firstname;
             $users->lastname = $request->lastname;
             $users->nickname = $request->nickname;
-            $users->email = $request->email;
+            //$users->email = $request->email;
             $users->date_of_birth = $request->date_of_birth;
 
             $users->save();

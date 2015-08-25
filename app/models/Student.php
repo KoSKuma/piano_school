@@ -16,7 +16,8 @@ class Student extends Model
         'student_phone' => 'required' ,
         'date_of_birth' => 'required',
         'parent_phone' => 'required',
-        'password' => 'confirmed|required'
+        'password' => 'confirmed|required' ,
+        'profile_picture' => 'image|max:1000'
     );
 
     public static $ruleswithoutpassword = array(
@@ -26,7 +27,8 @@ class Student extends Model
         'email' => 'required|email' ,
         'student_phone' => 'required' ,
         'date_of_birth' => 'required',
-        'parent_phone' => 'required'
+        'parent_phone' => 'required',
+        'profile_picture' => 'image|max:1000'
     );
 
 

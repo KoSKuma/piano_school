@@ -44,9 +44,17 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="start_time">Class Date</label>
                         <div class="col-sm-8">
+                            <div class="input-group">
                             <input type="text" class="form-control" name="class_date_display" id="class_date_display" />
+                                <div class="input-group-addon">
+                                   <i class="fa fa-calendar"></i>
+                                </div>
+                            <input type="hidden" id="class_date" name="class_date" value=""/>
+                            </div>
                         </div>
                     </div>
+
+
 
                     <div class="form-group">
 
@@ -58,20 +66,27 @@ Add a new student
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
+                                <input type="hidden" id="class_start_time" name="class_start_time" value=""/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-1 center-text">
                             to
                         </div>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" name="end_time_display" id="end_time_picker" />
-                        </div>
-                    </div>
 
-                    <input type="text" value="" name="class_date" id="class_date" />
-                    <input type="text" value="" name="start_time" id="start_time" />
-                    <input type="text" value="" name="end_time" id="end_time" />
+                        <div class="col-sm-3">
+                            <div class="bootstrap-timepicker">
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input type="text" class="form-control" name="end_time_display" id="end_time_picker" />
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                <input type="hidden" id="class_end_time" name="class_end_time" value=""/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="location">Location</label>
@@ -261,14 +276,35 @@ $(document).ready(function(){
         $("#class_date").val(date.format('YYYY-MM-DD'));
     });
 
-    $("#start_time_picker").timepicker();
+    //$("#start_time_picker").timepicker();
+    $("#start_time_picker").timepicker(
+        {
+            showMeridian: false
+        }).on('hide.timepicker', function(e) {
+    // console.log('The time is ' + e.time.value);
+    // console.log('The hour is ' + e.time.hours);
+    // console.log('The minute is ' + e.time.minutes);
+    // console.log('The meridian is ' + e.time.meridian);
 
-    $("#end_time_picker").timepicker({
-        showInputs: false,
-        template: 'modal',
-    }, function(time){
-        console.log("ok");
+    $("#class_start_time").val( ("0" + e.time.hours).slice(-2) + ":" + ("0" + e.time.minutes).slice(-2) + ":" + "00");
+  });
+
+
+    
+    $("#end_time_picker").timepicker(
+
+        {
+           showMeridian: false 
+        }).on('hide.timepicker', function(e) {
+    // console.log('The time is ' + e.time.value);
+    // console.log('The hour is ' + e.time.hours);
+    // console.log('The minute is ' + e.time.minutes);
+    // console.log('The meridian is ' + e.time.meridian);
+
+     $("#class_end_time").val( ("0" + e.time.hours).slice(-2) + ":" + ("0" + e.time.minutes).slice(-2) + ":" + "00");
     });
+
+
 
 
 });

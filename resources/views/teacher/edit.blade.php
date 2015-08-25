@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Teacher <small>add</small></h1>
+<h1>Teacher <small>Update</small></h1>
 @endsection
 
 
@@ -22,7 +22,7 @@ Add a new student
       </div><!-- /.box-header -->
       <!-- form start -->
 
-      <form class="form-horizontal" role="form" action="{{url("teacher/".$teacher->id)}}" method="post">
+      <form class="form-horizontal" role="form" action="{{url("teacher/".$teacher->id)}}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PUT">
 
        
@@ -127,6 +127,18 @@ Add a new student
             </div>
           </div>
         </div><!-- /.box-body -->
+
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="profile_picture">Profile Picture</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="file" name="profile_picture" id="profile_picture" />
+              </div>
+            </div>
+          </div>
+        </div><!-- /.box-body -->
+
 
         <div class="box-footer text-center">
           <button type="submit" class="btn btn-primary">Update</button>
