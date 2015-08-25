@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\models\Teacher;
+use App\models\Student;
+use App\models\Payment;
+use Validator;
 
 class PaymentController extends Controller
 {
@@ -16,7 +20,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        return view("payment.index");
+        $payments = Payment::all();
+        return view("payment.index",['payments'=>$payments]);
     }
 
     /**
@@ -26,7 +31,10 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        $teacher = Teacher::teacherList();
+        $student = Student::studentList();
+        //print_r($teacher);die();
+        return view('payment.addhours',['teacherlist'=>$teacher , 'studentlist'=>$student ]);
     }
 
     /**
@@ -37,7 +45,14 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payment = new Payment;
+
+        $payment->teachers_id = $request->teachers_id;
+        $payment->students_id = $request->students_id;
+        $payment->hours = $request->hours;
+        $payment->save();
+
+        return redirect('payment');
     }
 
     /**
