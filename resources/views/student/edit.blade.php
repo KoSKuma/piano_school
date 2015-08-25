@@ -54,6 +54,12 @@ Add a new student
 						</div>
 					</div>
 
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="email">Email</label>
+						<div class="col-sm-8">
+							<input type="text" name="email" class="form-control" id="email" placeholder="Email" value="{{$student->email}}" />
+						</div>
+					</div>
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label" >Student Phone</label>

@@ -122,7 +122,7 @@ class StudentController extends Controller
             // File upload
             if($request->hasFile('profile_picture')){
                 if($request->file('profile_picture')->isValid()){
-                    $filename = $id.'.'.$request->file('profile_picture')->getExtension();
+                    $filename = $id.'.'.$request->file('profile_picture')->guessExtension();
                     $request->file('profile_picture')->move('uploads/profile_pictures', $filename);
                 }
             }
