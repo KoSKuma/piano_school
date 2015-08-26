@@ -20,93 +20,37 @@ Add a new student
             </div><!-- /.box-header -->
 
             <!-- form start -->
-            <form class="form-horizontal" role="form" action="{{url("schedule/".$scheduleById->id)}}" method="post"> 
-                <input type="hidden" name="_method" value="PUT">
+            <form class="form-horizontal" role="form" action="{{url("payment")}}" method="post"> 
 
                 {!! csrf_field() !!}
-
                 <div class="box-body">
-                    @if ($errors->has())
-                    <div class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                        {{ $error }} <br>
-                        @endforeach
-                    </div>
-                    @endif
-
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" value="{{'ครู'.' '.$scheduleById->teacher_nickname.' '.'('.$scheduleById->teacher_firstname.' '.$scheduleById->teacher_lastname.')'}}" readonly />
-                            <input type="hidden" value="{{$scheduleById->teachers_id}}" id="teacher_id_input" name="teachers_id" />
+                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
+                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="student_name" id="student_name" value="{{$scheduleById->student_nickname.'('.$scheduleById->student_firstname.' '.$scheduleById->student_lastname.')'  }}" readonly />
-                            <input type="hidden" value="{{$scheduleById->students_id}}" id="student_id_input" name="students_id"/>
+                            <input type="text" class="form-control" name="student_name" id="student_name" readonly />
+                            <input type="hidden" value="" id="student_id_input" name="students_id"/>
                         </div>
                     </div>
 
+
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="start_time">Class Date</label>
+                        <label class="col-sm-3 control-label" for="location">Hours</label>
                         <div class="col-sm-8">
-                            <div class="input-group">
-                            <input type="text" class="form-control" name="class_date_display" id="class_date_display" value="{{date('j M Y ', strtotime($scheduleById->start_time) )}}" />
-                                <div class="input-group-addon">
-                                   <i class="fa fa-calendar"></i>
-                                </div>
-                            <input type="hidden" id="class_date" name="class_date" value="{{date('Y-m-d', strtotime($scheduleById->start_time) )}}"/>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label class="col-sm-3 control-label" for="start_time">Class Time</label>
-                        <div class="col-sm-3">
-                            <div class="bootstrap-timepicker">
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="start_time_display" id="start_time_picker" value="{{date('H:i', strtotime($scheduleById->end_time) )}}" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                <input type="hidden" id="class_start_time" name="class_start_time" value="{{date('H:i:s', strtotime($scheduleById->start_time) )}}"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 center-text">
-                            to
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="bootstrap-timepicker">
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="end_time_display" id="end_time_picker" value="{{date('H:i', strtotime($scheduleById->end_time) )}}" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                <input type="hidden" id="class_end_time" name="class_end_time" value="{{date('H:i', strtotime($scheduleById->end_time) )}}"/>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="location">Location</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="location" id="location" value="{{$scheduleById->location}}"/>
+                            <input type="text" class="form-control" name="hours" id="hours" />
                         </div>
                     </div>
 
                     <div class="box-footer text-center">
-                        <input type="submit" class="btn btn-primary" name="Save" value="Update" />
+                        <input type="submit" class="btn btn-primary" name="Save" value="Save" />
                     </div>
 
                 </div>
@@ -154,18 +98,18 @@ Add a new student
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($teacherlist as $teacher)
+                                @foreach($teacherlist as $teacher )
                                 <tr role="row" class="odd">
                                     <td class="sorting_1">{{$teacher->firstname." ".$teacher->lastname}}</td>
                                     <td>{{$teacher->nickname}}</td>
                                     <td>
 
-                                        <button class="btn btn-default select-teacher" data-teacher-name="ครู {{$teacher->nickname}} ({{$teacher->firstname . ' ' . $teacher->lastname}})" data-teacher-id="{{$teacher->id}}">
+                                        <button class="btn btn-default select-teacher" data-teacher-name="ครู {{$teacher->nickname}} ({{$teacher->firstname . ' ' . $teacher->lastname}})" data-teacher-id="{{$teacher->id}}" >
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
                                         </button>
                                     </td>
 
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -211,18 +155,18 @@ Add a new student
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($studentlist as $student)
+                               @foreach($studentlist as $student)
                                 <tr role="row" class="odd">
                                     <td class="sorting_1">{{$student->firstname." ".$student->lastname}}</td>
                                     <td>{{$student->nickname}}</td>
                                     <td>
 
                                         <button class="btn btn-default select-student" data-student-name="{{$student->nickname}} ({{$student->firstname . ' ' . $student->lastname}})" data-student-id="{{$student->id}}">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Select
                                         </button>
                                     </td>
 
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -244,12 +188,6 @@ Add a new student
 <script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
 <script src="{{url("plugins/daterangepicker/daterangepicker.js")}}" type="text/javascript"></script>
 <script src="{{url("plugins/timepicker/bootstrap-timepicker.js")}}" type="text/javascript"></script>
-<script type="text/javascript">
-$(function () {
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    $("[data-mask]").inputmask();
-});
-</script>
 
 <script>
 $(document).ready(function(){

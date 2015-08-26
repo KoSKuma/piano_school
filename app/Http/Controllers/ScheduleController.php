@@ -10,6 +10,8 @@ use DB;
 use App\models\Teacher;
 use App\models\Student;
 use App\models\Schedule;
+use Validator;
+
 class ScheduleController extends Controller
 {
     /**
@@ -19,11 +21,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $scheduleList = DB::table('students_teachers')
-            ->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
-            ->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
-            ->select('students_teachers.id as id', 'students_teachers.start_time as start_time', 'students_teachers.end_time as end_time', 'students_teachers.teachers_id as teachers_is', 'students_teachers.students_id as students_id', 'students.nickname as student_nickname', 'students.firstname as student_firstname', 'students.lastname as student_lastname', 'teachers.nickname as teacher_nickname', 'teachers.firstname as teacher_firstname', 'teachers.lastname as teacher_lastname')
-            ->get();
+
+        $scheduleList = Schedule::scheduleList();
         return view('schedule.index', ['scheduleList' => $scheduleList]);
     }
 
@@ -51,14 +50,14 @@ class ScheduleController extends Controller
     {
         $schedule = new Schedule;
 
-
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
         $schedule->start_time = $request->class_date . " " . $request->class_start_time;
         $schedule->end_time = $request->class_date . " " . $request->class_end_time;
         $schedule->location = $request->location;
-
         $schedule->save();
+
+      
 
         return redirect('schedule');
 
@@ -83,7 +82,16 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        //
+       $scheduleById = Schedule::scheduleById($id);
+     
+        $teacherlist = Teacher::teacherList();
+  
+        $studentlist = Student::studentList();
+      
+
+       
+        return view('schedule.edit',['scheduleById'=>$scheduleById , 'teacherlist'=>$teacherlist , 'studentlist'=>$studentlist]);
+     
     }
 
     /**
@@ -95,7 +103,37 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $validator = Validator::make($request->all(), Schedule::$rules_update);
+
+        if ($validator->fails()) {
+
+            return redirect('schedule/'.$id.'/edit')->withErrors($validator);
+
+        } 
+
+        else {
+
+            $schedule  = Schedule::where('students_teachers.id',$id)->first();
+            
+            $schedule->teachers_id = $request->teachers_id;
+            $schedule->students_id = $request->students_id;
+            $schedule->start_time = $request->class_date . " " . $request->class_start_time;
+            $schedule->end_time = $request->class_date . " " . $request->class_end_time;
+            $schedule->location = $request->location;
+
+            $schedule->save();
+
+        
+    /*      
+            $teacher->teachers_id = $request->teachers_id;
+            $teacher->save();
+
+          
+            $student->students_id = $request->students_id;
+            $student->save();
+*/
+        return  redirect('schedule');
+        }
     }
 
     /**
@@ -106,7 +144,7 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
         $schedule = Schedule::find($id);
         $schedule->delete();
 

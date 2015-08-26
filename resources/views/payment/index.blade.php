@@ -2,7 +2,7 @@
 
 
 @section('htmlheader_title')
-Sample page
+List of all classes
 @endsection
 
 
@@ -12,128 +12,128 @@ Sample page
 
 
 @section('main-content')
+<style>
+.example-modal .modal {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    display: block;
+    z-index: 1;
+}
+.example-modal .modal {
+    background: transparent!important;
+}
+</style>
 <div class="box">
     <div class="box-header">
-    	<div class="row">
-    		<div class="col-xs-6">
-    			<h3 class="box-title">Class Rooms List</h3>
-    		</div>
-      		<div class="col-xs-12">
-      			<a href= "{{url('room/add')}}" class="btn btn-default" >
-				       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-				    </a>
-      			<!-- <button type="button" class="btn btn-default" >
-				  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-				</button> -->
-      		</div>
-      	</div>
-      
+        <div class="row">
+            <div class="col-xs-6">
+                <h3 class="box-title">Payment List</h3>
+            </div>
+            <div class="col-xs-12 text-right">
+                <a href= "{{url('payment/create')}}" class="btn btn-default" >
+                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add
+             </a>
+                        <!-- <button type="button" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+                </button> -->
+            </div>
+        </div>
+
     </div><!-- /.box-header -->
     <div class="box-body">
-      <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-      	<div class="row">
-      		<div class="col-sm-12">
-      			<table 
-      				id="example2" 
-      				class="table table-bordered table-hover dataTable" 
-      				role="grid" aria-describedby="example2_info">
-			        <thead>
-				         <tr role="row">
-				          	<th 
-				          		class="sorting_asc" 
-				          		tabindex="0" 
-				          		aria-controls="example2" 
-				          		rowspan="1" colspan="1" 
-				          		aria-label="Rendering engine: activate to sort column descending" 
-				          		aria-sort="ascending"> Name </th>
+        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <!-- <div class="col-xs-12 visible-xs">xs</div>
+                <div class="col-sm-12 visible-sm">sm</div>
+                <div class="col-md-12 visible-md">md</div>
+                <div class="col-lg-12 visible-lg">lg</div> -->
+                <div class="col-sm-12" id="schedule_list_table">
 
-				          	<th class="sorting" 
-				          		tabindex="0" 
-				          		aria-controls="example2" 
-				          		rowspan="1" colspan="1"
-				          		aria-label="Browser: activate to sort column ascending">Location</th>
-				          	<th class="sorting" 
-				              	tabindex="0" 
-				              	aria-controls="example2" 
-				              	rowspan="1" colspan="1" 
-				              	aria-label="Platform(s): activate to sort column ascending">Description</th>
-				            <th class="sorting" 
-				              	tabindex="0" 
-				              	aria-controls="example2" 
-				              	rowspan="1" colspan="1" 
-				              	aria-label="Platform(s): activate to sort column ascending">Option</th>
-			          	
-			        	</tr>
-			        </thead>
-        			<tbody>
-        				@foreach ($roomview as $room)
-        					<tr role="row" class="odd">
-					            <td class="sorting_1">{{$room->name}}</td>
-					            <td>{{$room->location}}</td>
-					            <td>{{$room->description}}</td>
-					            <td>
-					            	<a href= "{{url('room/edit/'.$room->id)}}" class="btn btn-default" >
-									  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-									</a>
-									<a href= "{{url('room/destroy/'.$room->id)}}" class="btn btn-default btn-delete">
-									  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
-									</a>
-                  <script type="text/javascript">
-                      $(".btn-delete").click(function(e){
-                        return confirm("Do you want to Delete");
+                    <div class="row hidden-xs" id="table_header">
+                        <div class="col-sm-3">
+                            <strong>Teacher</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <strong>Student</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <strong>hours</strong>
+                        </div>
+                    
+                    </div>
+                    @foreach($payments as $payment)
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{$payment->teachers_id}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{$payment->students_id}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{$payment->hours}}
+                            </div>
                         
-                      });
-                  </script>
-
-					            </td>    
-          					</tr>
-        				@endforeach
+                        </div>
+                    @endforeach
+                      
 
 
+                 
 
 
-				      
-      				</tbody>
-       
-      			</table>
-      		</div>
-      	</div>
-      	<!-- <div class="row">
-      		<div class="col-sm-5">
-	      		<button class="btn btn-block btn-primary">Add ClassRoom</button>
-      		</div>
-      		<div class="col-sm-7">
-      			<div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-      				<ul class="pagination">
-      					<li class="paginate_button previous disabled" id="example2_previous">
-      						<a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a>
-      					</li>
-      					<li class="paginate_button active">
-      						<a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a>
-      					</li>
-      					<li class="paginate_button ">
-      						<a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a>
-      					</li>
-      					<li class="paginate_button ">
-      						<a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a>
-      					</li>
-      					<li class="paginate_button ">
-      						<a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a>
-      					</li>
-      					<li class="paginate_button ">
-      						<a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a>
-      					</li>
-      					<li class="paginate_button ">
-      						<a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a>
-      					</li>
-      					<li class="paginate_button next" id="example2_next">
-      						<a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a>
-      					</li>
-      				</ul>
-      			</div>
-      		</div> -->
-      	</div>
-      </div>
-    </div><!-- /.box-body -->
- </div>
+                    <form action="" method="POST" id="confirm-delete"> 
+
+
+                        <div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Delete Teacher</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this class? (id: <span id="delete_id_message"></span>) <br />
+                                        <span id="will_be_deleted_text">
+                                        </span>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button class="btn btn-danger" >
+                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div><!-- /.box-body -->
+</div>
+<script type="text/javascript">
+
+$('#deleteModal').on('shown.bs.modal',function(e){
+    delete_schedule_id = e.relatedTarget.attributes.schedule_id.value;
+    delete_schedule_text = "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("class_time") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("teacher_nickname") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("student_nickname");
+
+    $("#delete_id_message").html(delete_schedule_id);
+    $("#will_be_deleted_text").html(delete_schedule_text);
+    $("#confirm-delete").attr("action", "{{url('schedule')}}"+"/"+delete_schedule_id);
+});
+
+
+
+
+
+</script>
 @endsection
