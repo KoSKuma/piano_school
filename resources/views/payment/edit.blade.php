@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Schedule<small>booking</small></h1>
+<h1>Payment<small>Add</small></h1>
 @endsection
 
 
@@ -20,7 +20,7 @@ Add a new student
             </div><!-- /.box-header -->
 
             <!-- form start -->
-            <form class="form-horizontal" role="form" action="{{url("schedule/".$scheduleById->id)}}" method="post"> 
+            <form class="form-horizontal" role="form" action="{{url('payment/'.$paymentById->id)}}" method="post"> 
                 <input type="hidden" name="_method" value="PUT">
 
                 {!! csrf_field() !!}
@@ -38,70 +38,24 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" value="{{'ครู'.' '.$scheduleById->teacher_nickname.' '.'('.$scheduleById->teacher_firstname.' '.$scheduleById->teacher_lastname.')'}}" readonly />
-                            <input type="hidden" value="{{$scheduleById->teachers_id}}" id="teacher_id_input" name="teachers_id" />
+                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" value="{{'ครู'.' '.$paymentById->teachers_nickname.' '.'('.$paymentById->teachers_firstname.' '.$paymentById->teachers_lastname.')'}}" readonly />
+                            <input type="hidden" value="{{$paymentById->teachers_id}}" id="teacher_id_input" name="teachers_id" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="student_name" id="student_name" value="{{$scheduleById->student_nickname.'('.$scheduleById->student_firstname.' '.$scheduleById->student_lastname.')'  }}" readonly />
-                            <input type="hidden" value="{{$scheduleById->students_id}}" id="student_id_input" name="students_id"/>
+                            <input type="text" class="form-control" name="student_name" id="student_name" value="{{$paymentById->students_nickname.'('.$paymentById->students_firstname.' '.$paymentById->students_lastname.')'  }}" readonly />
+                            <input type="hidden" value="{{$paymentById->students_id}}" id="student_id_input" name="students_id"/>
                         </div>
                     </div>
 
+
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="start_time">Class Date</label>
+                        <label class="col-sm-3 control-label" for="hours">Hours</label>
                         <div class="col-sm-8">
-                            <div class="input-group">
-                            <input type="text" class="form-control" name="class_date_display" id="class_date_display" value="{{date('j M Y ', strtotime($scheduleById->start_time) )}}" />
-                                <div class="input-group-addon">
-                                   <i class="fa fa-calendar"></i>
-                                </div>
-                            <input type="hidden" id="class_date" name="class_date" value="{{date('Y-m-d', strtotime($scheduleById->start_time) )}}"/>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label class="col-sm-3 control-label" for="start_time">Class Time</label>
-                        <div class="col-sm-3">
-                            <div class="bootstrap-timepicker">
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="start_time_display" id="start_time_picker" value="{{date('H:i', strtotime($scheduleById->end_time) )}}" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                <input type="hidden" id="class_start_time" name="class_start_time" value="{{date('H:i:s', strtotime($scheduleById->start_time) )}}"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 center-text">
-                            to
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="bootstrap-timepicker">
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="end_time_display" id="end_time_picker" value="{{date('H:i', strtotime($scheduleById->end_time) )}}" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                <input type="hidden" id="class_end_time" name="class_end_time" value="{{date('H:i', strtotime($scheduleById->end_time) )}}"/>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="location">Location</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="location" id="location" value="{{$scheduleById->location}}"/>
+                            <input type="text" class="form-control" name="hours" id="hours" value="{{$paymentById->hours}}"/>
                         </div>
                     </div>
 

@@ -53,32 +53,52 @@ List of all classes
                 <div class="col-sm-12" id="schedule_list_table">
 
                     <div class="row hidden-xs" id="table_header">
+                        <div class="col-sm-2">
+                            <strong>Date</strong>
+                        </div>
                         <div class="col-sm-3">
                             <strong>Teacher</strong>
                         </div>
                         <div class="col-sm-3">
                             <strong>Student</strong>
                         </div>
-                        <div class="col-sm-3">
-                            <strong>hours</strong>
+                        <div class="col-sm-1">
+                            <strong>Hours</strong>
                         </div>
+                        <div class="col-sm-2">
+                            <strong>Option</strong>
+                        </div>
+                       
                     
                     </div>
-                    @foreach($payments as $payment)
-                        <div class="row">
-                            <div class="col-sm-3">
-                                {{$payment->teachers_id}}
+                    
+                        @foreach($payments as $payment)
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    {{date('j M y G:i',strtotime($payment->created_at))}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{'ครู'.$payment->teachers_nickname.' '.'('.$payment->teachers_firstname. ' ' .$payment->teachers_lastname.')' }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ $payment->students_nickname.' '.'('.$payment->students_firstname.' ' .$payment->students_lastname.')'}}
+                                    
+                                </div>
+                                <div class="col-sm-1">
+                                    {{$payment->hours}}
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href="{{url('payment/'.$payment->id.'/edit')}}" class="btn btn-default">
+                                            <i class='fa fa-edit'></i>
+                                    </a>
+
+                                </div>
+                               
+                            
                             </div>
-                            <div class="col-sm-3">
-                                {{$payment->students_id}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{$payment->hours}}
-                            </div>
-                        
-                        </div>
-                    @endforeach
+                        @endforeach
                       
+                 
 
 
                  

@@ -20,7 +20,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::all();
+        $payments = Payment::paymentlist();
+       
         return view("payment.index",['payments'=>$payments]);
     }
 
@@ -74,7 +75,11 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $payments = Payment::paymentById($id);
+
+        $teacherlist =  Teacher::teacherList();
+        $studentlist = Student::studentList();
+        return view('payment.edit',['teacherlist'=>$teacherlist , 'studentlist'=>$studentlist , 'paymentById'=>$payments]);
     }
 
     /**
@@ -86,7 +91,24 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $validator = Validator::make($request->all(), Payment::$rulesPayment);
+
+        if ($validator->fails()) {
+
+            return redirect('payment/'.$id.'/edit')->withErrors($validator);
+
+        } 
+        else {
+            $payment = Payment::where('students_payments.id',$id)->first();
+
+            $payment->teachers_id = $request->teachers_id;
+            $payment->students_id = $request->students_id;
+            $payment->hours = $request->hours;
+
+            $payment->save();
+
+            return redirect('payment');
+        }
     }
 
     /**

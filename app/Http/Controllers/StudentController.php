@@ -8,6 +8,7 @@ use Validator;
 use DB;
 use App\models\Role;
 use Entrust;
+use App;
 
 class StudentController extends Controller
 {

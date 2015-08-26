@@ -1,0 +1,121 @@
+Searching 8259 files for "student_payments"
+
+C:\xampp\htdocs\piano_school\app\models\Payment.php:
+    8  class Payment extends Model
+    9  {
+   10: 	protected $table = 'student_payments';
+   11  
+   12      public static function paymentlist() {
+
+C:\xampp\htdocs\piano_school\piano_school.sql:
+   99  
+  100  -- -----------------------------------------------------
+  101: -- Table `piano_school`.`student_payments`
+  102  -- -----------------------------------------------------
+  103: CREATE TABLE IF NOT EXISTS `piano_school`.`student_payments` (
+  104    `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  105    `hours` INT NOT NULL COMMENT '',
+  ...
+  107    `teachers_id` INT UNSIGNED NOT NULL COMMENT '',
+  108    PRIMARY KEY (`id`)  COMMENT '',
+  109:   INDEX `fk_student_payments_students1_idx` (`students_id` ASC)  COMMENT '',
+  110:   INDEX `fk_student_payments_teachers1_idx` (`teachers_id` ASC)  COMMENT '',
+  111:   CONSTRAINT `fk_student_payments_students1`
+  112      FOREIGN KEY (`students_id`)
+  113      REFERENCES `piano_school`.`students` (`id`)
+  114      ON DELETE NO ACTION
+  115      ON UPDATE NO ACTION,
+  116:   CONSTRAINT `fk_student_payments_teachers1`
+  117      FOREIGN KEY (`teachers_id`)
+  118      REFERENCES `piano_school`.`teachers` (`id`)
+
+C:\xampp\htdocs\piano_school\storage\logs\laravel.log:
+ 27809  #61 {main}
+ 27810  
+ 27811: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list' (SQL: insert into `student_payments` (`teachers_id`, `students_id`, `hours`, `updated_at`, `created_at`) values (20, 6, , 2015-08-25 17:49:44, 2015-08-25 17:49:44))' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 27812  Stack trace:
+ 27813  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('insert into `st...', Array, Object(Closure))
+ .....
+ 27936  #61 {main}
+ 27937  
+ 27938: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'hours' cannot be null (SQL: insert into `student_payments` (`teachers_id`, `students_id`, `hours`, `updated_at`, `created_at`) values (20, 6, , 2015-08-25 17:53:08, 2015-08-25 17:53:08))' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 27939  Stack trace:
+ 27940  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('insert into `st...', Array, Object(Closure))
+ .....
+ 28063  #61 {main}
+ 28064  
+ 28065: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'hours' cannot be null (SQL: insert into `student_payments` (`teachers_id`, `students_id`, `hours`, `updated_at`, `created_at`) values (20, 6, , 2015-08-25 17:53:28, 2015-08-25 17:53:28))' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 28066  Stack trace:
+ 28067  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('insert into `st...', Array, Object(Closure))
+ .....
+ 28190  #61 {main}
+ 28191  
+ 28192: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'hours' cannot be null (SQL: insert into `student_payments` (`teachers_id`, `students_id`, `hours`, `updated_at`, `created_at`) values (20, 6, , 2015-08-25 17:53:28, 2015-08-25 17:53:28))' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 28193  Stack trace:
+ 28194  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('insert into `st...', Array, Object(Closure))
+ .....
+ 28317  #61 {main}
+ 28318  
+ 28319: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'hours' cannot be null (SQL: insert into `student_payments` (`teachers_id`, `students_id`, `hours`, `updated_at`, `created_at`) values (20, 6, , 2015-08-25 17:54:12, 2015-08-25 17:54:12))' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 28320  Stack trace:
+ 28321  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('insert into `st...', Array, Object(Closure))
+ .....
+ 28904  #56 {main}
+ 28905  
+ 28906: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'students_payments.students_id' in 'on clause' (SQL: select `students_users`.`firstname` from `student_payments` inner join `students` on `students`.`id` = `students_payments`.`students_id` inner join `teachers` on `teachers`.`id` = `students_payments`.`teachers_id` inner join `users` as `students_users` on `users`.`students_id` = `students`.`student`.`id` inner join `users` as `teachers_users` on `user`.`teachers_id` = `teachers`.`teacher`.`id`)' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 28907  Stack trace:
+ 28908  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('select `student...', Array, Object(Closure))
+ .....
+ 28961  #53 C:\xampp\htdocs\piano_school\server.php(21): require_once('C:\\xampp\\htdocs...')
+ 28962  #54 {main}  
+ 28963: [2015-08-26 12:00:13] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'piano_school.student_payments' doesn't exist' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:310
+ 28964  Stack trace:
+ 28965  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(310): PDO->prepare('select `student...')
+ .....
+ 29021  #56 {main}
+ 29022  
+ 29023: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'piano_school.student_payments' doesn't exist (SQL: select `students_users`.`firstname` from `student_payments` inner join `students` on `students`.`id` = `students_payments`.`students_id` inner join `teachers` on `teachers`.`id` = `students_payments`.`teachers_id` inner join `users` as `students_users` on `users`.`students_id` = `students`.`student`.`id` inner join `users` as `teachers_users` on `user`.`teachers_id` = `teachers`.`teacher`.`id`)' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 29024  Stack trace:
+ 29025  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('select `student...', Array, Object(Closure))
+ .....
+ 30106  #51 C:\xampp\htdocs\piano_school\server.php(21): require_once('C:\\xampp\\htdocs...')
+ 30107  #52 {main}  
+ 30108: [2015-08-26 12:27:09] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'student_payments.hours' in 'field list'' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:310
+ 30109  Stack trace:
+ 30110  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(310): PDO->prepare('select `student...')
+ .....
+ 30166  #56 {main}
+ 30167  
+ 30168: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'student_payments.hours' in 'field list' (SQL: select `students_users`.`firstname` as `students_firstname`, `students_users`.`lastname` as `students_lastname`, `students_users`.`nickname` as `students_nickname`, `teachers_users`.`firstname` as `teachers_firstname`, `teachers_users`.`lastname` as `teachers_lastname`, `teachers_users`.`nickname` as `teachers_nickname`, `student_payments`.`hours` as `hours` from `students_payments` inner join `students` on `students`.`id` = `students_payments`.`students_id` inner join `teachers` on `teachers`.`id` = `students_payments`.`teachers_id` inner join `users` as `students_users` on `students_users`.`students_id` = `students`.`id` inner join `users` as `teachers_users` on `teachers_users`.`teachers_id` = `teachers`.`id`)' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 30169  Stack trace:
+ 30170  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('select `student...', Array, Object(Closure))
+ .....
+ 30223  #53 C:\xampp\htdocs\piano_school\server.php(21): require_once('C:\\xampp\\htdocs...')
+ 30224  #54 {main}  
+ 30225: [2015-08-26 12:38:25] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'piano_school.student_payments' doesn't exist' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:381
+ 30226  Stack trace:
+ 30227  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(381): PDO->prepare('insert into `st...')
+ .....
+ 30288  #61 {main}
+ 30289  
+ 30290: Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'piano_school.student_payments' doesn't exist (SQL: insert into `student_payments` (`teachers_id`, `students_id`, `hours`, `updated_at`, `created_at`) values (22, 5, 10, 2015-08-26 12:38:25, 2015-08-26 12:38:25))' in C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php:636
+ 30291  Stack trace:
+ 30292  #0 C:\xampp\htdocs\piano_school\vendor\laravel\framework\src\Illuminate\Database\Connection.php(596): Illuminate\Database\Connection->runQueryCallback('insert into `st...', Array, Object(Closure))
+
+
+
+Searching 36 files for "student_payments"
+
+0 matches across 0 files
+
+
+Searching 7 files for "student_payments"
+
+C:\xampp\htdocs\piano_school\app\models\Payment.php:
+    8  class Payment extends Model
+    9  {
+   10: 	protected $table = 'students_payments';
+   11  
+   12      public static function paymentlist() {
+
+1 match in 1 file
