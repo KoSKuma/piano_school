@@ -6,7 +6,6 @@ use App\models\Student;
 use App\User;
 use Validator;
 use DB;
-use App\models\Role;
 use Entrust;
 use App;
 
@@ -34,6 +33,7 @@ class StudentController extends Controller
      */
     public function create()
     {
+        
         return view('student.add');
     }
 
@@ -101,10 +101,10 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        if(!Entrust::can('edit-student'))
+        /*if(!Entrust::can('edit-student'))
         {
             return redirect("/student");
-        }
+        }*/
 
         $student = DB::table('users')
         ->join('students','users.students_id', '=', 'students.id')
@@ -135,7 +135,7 @@ class StudentController extends Controller
 
         else {
 
-            $users  = User::where('students_id',$id)->first();
+            $users = User::where('students_id',$id)->first();
 
             // File upload
             if($request->hasFile('profile_picture')){

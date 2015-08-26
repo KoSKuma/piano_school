@@ -85,7 +85,13 @@ Sample page
 								<td class="sorting_1"> 
 									<div class="row">
 										<div class="col-md-2 col-xs-12"> {{$student->nickname}} </div>  
-										<div class="col-md-2 col-xs-12"><img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="80" /></div>   
+										<div class="col-md-2 col-xs-12">
+											@if (!empty($student->picture))
+											<img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="80" />
+											@else
+											<img src="{{url('/uploads/profile_pictures/')}}/default.jpg" height="80" />
+											@endif
+										</div>   
 										<div class="col-md-3 col-xs-12"> {{$student->firstname."  ".$student->lastname}} </div>
 
 										<div class="col-md-2 col-xs-12">

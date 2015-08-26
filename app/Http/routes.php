@@ -15,20 +15,29 @@
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // Initialize permission
-//Route::get('initialize', 'PermissionInitializer@initializePermissions');
+//Route::get('initializePermission', 'Initializer@initializePermissions');
 
 Route::get('/',function () {
 	return view('auth/login');
 });
 
+Route::get('/home', 'HomeController@dashboard');
+
 Route::resource('teacher', 'TeacherController');
+
+Entrust::routeNeedsPermission('student/create', 'create-student');
+Entrust::routeNeedsPermission('student/*/edit', 'edit-student');
+Route::resource('student', [
+	'middleware' => 'auth',
+	'uses' => 'StudentController'
+]);
 
 Route::resource('student', 'StudentController');
 
 Route::resource('schedule', 'ScheduleController');
 
 Route::resource('payment', 'PaymentController');
-//Route::post('auth/login', 'Auth\AuthController@postLogin');
+
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
