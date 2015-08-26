@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\models\Student;
 use App\User;
 use Validator;
 use DB;
-use Log;
 use App\models\Role;
+use Entrust;
 
 class StudentController extends Controller
 {
@@ -100,10 +100,15 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-             $student = DB::table('users')
-            ->join('students','users.students_id', '=', 'students.id')
-            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone', 'users.picture')
-            ->where('students.id','=',$id);
+        if(!Entrust::can('edit-student'))
+        {
+            return redirect("/student");
+        }
+
+        $student = DB::table('users')
+        ->join('students','users.students_id', '=', 'students.id')
+        ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone', 'users.picture')
+        ->where('students.id','=',$id);
 
         $student = $student->first();
 
