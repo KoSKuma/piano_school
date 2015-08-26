@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('htmlheader_title')
-    Page not found
+    Unauthorized
 @endsection
 
 @section('contentheader_title')
@@ -16,7 +16,7 @@
 <div class="error-page">
     <h2 class="headline text-yellow"> 403</h2>
     <div class="error-content">
-        <h3><i class="fa fa-warning text-yellow"></i> Unauthrized User.</h3>
+        <h3><i class="fa fa-warning text-yellow"></i> Unauthorized User.</h3>
         <p>
             You do not have the required permission to access this page.
             Meanwhile, you may <a href='{{ url('/home') }}'>return to dashboard</a> or try using the search form.
