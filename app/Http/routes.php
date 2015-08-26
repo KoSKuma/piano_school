@@ -27,16 +27,15 @@ Route::resource('teacher', 'TeacherController');
 
 Entrust::routeNeedsPermission('student/create', 'create-student');
 Entrust::routeNeedsPermission('student/*/edit', 'edit-student');
-Route::resource('student', [
-	'middleware' => 'auth',
-	'uses' => 'StudentController'
-]);
+
 
 Route::resource('student', 'StudentController');
 
 Route::resource('schedule', 'ScheduleController');
 
 Route::resource('payment', 'PaymentController');
+
+
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

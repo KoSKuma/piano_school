@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\models\Schedule;
 
 class Teacher extends Model
 {
@@ -39,5 +40,11 @@ class Teacher extends Model
             ->get();
 
         return $teacher;
+    }
+    public static function scheduleOfTeacher($teachers_id)
+    {
+       $schedule = Schedule::_scheduleOfTeacher_Student($teachers_id, null);
+
+       return $schedule; 
     }
 }
