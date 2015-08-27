@@ -41,7 +41,8 @@ class Schedule extends Model
                 'students.lastname as student_lastname', 
                 'teachers.nickname as teacher_nickname', 
                 'teachers.firstname as teacher_firstname', 
-                'teachers.lastname as teacher_lastname')
+                'teachers.lastname as teacher_lastname',
+                'students_teachers.status as status')
             //->where('students_teachers.id' , '=' , $id )->first();
             ->get();
         return $schedulelist;
@@ -105,6 +106,32 @@ class Schedule extends Model
             ->get();
 
             return $schedule;
+    }
+    public static function returnStatus($request)
+    {
+         $schedule  = Schedule::where('students_teachers.id',$request->id)->first();
+
+        if($schedule->status == false)
+        { 
+            $schedule->status = true;
+            $status = 'Finish';
+        }
+         else
+         {
+            $schedule->status = false;
+            $status = 'Not Start';
+        }
+        $schedule->save();
+
+        return $status;
+    }
+
+    public static function getStatus($status)
+    {
+        if($status==1)
+            return "Finish";
+        else
+            return "Not finish";
     }
 
 }

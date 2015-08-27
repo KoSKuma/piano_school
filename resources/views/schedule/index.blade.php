@@ -62,60 +62,72 @@ List of all classes
                             <strong>Option</strong>
                         </div>
                     </div>
+                   
+                        @foreach ($scheduleList as $schedule)
+                        <div class="row">
 
-                    @foreach ($scheduleList as $schedule)
-                    <div class="row">
+                            <div class="col-xs-2 visible-xs">
+                                Start:
+                            </div>
+                            <div class="col-md-2 col-xs-10">
+                                {{date('j M y G:i', strtotime($schedule->start_time))}}
+                            </div>
+                            <div class="col-xs-2 visible-xs">
+                                End:
+                            </div>
+                            <div class="col-md-2 col-xs-10">
+                                {{date('j M y G:i', strtotime($schedule->end_time))}}
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                ครู {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                {{$schedule->student_nickname}} 
+                                <span class='visible-sm-inline visible-md-inline'>
+                                    <br/>
+                                </span>
+                                ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                {{App\models\Schedule::getStatus($schedule->status)}}
+                            </div>
 
-                        <div class="col-xs-2 visible-xs">
-                            Start:
-                        </div>
-                        <div class="col-md-2 col-xs-10">
-                            {{date('j M y G:i', strtotime($schedule->start_time))}}
-                        </div>
-                        <div class="col-xs-2 visible-xs">
-                            End:
-                        </div>
-                        <div class="col-md-2 col-xs-10">
-                            {{date('j M y G:i', strtotime($schedule->end_time))}}
-                        </div>
-                        <div class="col-md-2 col-xs-12">
-                            ครู {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
-                        </div>
-                        <div class="col-md-2 col-xs-12">
-                            {{$schedule->student_nickname}} 
-                            <span class='visible-sm-inline visible-md-inline'>
-                                <br/>
-                            </span>
-                            ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
-                        </div>
-                        <div class="col-md-1 col-xs-12">
                             
-                        </div>
+                                
+                            <form action="{{url('schedule/confirm')}}" method="post">
+                                {!! csrf_field() !!}
+                                
+                            <div class="col-md-2 col-xs-12">
+                                <input type="hidden" 
+                                        id="attr_schedule_{{$schedule->id}}" 
+                                        class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
+                                        teacher_nickname="ครู {{$schedule->teacher_nickname}}" 
+                                        student_nickname="{{$schedule->student_nickname}}" />
 
-                        <div class="col-md-2 col-xs-12">
-                            <input type="hidden" 
-                                    id="attr_schedule_{{$schedule->id}}" 
-                                    class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
-                                    teacher_nickname="ครู {{$schedule->teacher_nickname}}" 
-                                    student_nickname="{{$schedule->student_nickname}}" />
-                            
+                                <input type="hidden" value="{{$schedule->id}}" name="id">       
+                                <button class="btn btn-default" type="submit">
+                                    <span class="fa fa-check" aria-hidden="true"> </span>
+                                </button>
 
-                            <a href= "{{url('schedule/'.$schedule->id)}}" class="btn btn-default" >
-                                <span class="fa fa-check" aria-hidden="true"></span>
-                            </a>
-                            <a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
-                                <span class="fa fa-trash" aria-hidden="true"> </span>
-                            </button>
+                               
+                                
+                                <a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </a>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
+                                    <span class="fa fa-trash" aria-hidden="true"> </span>
+                                </button>
+                            </div>
+                                
+                             </form>
+                              
+                             
                         </div>
-                    </div>
-                    <div class="row row-splitter">
-                        <div class="col-xs-12 visible-xs" style="height: 10px;">
+                        <div class="row row-splitter">
+                            <div class="col-xs-12 visible-xs" style="height: 10px;">
+                            </div>
                         </div>
-                    </div>
-                    @endforeach
+                        @endforeach
 
 
                     <form action="" method="POST" id="confirm-delete"> 

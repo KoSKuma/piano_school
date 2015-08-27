@@ -91,14 +91,14 @@ class ScheduleController extends Controller
         return view('schedule.edit',['scheduleById'=>$scheduleById , 'teacherlist'=>$teacherlist , 'studentlist'=>$studentlist]);
      
     }
-    public function status($id)
+    public function status(Request $request)
     {
-        $schedule  = Schedule::where('students_teachers.id',$id)->first();
-        $schedule->status = true;
-        $schedule->save();
+        $schedule  = Schedule::returnStatus($request);
+        
 
-        return view('schedule.index',['status'=>$schedule]);
+        return redirect('schedule')->with('status', $schedule);
     }
+
 
    
     public function update(Request $request, $id)

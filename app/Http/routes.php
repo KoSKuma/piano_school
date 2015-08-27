@@ -38,7 +38,8 @@ Route::group(['middleware' => 'auth'] ,function()
 	Route::resource('student', 'StudentController');
 	Route::resource('teacher', 'TeacherController');
 
-	Route::post('schedule/confirm', 'ScheduleController@confirmClass');
+
+	Route::post('schedule/confirm', 'ScheduleController@status');
 	Route::resource('schedule', 'ScheduleController');
 
 	Route::resource('payment', 'PaymentController');
