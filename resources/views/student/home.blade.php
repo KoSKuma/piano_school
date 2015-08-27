@@ -33,39 +33,27 @@ List of all classes
 	            <div class="col-xs-6">
 	                <h3 class="box-title">Dashboard</h3>
 	            </div>
-	            <div class="col-xs-6 text-right">
-	                <a href= "{{url('schedule/create')}}" class="btn btn-default" >
-	                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-	             </a>
-	                        <!-- <button type="button" class="btn btn-default" >
-	                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-	                </button> -->
-	            </div>
+	            
 	        </div>
 	    </div><!-- /.box-header -->
 
 	    <div class="box-body">
 	        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 	            <div class="row">
-	                <!-- <div class="col-xs-12 visible-xs">xs</div>
-	                <div class="col-sm-12 visible-sm">sm</div>
-	                <div class="col-md-12 visible-md">md</div>
-	                <div class="col-lg-12 visible-lg">lg</div> -->
+	                
 	                <div class="col-sm-12" id="schedule_list_table">
 
 	                    <div class="row hidden-xs" id="table_header">
-	                        <div class="col-sm-3">
+	                        <div class="col-sm-4">
 	                            <strong>Start Time</strong>
 	                        </div>
-	                        <div class="col-sm-3">
+	                        <div class="col-sm-4">
 	                            <strong>End Time</strong>
 	                        </div>
-	                        <div class="col-sm-3">
-	                            <strong>Student</strong>
+	                        <div class="col-sm-4">
+	                            <strong>Teacher</strong>
 	                        </div>
-	                         <div class="col-sm-3">
-	                            <strong>Option</strong>
-	                        </div>
+	                   
 	                    </div>
 
 	                    @foreach ($scheduleList as $schedule)
@@ -73,31 +61,20 @@ List of all classes
 	                        <div class="col-xs-2 visible-xs">
 	                            Start:
 	                        </div>
-	                        <div class="col-md-3 col-xs-10">
+	                        <div class="col-md-4 col-xs-10">
 	                            {{date('j M y G:i', strtotime($schedule->start_time))}}
 	                        </div>
 	                        <div class="col-xs-2 visible-xs">
 	                            End:
 	                        </div>
-	                        <div class="col-md-3 col-xs-10">
+	                        <div class="col-md-4 col-xs-10">
 	                            {{date('j M y G:i', strtotime($schedule->end_time))}}
 	                        </div>
-	                        <div class="col-md-3 col-xs-12">
-	                            {{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
+	                        <div class="col-md-4 col-xs-12">
+	                            {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
 	                        </div>
 
-	                        <div class="col-md-3 col-xs-12">
-	                            <input type="hidden" id="attr_schedule_{{$schedule->id}}" class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" teacher_nickname="ครู {{$schedule->teacher_nickname}}" student_nickname="{{$schedule->student_nickname}}" />
-	                            <a href= "{{url('schedule/'.$schedule->id)}}" class="btn btn-default" >
-	                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-	                            </a>
-	                            <a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >
-	                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-	                            </a>
-	                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
-	                                <span class="fa fa-trash" aria-hidden="true"> </span>
-	                            </button>
-	                        </div>
+	
 	                    </div>
 	                    <div class="row row-splitter">
 	                        <div class="col-xs-12 visible-xs" style="height: 10px;">

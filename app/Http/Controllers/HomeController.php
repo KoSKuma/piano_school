@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Entrust;
 use Auth;
 use App\models\Teacher;
+use App\models\Student;
+use App\models\Schedule;
 
 class HomeController extends Controller
 {
@@ -23,14 +25,16 @@ class HomeController extends Controller
         //print_r($user);die();
 
         if (Entrust::hasRole('admin')) {
-            return view('admin.home');
+            $schedule = schedule::scheduleList();
+            return view('admin.home' , ['scheduleList' => $schedule]);
         }
         if (Entrust::hasRole('teacher')) {
             $teacher_schedule = Teacher::scheduleOfTeacher($user->teachers_id);
             return view('teacher.home',['scheduleList'=>$teacher_schedule]);
         }
         if (Entrust::hasRole('student')) {
-            return view('student.home');
+            $student_schedule = Student::scheduleOfStudent($user->students_id);
+            return view('student.home',['scheduleList'=>$student_schedule]);
         }
 
     }
