@@ -61,7 +61,8 @@ class Schedule extends Model
                 'teachers.nickname as teacher_nickname', 
                 'teachers.firstname as teacher_firstname', 
                 'teachers.lastname as teacher_lastname', 
-                'students_teachers.location as location')
+                'students_teachers.location as location',
+                'students_teachers.status as status')
             ->where('students_teachers.id' , '=' , $id )->first();
            
         return $scheduleById;
@@ -96,7 +97,8 @@ class Schedule extends Model
                 'teachers.nickname as teacher_nickname', 
                 'teachers.firstname as teacher_firstname', 
                 'teachers.lastname as teacher_lastname', 
-                'students_teachers.location as location')
+                'students_teachers.location as location',
+                'students_teachers.status as status')
             ->whereRaw( $whereClause )
             //->where('students_teachers.teachers_id' , '=' , $teacher_id )
             //->where('students_teachers.students_id' , "=" , $student_id )

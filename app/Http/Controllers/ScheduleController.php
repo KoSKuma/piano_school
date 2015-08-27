@@ -91,14 +91,16 @@ class ScheduleController extends Controller
         return view('schedule.edit',['scheduleById'=>$scheduleById , 'teacherlist'=>$teacherlist , 'studentlist'=>$studentlist]);
      
     }
+    public function status($id)
+    {
+        $schedule  = Schedule::where('students_teachers.id',$id)->first();
+        $schedule->status = true;
+        $schedule->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
+        return view('schedule.index',['status'=>$schedule]);
+    }
+
+   
     public function update(Request $request, $id)
     {
          $validator = Validator::make($request->all(), Schedule::$rules_update);
@@ -122,14 +124,6 @@ class ScheduleController extends Controller
             $schedule->save();
 
         
-    /*      
-            $teacher->teachers_id = $request->teachers_id;
-            $teacher->save();
-
-          
-            $student->students_id = $request->students_id;
-            $student->save();
-*/
         return  redirect('schedule');
         }
     }
