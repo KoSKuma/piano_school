@@ -21,9 +21,15 @@ Route::get('/',function () {
 	return view('auth/login');
 });
 
-
 Entrust::routeNeedsPermission('student/create', 'create-student');
 Entrust::routeNeedsPermission('student/*/edit', 'edit-student');
+
+Entrust::routeNeedsPermission('teacher/create', 'create-teacher');
+Entrust::routeNeedsPermission('teacher/*/edit', 'edit-teacher');
+
+Entrust::routeNeedsPermission('schedule/create', 'create-schedule');
+Entrust::routeNeedsPermission('schedule/*/edit', 'edit-schedule');
+Entrust::routeNeedsPermission('schedule/confirm', 'confirm-taught-class');
 
 Route::group(['middleware' => 'auth'] ,function()
 {
@@ -32,12 +38,12 @@ Route::group(['middleware' => 'auth'] ,function()
 	Route::resource('student', 'StudentController');
 	Route::resource('teacher', 'TeacherController');
 
+	Route::post('schedule/confirm', 'ScheduleController@confirmClass');
 	Route::resource('schedule', 'ScheduleController');
 
 	Route::resource('payment', 'PaymentController');
 
-
-	// Registration routes...
+	// Registration routes
 	Route::get('auth/register', 'Auth\AuthController@getRegister');
 	Route::post('auth/register', 'Auth\AuthController@postRegister');
 
@@ -45,6 +51,7 @@ Route::group(['middleware' => 'auth'] ,function()
 		return view('calendar.calendar');
 	});
 });
+
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
