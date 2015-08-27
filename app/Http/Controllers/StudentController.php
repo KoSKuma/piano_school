@@ -60,7 +60,6 @@ class StudentController extends Controller
 
             $user->students_id = $student->id;
             
-
             if($request->hasFile('profile_picture')){
                 if($request->file('profile_picture')->isValid()){
                     $filename = $user->id.'.'.$request->file('profile_picture')->guessExtension();
