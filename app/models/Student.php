@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use DB;
+use App\models\Schedule;
 
 class Student extends Model
 {
@@ -43,7 +44,8 @@ class Student extends Model
     }
 
     //
-    public static function newStudent(Request $request){
+    public static function newStudent(Request $request)
+    {
         $student = new Student;
     
         $student->student_phone = $request->student_phone;
@@ -52,6 +54,14 @@ class Student extends Model
         $student->save();
 
         return $student;
+    }
+
+    public static function  scheduleOfStudent($students_id) 
+    {
+        $schedule = Schedule::_scheduleOfTeacher_Student(null ,$students_id );
+
+        return $schedule;
+
     }
 
 }

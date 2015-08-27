@@ -188,4 +188,11 @@ class StudentController extends Controller
         
         return redirect('student');
     }
+
+      public static function scheduleOfTeacher($students_id)
+    {
+       $schedule = Schedule::_scheduleOfTeacher_Student($students_id, null);
+
+       return $schedule; 
+    }
 }
