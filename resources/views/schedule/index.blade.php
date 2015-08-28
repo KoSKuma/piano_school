@@ -58,9 +58,12 @@ List of all classes
                          <div class="col-md-2">
                             <strong>Status</strong>
                         </div>
+                        @if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
                         <div class="col-md-2">
                             <strong>Option</strong>
                         </div>
+                        @endif
+
                     </div>
                    
                         @foreach ($scheduleList as $schedule)
@@ -92,7 +95,7 @@ List of all classes
                                 {!! csrf_field() !!}
                                 
                             <div class="col-md-2 col-xs-12">
-                                @if (Entrust::can('delete-schedule'))
+                                @if (Entrust::can('confirm-taught-class'))
                                 <input type="hidden" 
                                         id="attr_schedule_{{$schedule->id}}" 
                                         class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
