@@ -92,6 +92,7 @@ List of all classes
                                 {!! csrf_field() !!}
                                 
                             <div class="col-md-2 col-xs-12">
+                                @if (Entrust::can('delete-schedule'))
                                 <input type="hidden" 
                                         id="attr_schedule_{{$schedule->id}}" 
                                         class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
@@ -102,15 +103,19 @@ List of all classes
                                 <button class="btn btn-default" type="submit">
                                     <span class="fa fa-check" aria-hidden="true"> </span>
                                 </button>
+                                @endif
 
-                               
-                                
+                                @if (Entrust::can('edit-schedule'))
                                 <a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </a>
+                                @endif
+
+                                @if (Entrust::can('delete-schedule'))
                                 <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
                                     <span class="fa fa-trash" aria-hidden="true"> </span>
                                 </button>
+                                @endif
                             </div>
                                 
                              </form>
