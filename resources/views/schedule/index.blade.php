@@ -32,11 +32,14 @@ List of all classes
             <div class="col-xs-6 col-md-12">
                 <h3 class="box-title">Schedule List</h3>
             </div>
+
+            @if(Entrust::can('create-schedule'))
             <div class="col-md-12 text-right">
                  <a href= "{{url('schedule/create')}}" class="btn btn-default" >
                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                  </a>
             </div>
+            @endif
 
     </div><!-- /.box-header -->
     <div class="box-body">
