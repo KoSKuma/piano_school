@@ -34,8 +34,9 @@ Add a new student
                                 <img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
                             @endif
                         </div>
+                        
                     </div>
-
+                    <br />
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="name">Name</label>
