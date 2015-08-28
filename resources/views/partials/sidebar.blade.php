@@ -57,7 +57,7 @@
                     @endif
                     @if (Entrust::can('view-student'))
                     <li><a href="{{url('student')}}">Student</a></li>
-                    @endifs
+                    @endif
                 </ul>
             </li>
 
