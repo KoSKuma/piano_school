@@ -32,8 +32,11 @@ List of all classes
             <div class="col-xs-6 col-md-12">
                 <h3 class="box-title">Schedule List</h3>
             </div>
-            
-        </div>
+            <div class="col-md-12 text-right">
+                 <a href= "{{url('schedule/create')}}" class="btn btn-default" >
+                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                 </a>
+            </div>
 
     </div><!-- /.box-header -->
     <div class="box-body">
@@ -44,18 +47,15 @@ List of all classes
 
                     <div class="row hidden-xs" id="table_header">
                         <div class="col-md-2">
-                            <strong>Start Time</strong>
+                            <strong>Start Time-End Time</strong>
                         </div>
-                        <div class="col-md-2">
-                            <strong>End Time</strong>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <strong>Teacher</strong>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <strong>Student</strong>
                         </div>
-                         <div class="col-md-1">
+                         <div class="col-md-2">
                             <strong>Status</strong>
                         </div>
                         <div class="col-md-2">
@@ -67,28 +67,22 @@ List of all classes
                         <div class="row">
 
                             <div class="col-xs-2 visible-xs">
-                                Start:
+                                Time:
                             </div>
                             <div class="col-md-2 col-xs-10">
-                                {{date('j M y G:i', strtotime($schedule->start_time))}}
+                                {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
                             </div>
-                            <div class="col-xs-2 visible-xs">
-                                End:
-                            </div>
-                            <div class="col-md-2 col-xs-10">
-                                {{date('j M y G:i', strtotime($schedule->end_time))}}
-                            </div>
-                            <div class="col-md-2 col-xs-12">
+                            <div class="col-md-3 col-xs-10">
                                 ครู {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
                             </div>
-                            <div class="col-md-2 col-xs-12">
+                            <div class="col-md-3 col-xs-12">
                                 {{$schedule->student_nickname}} 
                                 <span class='visible-sm-inline visible-md-inline'>
                                     <br/>
                                 </span>
                                 ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
                             </div>
-                            <div class="col-md-1 col-xs-12">
+                            <div class="col-md-2 col-xs-12">
                                 {{App\models\Schedule::getStatus($schedule->status)}}
                             </div>
 
