@@ -28,7 +28,11 @@ Add a new student
 
                     <div class="row">
                         <div class="col-xs-12 text-center">
-                            <img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                            @if(empty($teacher->picture))
+                                <img src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
+                            @else
+                                <img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                            @endif
                         </div>
                     </div>
 

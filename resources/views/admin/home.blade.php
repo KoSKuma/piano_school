@@ -88,9 +88,7 @@ List of all classes
 
 	                        <div class="col-md-3 col-xs-12">
 	                            <input type="hidden" id="attr_schedule_{{$schedule->id}}" class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" teacher_nickname="ครู {{$schedule->teacher_nickname}}" student_nickname="{{$schedule->student_nickname}}" />
-	                            <a href= "{{url('schedule/'.$schedule->id)}}" class="btn btn-default" >
-	                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-	                            </a>
+	                            
 	                            <a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >
 	                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 	                            </a>
