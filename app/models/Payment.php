@@ -22,6 +22,7 @@ class Payment extends Model
             					 'teachers_users.lastname as teachers_lastname' ,
             					 'teachers_users.nickname as teachers_nickname',
             					 'students_payments.*')
+                        ->orderBy('students_payments.created_at', 'asc')
     					->get();
     	return $paymentlist;
     }
@@ -39,15 +40,17 @@ class Payment extends Model
                                  'teachers_users.firstname as teachers_firstname' , 
                                  'teachers_users.lastname as teachers_lastname' ,
                                  'teachers_users.nickname as teachers_nickname',
-                                 'students_payments.hours as hours',
+                                 'students_payments.topup_time as topup_time ',
                                  'students_payments.teachers_id as teachers_id',
                                  'students_payments.students_id as students_id',
                                  'students_payments.id as id')
-                        ->where('students_payments.id' , '=' , $id)->first();
+                        ->where('students_payments.id' , '=' , $id)
+                        ->orderBy('students_payments.created_at', 'asc')
+                        ->first();
         return $paymentById;
     }
 
     static $rulesPayment = array(
-        'hours' => 'required'
+        'topup_time' => 'required'
         );
 }

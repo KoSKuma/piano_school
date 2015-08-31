@@ -77,6 +77,7 @@ List of all classes
                             </div>
                             <div class="col-md-2 col-xs-10">
                                 {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
+                                {{App\models\Schedule::calculateHours($schedule->end_time,$schedule->start_time)}}
                             </div>
                             <div class="col-md-3 col-xs-10">
                                 ครู {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})

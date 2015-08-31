@@ -47,11 +47,15 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $payment = new Payment;
+        $student = Student::find($request->students_id);
 
         $payment->teachers_id = $request->teachers_id;
         $payment->students_id = $request->students_id;
-        $payment->hours = $request->hours;
+        $payment->topup_time = 60 * $request->topup_time;
         $payment->save();
+
+        $student->remaining_time = $student->remaining_time + ( 60 * $request->topup_time );
+        $student->save();
 
         return redirect('payment');
     }
@@ -103,9 +107,14 @@ class PaymentController extends Controller
 
             $payment->teachers_id = $request->teachers_id;
             $payment->students_id = $request->students_id;
-            $payment->hours = $request->hours;
-
+            $payment->topup_time = 60 * $request->topup_time;
             $payment->save();
+
+            $student = Student::find($request->students_id);
+            $student->remaining_time -= $request->previous_topup;
+            $student->remaining_time += 60 * $request->topup_time;
+            $student->save();   
+
 
             return redirect('payment');
         }

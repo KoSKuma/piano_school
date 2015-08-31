@@ -28,6 +28,8 @@ class Schedule extends Model
     );
 
     public static function scheduleList (){
+        
+     
     	$schedulelist = DB::table('students_teachers')
             ->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
             ->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
@@ -43,8 +45,7 @@ class Schedule extends Model
                 'teachers.firstname as teacher_firstname', 
                 'teachers.lastname as teacher_lastname',
                 'students_teachers.status as status')
-            //->where('students_teachers.id' , '=' , $id )->first();
-            ->get();
+             ->get();
         return $schedulelist;
     }
     public static function scheduleById ($id){
@@ -64,7 +65,9 @@ class Schedule extends Model
                 'teachers.lastname as teacher_lastname', 
                 'students_teachers.location as location',
                 'students_teachers.status as status')
-            ->where('students_teachers.id' , '=' , $id )->first();
+            ->where('students_teachers.id' , '=' , $id )
+            
+            ->first();
            
         return $scheduleById;
     }
@@ -132,6 +135,12 @@ class Schedule extends Model
             return "Finish";
         else
             return "Not finish";
+    }
+
+    public static function calculateHours($end_time , $start_time)
+    {       
+        $time = strtotime($end_time) - strtotime($start_time);
+        return $time;
     }
 
 }

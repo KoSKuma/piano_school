@@ -23,6 +23,9 @@ class ScheduleController extends Controller
     {
 
         $scheduleList = Schedule::scheduleList();
+      
+
+
         return view('schedule.index', ['scheduleList' => $scheduleList]);
     }
 
@@ -142,4 +145,5 @@ class ScheduleController extends Controller
 
         return redirect('schedule');
     }
-}
+
+ }
