@@ -61,6 +61,7 @@ List of all classes
                          <div class="col-md-2">
                             <strong>Status</strong>
                         </div>
+                      
                         @if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
                         <div class="col-md-2">
                             <strong>Option</strong>
@@ -77,10 +78,12 @@ List of all classes
                             </div>
                             <div class="col-md-2 col-xs-10">
                                 {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
-                                {{App\models\Schedule::calculateHours($schedule->end_time,$schedule->start_time)}}
+                                
                             </div>
                             <div class="col-md-3 col-xs-10">
-                                ครู {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
+                                ครู {{$schedule->teacher_nickname}} 
+                                <span class='visible-sm-inline visible-md-inline'><br /></span>
+                                ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
                             </div>
                             <div class="col-md-3 col-xs-12">
                                 {{$schedule->student_nickname}} 
@@ -92,7 +95,7 @@ List of all classes
                             <div class="col-md-2 col-xs-12">
                                 {{App\models\Schedule::getStatus($schedule->status)}}
                             </div>
-
+                          
                             
                                 
                             <form action="{{url('schedule/confirm')}}" method="post">
@@ -107,7 +110,10 @@ List of all classes
                                         student_nickname="{{$schedule->student_nickname}}" />
 
                                 <input type="hidden" value="{{$schedule->id}}" name="id">       
-                                <button class="btn btn-default" type="submit">
+                                <input type="hidden" value="{{$schedule->end_time}}" name="end_time">
+                                <input type="hidden" value="{{$schedule->start_time}}" name="start_time">
+                                <input type="hidden" value="{{$schedule->students_id}}" name="students_id">
+                                <button class="btn btn-default" type="submit" id="button_check" >
                                     <span class="fa fa-check" aria-hidden="true"> </span>
                                 </button>
                                 @endif
@@ -182,6 +188,7 @@ $('#deleteModal').on('shown.bs.modal',function(e){
     $("#will_be_deleted_text").html(delete_schedule_text);
     $("#confirm-delete").attr("action", "{{url('schedule')}}"+"/"+delete_schedule_id);
 });
+
 
 
 

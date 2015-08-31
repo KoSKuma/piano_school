@@ -10,6 +10,7 @@ use DB;
 use App\models\Teacher;
 use App\models\Student;
 use App\models\Schedule;
+use App\models\TimeHelper;
 use Validator;
 
 class ScheduleController extends Controller
@@ -97,7 +98,16 @@ class ScheduleController extends Controller
     public function status(Request $request)
     {
         $schedule  = Schedule::returnStatus($request);
-        
+        $end_time = $request->input('end_time');
+        $start_time = $request->input('start_time');
+        $students_id = $request->input('students_id');
+
+        $time_second = strtotime($end_time) - strtotime($start_time);
+       // $input_id = input('');
+        $time_minute = $time_second/60;
+        $time_helper = TimeHelper::calculateTimeStudent($time_minute, $students_id);
+        // $time_helper = TimeHelper::calculateTimeFromSeconds($time_second);
+        // print_r($time_helper);die();
 
         return redirect('schedule')->with('status', $schedule);
     }
@@ -145,5 +155,16 @@ class ScheduleController extends Controller
 
         return redirect('schedule');
     }
+    // public static function calculateHours($end_time , $start_time, $students_id)
+    // {       
+    //     $time_second = strtotime($end_time) - strtotime($start_time);
+    //    // $input_id = input('');
+    //     $time_minute = $time_second/60;
+    //     $time_helper = TimeHelper::calculateTimeStudent($time_minute, $students_id);
+    //     // $time_helper = TimeHelper::calculateTimeFromSeconds($time_second);
+    //     // print_r($time_helper);die();
+    //     return $time_second;
+    // }
+
 
  }

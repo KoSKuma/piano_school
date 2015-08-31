@@ -63,5 +63,6 @@ class Student extends Model
         return $schedule;
 
     }
+    
 
 }

@@ -3,6 +3,7 @@
 namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\TimeHelper;
 use DB;
 
 class Schedule extends Model
@@ -40,7 +41,7 @@ class Schedule extends Model
                 'students_teachers.students_id as students_id', 
                 'students.nickname as student_nickname', 
                 'students.firstname as student_firstname', 
-                'students.lastname as student_lastname', 
+                'students.lastname as student_lastname',
                 'teachers.nickname as teacher_nickname', 
                 'teachers.firstname as teacher_firstname', 
                 'teachers.lastname as teacher_lastname',
@@ -59,7 +60,7 @@ class Schedule extends Model
                 'students_teachers.students_id as students_id', 
                 'students.nickname as student_nickname', 
                 'students.firstname as student_firstname', 
-                'students.lastname as student_lastname', 
+                'students.lastname as student_lastname',
                 'teachers.nickname as teacher_nickname', 
                 'teachers.firstname as teacher_firstname', 
                 'teachers.lastname as teacher_lastname', 
@@ -114,15 +115,17 @@ class Schedule extends Model
     {
          $schedule  = Schedule::where('students_teachers.id',$request->id)->first();
 
-        if($schedule->status == false)
+        if($schedule->status == 'Not Finish')
         { 
-            $schedule->status = true;
+            $schedule->status = 'Finish';
             $status = 'Finish';
+           
         }
          else
          {
-            $schedule->status = false;
-            $status = 'Not Start';
+            $schedule->status = 'Not Finish';
+             $status = 'Not Finish';
+          
         }
         $schedule->save();
 
@@ -131,16 +134,11 @@ class Schedule extends Model
 
     public static function getStatus($status)
     {
-        if($status==1)
+        if($status=='Finish')
             return "Finish";
         else
             return "Not finish";
     }
 
-    public static function calculateHours($end_time , $start_time)
-    {       
-        $time = strtotime($end_time) - strtotime($start_time);
-        return $time;
-    }
-
+ 
 }
