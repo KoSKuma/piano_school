@@ -52,13 +52,17 @@ List of all classes
                         <div class="col-md-2">
                             <strong>Start Time-End Time</strong>
                         </div>
+                        @if (!Entrust::hasRole('teacher'))
                         <div class="col-md-3">
                             <strong>Teacher</strong>
                         </div>
+                        @endif
+                        @if (!Entrust::hasRole('student'))
                         <div class="col-md-3">
                             <strong>Student</strong>
                         </div>
-                         <div class="col-md-2">
+                        @endif
+                        <div class="col-md-2">
                             <strong>Status</strong>
                         </div>
                       
@@ -80,11 +84,15 @@ List of all classes
                                 {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
                                 
                             </div>
+                            @if (!Entrust::hasRole('teacher'))
                             <div class="col-md-3 col-xs-10">
                                 ครู {{$schedule->teacher_nickname}} 
                                 <span class='visible-sm-inline visible-md-inline'><br /></span>
                                 ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
                             </div>
+                            @endif
+
+                            @if (!Entrust::hasRole('student'))
                             <div class="col-md-3 col-xs-12">
                                 {{$schedule->student_nickname}} 
                                 <span class='visible-sm-inline visible-md-inline'>
@@ -92,8 +100,9 @@ List of all classes
                                 </span>
                                 ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
                             </div>
+                            @endif
                             <div class="col-md-2 col-xs-12">
-                                {{App\models\Schedule::getStatus($schedule->status)}}
+                                {{$schedule->status}}
                             </div>                         
                             
                                 
@@ -107,11 +116,8 @@ List of all classes
                                         class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
                                         teacher_nickname="ครู {{$schedule->teacher_nickname}}" 
                                         student_nickname="{{$schedule->student_nickname}}" />
-
-                                <input type="hidden" value="{{$schedule->id}}" name="id">       
-                                <input type="hidden" value="{{$schedule->end_time}}" name="end_time">
-                                <input type="hidden" value="{{$schedule->start_time}}" name="start_time">
-                                <input type="hidden" value="{{$schedule->students_id}}" name="students_id">
+                                <input type="hidden" name="id" value="{{$schedule->id}}">
+                                <input type="hidden" name="req" value="confirm">
                                 <button class="btn btn-default" type="submit" id="button_check" >
                                     <span class="fa fa-check" aria-hidden="true"> </span>
                                 </button>
@@ -156,13 +162,14 @@ List of all classes
                                         <span id="will_be_deleted_text">
                                         </span>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 
                                             
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        
+                                            <input type="hidden" name="req" value="cancel">
+                                            <input type="hidden" name="id" id="delete_id" value="">
                                             <button class="btn btn-warning" >
-                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Cancel
+                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Yes
                                             </button>
                                         </div>
                                     </div>
@@ -187,6 +194,7 @@ $('#cancelModal').on('shown.bs.modal',function(e){
 
     $("#delete_id_message").html(delete_schedule_id);
     $("#will_be_deleted_text").html(delete_schedule_text);
+    $("#delete_id").val(delete_schedule_id);
     
 });
 

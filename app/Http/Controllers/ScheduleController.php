@@ -12,6 +12,8 @@ use App\models\Student;
 use App\models\Schedule;
 use App\models\TimeHelper;
 use Validator;
+use Auth;
+use Entrust;
 
 class ScheduleController extends Controller
 {
@@ -23,11 +25,26 @@ class ScheduleController extends Controller
     public function index()
     {
 
-        $scheduleList = Schedule::scheduleList();
+        //$scheduleList = Schedule::scheduleList();
       
 
 
-        return view('schedule.index', ['scheduleList' => $scheduleList]);
+        //return view('schedule.index', ['scheduleList' => $scheduleList]);
+
+        $user = Auth::user();
+
+        if (Entrust::hasRole('admin')) {
+            $schedule = schedule::scheduleList();
+            return view('schedule.index' , ['scheduleList' => $schedule]);
+        }
+        if (Entrust::hasRole('teacher')) {
+            $teacher_schedule = Teacher::scheduleOfTeacher($user->teachers_id);
+            return view('schedule.index',['scheduleList'=>$teacher_schedule]);
+        }
+        if (Entrust::hasRole('student')) {
+            $student_schedule = Student::scheduleOfStudent($user->students_id);
+            return view('schedule.index',['scheduleList'=>$student_schedule]);
+        }
     }
 
     /**
@@ -98,8 +115,7 @@ class ScheduleController extends Controller
     public function status(Request $request)
     {
         $schedule  = Schedule::setStatus($request);
-      
-
+        
         return redirect('schedule')->with('status', $schedule);
     }
 
