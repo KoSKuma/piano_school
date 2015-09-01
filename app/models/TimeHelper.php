@@ -18,28 +18,16 @@ class TimeHelper extends Model
 
 	public static function calculateTimeFromMinutes($minutes)
 	{
-
 		return TimeHelper::calculateTimeFromSeconds($minutes*60);
 	} 
-	public static function calculateTimeStudent($time_minute, $students_id)
-	{
-		$schedule = Schedule::where('students_id',$students_id)->first();
-		$student = Student::where('id',$students_id)->first();
-		$payment = Payment::where('students_id',$students_id)->first();
-		if ($schedule->status == 'Finish') {
-		
-			$time_finish = $student->remaining_time - $time_minute;
-
-			$student->remaining_time = $time_finish;
-			$student->save();
-
-			$time_topup = $payment->topup_time - $time_minute;
-			$payment->topup_time = $time_topup;
-			$payment->save();
-		}
 	
-
+	public static function secondsToMinutes($seconds)
+	{
+		return $seconds/60;
 	}
-
-
+	
+	public static function calculateElapsedTime($start_time , $end_time)
+	{
+		return TimeHelper::secondsToMinutes(strtotime($end_time) - strtotime($start_time));
+	}
 }

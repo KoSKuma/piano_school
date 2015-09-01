@@ -54,16 +54,19 @@ List of all classes
 	                <div class="col-sm-12" id="schedule_list_table">
 
 	                    <div class="row hidden-xs" id="table_header">
-	                        <div class="col-sm-3">
+	                        <div class="col-sm-2">
 	                            <strong>Start Time</strong>
 	                        </div>
-	                        <div class="col-sm-3">
+	                        <div class="col-sm-2">
 	                            <strong>End Time</strong>
+	                        </div>
+	                         <div class="col-sm-3">
+	                            <strong>Teacher</strong>
 	                        </div>
 	                        <div class="col-sm-3">
 	                            <strong>Student</strong>
 	                        </div>
-	                         <div class="col-sm-3">
+	                         <div class="col-sm-2">
 	                            <strong>Option</strong>
 	                        </div>
 	                    </div>
@@ -73,20 +76,23 @@ List of all classes
 	                        <div class="col-xs-2 visible-xs">
 	                            Start:
 	                        </div>
-	                        <div class="col-md-3 col-xs-10">
+	                        <div class="col-md-2 col-xs-10">
 	                            {{date('j M y G:i', strtotime($schedule->start_time))}}
 	                        </div>
 	                        <div class="col-xs-2 visible-xs">
 	                            End:
 	                        </div>
-	                        <div class="col-md-3 col-xs-10">
+	                        <div class="col-md-2 col-xs-10">
 	                            {{date('j M y G:i', strtotime($schedule->end_time))}}
+	                        </div>
+	                         <div class="col-md-3 col-xs-12">
+	                            {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
 	                        </div>
 	                        <div class="col-md-3 col-xs-12">
 	                            {{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 	                        </div>
 
-	                        <div class="col-md-3 col-xs-12">
+	                        <div class="col-md-2 col-xs-12">
 	                            <input type="hidden" id="attr_schedule_{{$schedule->id}}" class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" teacher_nickname="ครู {{$schedule->teacher_nickname}}" student_nickname="{{$schedule->student_nickname}}" />
 	                            
 	                            <a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >

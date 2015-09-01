@@ -56,7 +56,17 @@ class Student extends Model
         return $student;
     }
 
-    public static function  scheduleOfStudent($students_id) 
+    public function teachers()
+    {
+        return $this->belongsToMany('App\models\Teacher');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\models\User');
+    }
+
+    public static function scheduleOfStudent($students_id) 
     {
         $schedule = Schedule::_scheduleOfTeacher_Student(null ,$students_id );
 
@@ -64,5 +74,13 @@ class Student extends Model
 
     }
     
+    public static function remainingStudyTime($students_id, $teachers_id)
+    {
+        $total_time_paid = Payment::getTotalTimePaid($students_id, $teachers_id);
+        $total_time_studied = Schedule::getTimeStudied($students_id, $teachers_id);
 
+        return $total_time_paid - $total_time_studied ;
+
+
+    }
 }

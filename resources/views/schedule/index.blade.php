@@ -94,8 +94,7 @@ List of all classes
                             </div>
                             <div class="col-md-2 col-xs-12">
                                 {{App\models\Schedule::getStatus($schedule->status)}}
-                            </div>
-                          
+                            </div>                         
                             
                                 
                             <form action="{{url('schedule/confirm')}}" method="post">
@@ -125,9 +124,9 @@ List of all classes
                                 @endif
 
                                 @if (Entrust::can('delete-schedule'))
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
-                                    <span class="fa fa-trash" aria-hidden="true"> </span>
-                                </button>
+                                <a class="btn btn-warning" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
+                                    <span class="fa fa-times-circle" aria-hidden="true"> </span>
+                                </a>
                                 @endif
                             </div>
                                 
@@ -142,27 +141,28 @@ List of all classes
                         @endforeach
 
 
-                    <form action="" method="POST" id="confirm-delete"> 
+                    <form action="{{url('schedule/confirm')}}" method="POST" > 
 
 
-                        <div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade " id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Delete Teacher</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Cancel Class</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete this class? (id: <span id="delete_id_message"></span>) <br />
+                                        Are you sure you want to Cancel this class? (id: <span id="delete_id_message"></span>) <br />
                                         <span id="will_be_deleted_text">
                                         </span>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                                            <input type="hidden" name="_method" value="DELETE">
+                                            
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button class="btn btn-danger" >
-                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+                                        
+                                            <button class="btn btn-warning" >
+                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Cancel
                                             </button>
                                         </div>
                                     </div>
@@ -180,13 +180,14 @@ List of all classes
 </div>
 <script type="text/javascript">
 
-$('#deleteModal').on('shown.bs.modal',function(e){
+$('#cancelModal').on('shown.bs.modal',function(e){
+   
     delete_schedule_id = e.relatedTarget.attributes.schedule_id.value;
     delete_schedule_text = "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("class_time") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("teacher_nickname") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("student_nickname");
 
     $("#delete_id_message").html(delete_schedule_id);
     $("#will_be_deleted_text").html(delete_schedule_text);
-    $("#confirm-delete").attr("action", "{{url('schedule')}}"+"/"+delete_schedule_id);
+    
 });
 
 

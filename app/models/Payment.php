@@ -53,4 +53,14 @@ class Payment extends Model
     static $rulesPayment = array(
         'topup_time' => 'required'
         );
+
+    public static function getTotalTimePaid($students_id, $teachers_id)
+    {
+        $totalTimePaid = DB::table('students_payments')
+                        ->where('students_id', $students_id )
+                        ->where('teachers_id', $teachers_id)
+                        ->sum('topup_time');
+
+        return $totalTimePaid;
+    }
 }

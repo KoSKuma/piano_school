@@ -111,7 +111,7 @@ class Schedule extends Model
 
             return $schedule;
     }
-    public static function returnStatus($request)
+    public static function setStatus($request)
     {
          $schedule  = Schedule::where('students_teachers.id',$request->id)->first();
 
@@ -138,6 +138,27 @@ class Schedule extends Model
             return "Finish";
         else
             return "Not finish";
+    }
+
+    public function time(){
+        return TimeHelper::calculateElapsedTime($this->start_time , $this->end_time);
+    }
+
+    public static function getTimeStudied($students_id, $teachers_id)
+    {
+        $schedules = Schedule::where('students_id',$students_id)
+                             ->where('teachers_id', $teachers_id)
+                             ->where('status' , 'Finish')
+                             ->get();
+
+        $totalTimeStudied = 0;
+
+        foreach ($schedules as $schedule) {
+            $totalTimeStudied += $schedule->time();
+        }
+
+        return $totalTimeStudied;
+
     }
 
  
