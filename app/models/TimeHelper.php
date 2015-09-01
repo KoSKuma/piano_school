@@ -3,7 +3,7 @@
 namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Student;
+use App\models\Student;
 
 class TimeHelper extends Model
 {
