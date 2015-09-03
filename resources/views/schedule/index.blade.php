@@ -95,7 +95,7 @@ List of all classes
                                 {!! csrf_field() !!}
                                 
                             <div class="col-md-2 col-xs-12">
-                                @if (Entrust::can('confirm-taught-class'))
+                                @if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
                                 <input type="hidden" 
                                         id="attr_schedule_{{$schedule->id}}" 
                                         class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
