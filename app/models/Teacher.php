@@ -47,4 +47,8 @@ class Teacher extends Model
 
        return $schedule; 
     }
+
+    public function user(){
+        return $this->hasOne('App\User', 'teachers_id');
+    }
 }

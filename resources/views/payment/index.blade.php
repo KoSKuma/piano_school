@@ -85,7 +85,8 @@ List of all classes
                                     
                                 </div>
                                 <div class="col-sm-1">
-                                    {{$payment->hours}}
+                                    {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours']}}
+                                    
                                 </div>
                                 <div class="col-sm-2">
                                     <a href="{{url('payment/'.$payment->id.'/edit')}}" class="btn btn-default">

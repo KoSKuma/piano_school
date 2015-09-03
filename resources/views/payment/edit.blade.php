@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Payment<small>Add</small></h1>
+<h1>Payment<small>Update</small></h1>
 @endsection
 
 
@@ -16,7 +16,7 @@ Add a new student
     <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Booking</h3>
+                <h3 class="box-title">Update Payment</h3>
             </div><!-- /.box-header -->
 
             <!-- form start -->
@@ -53,9 +53,10 @@ Add a new student
 
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="hours">Hours</label>
+                        <label class="col-sm-3 control-label" for="hours">Topup (Hours)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="hours" id="hours" value="{{$paymentById->hours}}"/>
+                            <input type="text" class="form-control" name="topup_time" id="topup_time" value="{{App\models\TimeHelper::calculateTimeFromMinutes($paymentById->topup_time)['hours']}}"/>
+                            <input type="hidden" name="previous_topup" value="{{$paymentById->topup_time}}">
                         </div>
                     </div>
 

@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\models\TimeHelper;
 use DB;
 use App\models\Schedule;
 
@@ -56,12 +57,46 @@ class Student extends Model
         return $student;
     }
 
-    public static function  scheduleOfStudent($students_id) 
+    public function teachers()
+    {
+        return $this->belongsToMany('App\models\Teacher', 'students_teachers', 'students_id', 'teachers_id')->groupBy('teachers_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\User', 'students_id');
+    }
+
+    public static function scheduleOfStudent($students_id) 
     {
         $schedule = Schedule::_scheduleOfTeacher_Student(null ,$students_id );
 
         return $schedule;
 
     }
+    
+    public static function getRemainingStudyTime($students_id, $teachers_id)
+    {
+        $total_time_paid = Payment::getTotalTimePaid($students_id, $teachers_id);
+        $total_time_studied = Schedule::getTimeStudied($students_id, $teachers_id);
+
+        return $total_time_paid - $total_time_studied ;
+    }
+
+    public function remainingStudyTime()
+    {
+        $remainingTime = array();
+
+        foreach( $this->teachers as $teacher )
+        {
+            array_push($remainingTime, array(
+                'teacher' => $teacher->user->nickname,
+                'time'    => TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['hours']. ':' .TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['minutes']
+                ));
+        }
+
+        return $remainingTime;
+    }
+
 
 }

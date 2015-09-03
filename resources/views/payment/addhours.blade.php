@@ -43,9 +43,9 @@ Add a new student
 
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="location">Hours</label>
+                        <label class="col-sm-3 control-label" for="topup_time">Topup (Hours)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="hours" id="hours" />
+                            <input type="text" class="form-control" name="topup_time" id="topup_time" placeholder="Enter topup time (hours)" /> 
                         </div>
                     </div>
 

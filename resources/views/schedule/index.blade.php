@@ -32,11 +32,14 @@ List of all classes
             <div class="col-xs-6 col-md-12">
                 <h3 class="box-title">Schedule List</h3>
             </div>
+
+            @if(Entrust::can('create-schedule'))
             <div class="col-md-12 text-right">
                  <a href= "{{url('schedule/create')}}" class="btn btn-default" >
                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                  </a>
             </div>
+            @endif
 
     </div><!-- /.box-header -->
     <div class="box-body">
@@ -49,15 +52,20 @@ List of all classes
                         <div class="col-md-2">
                             <strong>Start Time-End Time</strong>
                         </div>
+                        @if (!Entrust::hasRole('teacher'))
                         <div class="col-md-3">
                             <strong>Teacher</strong>
                         </div>
+                        @endif
+                        @if (!Entrust::hasRole('student'))
                         <div class="col-md-3">
                             <strong>Student</strong>
                         </div>
-                         <div class="col-md-2">
+                        @endif
+                        <div class="col-md-2">
                             <strong>Status</strong>
                         </div>
+                      
                         @if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
                         <div class="col-md-2">
                             <strong>Option</strong>
@@ -74,10 +82,17 @@ List of all classes
                             </div>
                             <div class="col-md-2 col-xs-10">
                                 {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
+                                
                             </div>
+                            @if (!Entrust::hasRole('teacher'))
                             <div class="col-md-3 col-xs-10">
-                                ครู {{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
+                                ครู {{$schedule->teacher_nickname}} 
+                                <span class='visible-sm-inline visible-md-inline'><br /></span>
+                                ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
                             </div>
+                            @endif
+
+                            @if (!Entrust::hasRole('student'))
                             <div class="col-md-3 col-xs-12">
                                 {{$schedule->student_nickname}} 
                                 <span class='visible-sm-inline visible-md-inline'>
@@ -85,10 +100,10 @@ List of all classes
                                 </span>
                                 ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
                             </div>
+                            @endif
                             <div class="col-md-2 col-xs-12">
-                                {{App\models\Schedule::getStatus($schedule->status)}}
-                            </div>
-
+                                {{$schedule->status}}
+                            </div>                         
                             
                                 
                             <form action="{{url('schedule/confirm')}}" method="post">
@@ -101,9 +116,9 @@ List of all classes
                                         class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
                                         teacher_nickname="ครู {{$schedule->teacher_nickname}}" 
                                         student_nickname="{{$schedule->student_nickname}}" />
-
-                                <input type="hidden" value="{{$schedule->id}}" name="id">       
-                                <button class="btn btn-default" type="submit">
+                                <input type="hidden" name="id" value="{{$schedule->id}}">
+                                <input type="hidden" name="req" value="confirm">
+                                <button class="btn btn-default" type="submit" id="button_check" >
                                     <span class="fa fa-check" aria-hidden="true"> </span>
                                 </button>
                                 @endif
@@ -115,9 +130,9 @@ List of all classes
                                 @endif
 
                                 @if (Entrust::can('delete-schedule'))
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
-                                    <span class="fa fa-trash" aria-hidden="true"> </span>
-                                </button>
+                                <a class="btn btn-warning" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
+                                    <span class="fa fa-times-circle" aria-hidden="true"> </span>
+                                </a>
                                 @endif
                             </div>
                                 
@@ -132,27 +147,29 @@ List of all classes
                         @endforeach
 
 
-                    <form action="" method="POST" id="confirm-delete"> 
+                    <form action="{{url('schedule/confirm')}}" method="POST" > 
 
 
-                        <div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade " id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Delete Teacher</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Cancel Class</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete this class? (id: <span id="delete_id_message"></span>) <br />
+                                        Are you sure you want to Cancel this class? (id: <span id="delete_id_message"></span>) <br />
                                         <span id="will_be_deleted_text">
                                         </span>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 
-                                            <input type="hidden" name="_method" value="DELETE">
+                                            
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button class="btn btn-danger" >
-                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+                                            <input type="hidden" name="req" value="cancel">
+                                            <input type="hidden" name="id" id="delete_id" value="">
+                                            <button class="btn btn-warning" >
+                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Yes
                                             </button>
                                         </div>
                                     </div>
@@ -170,14 +187,17 @@ List of all classes
 </div>
 <script type="text/javascript">
 
-$('#deleteModal').on('shown.bs.modal',function(e){
+$('#cancelModal').on('shown.bs.modal',function(e){
+   
     delete_schedule_id = e.relatedTarget.attributes.schedule_id.value;
     delete_schedule_text = "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("class_time") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("teacher_nickname") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("student_nickname");
 
     $("#delete_id_message").html(delete_schedule_id);
     $("#will_be_deleted_text").html(delete_schedule_text);
-    $("#confirm-delete").attr("action", "{{url('schedule')}}"+"/"+delete_schedule_id);
+    $("#delete_id").val(delete_schedule_id);
+    
 });
+
 
 
 

@@ -18,7 +18,7 @@ Add a new student
 	<div class="col-md-8">
 		<div class="box box-primary">
 			<div class="box-header with-border">
-				<h3 class="box-title">Student: {{$student->nickname}} ({{$student->firstname. ' ' .$student->lastname}})</h3>
+				<h3 class="box-title">Student: {{$student->user->nickname}} ({{$student->user->firstname. ' ' .$student->user->lastname}})</h3>
 			</div><!-- /.box-header -->
 			<!-- form start -->
 			<form class="form-horizontal" role="form">
@@ -35,7 +35,11 @@ Add a new student
 
 					<div class="row">
 						<div class="col-xs-12 text-center">
-							<img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="200" />
+							@if(empty($student->user->picture))
+								<img src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
+							@else
+								<img src="{{url('/uploads/profile_pictures/').'/'.$student->user->picture}}" height="200" />
+							@endif
 						</div>
 					</div>
 
@@ -44,17 +48,17 @@ Add a new student
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Name</label>
 						<div class="col-sm-4">
-							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$student->firstname}}" readonly="" />
+							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$student->user->firstname}}" readonly="" />
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$student->lastname}}" readonly />
+							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$student->user->lastname}}" readonly />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Nick Name</label>
 						<div class="col-sm-4">
-							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$student->nickname}}" readonly />
+							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$student->user->nickname}}" readonly />
 						</div>
 					</div>
 
@@ -93,7 +97,7 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{date('j F Y' ,strtotime($student->date_of_birth))}}" readonly />
+								<input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{date('j F Y' ,strtotime($student->user->date_of_birth))}}" readonly />
 
 							</div>
 						</div>
@@ -104,6 +108,33 @@ Add a new student
 		</div>
 	</div>
 	<div class="col-md-2">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2">
+	</div>
+	<div class="col-md-8">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Remaining Study Time</h3>
+			</div>
+			<div class="box-body">
+				<div class="col-md-6 hidden-xs">
+					Teacher
+				</div>
+				<div class="col-md-6 hidden-xs">
+					Remaining Time (Hour)
+				</div>
+				@foreach ($times as $time)
+					<div class="col-md-6">
+						{{$time['teacher']}}
+					</div>
+					<div class="col-md-6">
+						{{$time['time']}}
+					</div>
+				@endforeach
+			</div>
+		</div>
 	</div>
 </div>
 
