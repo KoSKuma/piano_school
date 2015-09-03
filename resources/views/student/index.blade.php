@@ -32,13 +32,20 @@ Sample page
 			<div class="col-xs-6">
 				<h3 class="box-title">Student List</h3>
 			</div>
-			@if (Entrust::can('create-student'))
+			
 			<div class="col-xs-12 text-right">
+				@if (Entrust::can('create-student'))
 				<a href= "{{url('student/create')}}" class="btn btn-default" >
 					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 				</a>
+				@endif
 			</div>
-			@endif
+			
+
+			
+			<div class="col-xs-12 text-right">
+							</div>
+			
 		</div>
 	</div><!-- /.box-header -->
 	<div class="box-body">

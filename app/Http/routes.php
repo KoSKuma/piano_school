@@ -35,7 +35,10 @@ Route::group(['middleware' => 'auth'] ,function()
 {
 	Route::get('/home', 'HomeController@dashboard');
 
+	Route::get('student/deleted','StudentController@viewDeletedStudent');
 	Route::resource('student', 'StudentController');
+
+	Route::get('teacher/deleted','TeacherController@viewDeletedTacher');
 	Route::resource('teacher', 'TeacherController');
 
 

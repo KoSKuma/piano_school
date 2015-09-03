@@ -6,9 +6,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\models\TimeHelper;
 use DB;
 use App\models\Schedule;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     public $timestamps = false;
     public static $rules = array(
         'firstname' => 'required' ,
@@ -38,8 +42,16 @@ class Student extends Model
 
          $student = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
-            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone')
-            ->get();
+            ->select('students.id',
+                'users.firstname',
+                'users.lastname','users.nickname',
+                'users.email','users.date_of_birth',
+                'students.student_phone',
+                'students.parent_phone',
+                'users.picture')
+            ->whereNull('users.deleted_at');
+           
+
         
         return $student;
     }

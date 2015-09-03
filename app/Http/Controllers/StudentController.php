@@ -18,10 +18,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $student = DB::table('users')
-            ->join('students','users.students_id', '=', 'students.id')
-            ->select('students.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','students.student_phone','students.parent_phone', 'users.picture')
-            ->get();
+        $student = Student::studentList()->get();
         
         return view('student.index',['studentlist'=>$student]);
     }
@@ -191,5 +188,9 @@ class StudentController extends Controller
        $schedule = Schedule::_scheduleOfTeacher_Student($students_id, null);
 
        return $schedule; 
+    }
+    public static function viewDeletedStudent()
+    {
+        return view('student.deleted');
     }
 }
