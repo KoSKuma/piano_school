@@ -10,7 +10,9 @@
 <!-- <script src="{{ asset('/fullcalendar/lib/jquery.min.js') }}" type="text/javascript"></script> -->
 <script src="{{ asset('/fullcalendar/lib/moment.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/fullcalendar/fullcalendar.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('/plugins/input-mask/jquery.inputmask.js')}}" type="text/javascript"></script>
+<script src="{{ asset('/plugins/input-mask/jquery.inputmask.date.extensions.js')}}" type="text/javascript"></script>
+<script src="{{ asset('/plugins/input-mask/jquery.inputmask.extensions.js')}}" type="text/javascript"></script>
 
 <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
 

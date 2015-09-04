@@ -185,6 +185,8 @@ List of all classes
     </div>
 </div><!-- /.box-body -->
 </div>
+
+@section('script')
 <script type="text/javascript">
 
 $('#cancelModal').on('shown.bs.modal',function(e){
@@ -197,6 +199,7 @@ $('#cancelModal').on('shown.bs.modal',function(e){
     $("#delete_id").val(delete_schedule_id);
     
 });
+@endsection
 
 
 

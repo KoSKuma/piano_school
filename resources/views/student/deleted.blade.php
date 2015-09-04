@@ -18,14 +18,5 @@ Add a new student
 
 
 @section('script')
-<!-- InputMask -->
-<script src="{{url("plugins/input-mask/jquery.inputmask.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.date.extensions.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
-<script type="text/javascript">
-$(function () {
-	$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-	$("[data-mask]").inputmask();
-});
-</script>
+
 @endsection
