@@ -191,6 +191,13 @@ class StudentController extends Controller
     }
     public static function viewDeletedStudent()
     {
-        return view('student.deleted');
+
+        $students = Student::deletedList()->get();
+       //print_r($students);die();
+        
+
+        return view('student.deleted',['deletedList'=>$students]);
     }
+
+   
 }
