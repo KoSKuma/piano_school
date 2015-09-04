@@ -91,7 +91,7 @@ Sample page
                                 <div class="col-md-2 col-xs-12"><img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="80" /></div> 
                                 <div class="col-md-4 col-xs-12">{{$teacher->firstname ." ".$teacher->lastname }} </div>
                                 <div class="col-md-4 col-xs-12">
-                                    {{$teacher->teacher_phone}} 
+                                    {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone ,6)}} 
                                     <span class="visible-xs-inline">(Teacher)</span>
                                 </div>
                             </td>

@@ -197,4 +197,28 @@ class TeacherController extends Controller
 
 		return redirect('teacher');
 	}
+
+	public static function  viewDeletedTeacher()
+	{
+		$teachers = Teacher::deletedList()->get();
+		//print_r($teachers );die();
+		return view('teacher.deleted',['teachersList'=>$teachers]);
+	}
+
+	public function restore(Request $request)
+	{
+
+		$teacher = Teacher::withTrashed()
+					->where('id',$request->id)
+					->restore();
+
+
+
+		$users = User::withTrashed()
+					->where('teachers_id',$request->id)
+					->restore();
+
+		return redirect('teacher');
+
+	}
 }

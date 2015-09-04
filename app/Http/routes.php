@@ -35,11 +35,13 @@ Route::group(['middleware' => 'auth'] ,function()
 {
 	Route::get('/home', 'HomeController@dashboard');
 
+	Route::post('student/restore','StudentController@restore');
 	Route::get('student/deleted','StudentController@viewDeletedStudent');
 	Route::resource('student', 'StudentController');
 
-	Route::get('teacher/deleted','TeacherController@viewDeletedTacher');
-	Route::resource('teacher', 'TeacherController');
+	Route::post('teacher/restore','TeacherController@restore');
+	Route::get('teacher/deleted','TeacherController@viewDeletedTeacher');
+	Route::resource('teacher','TeacherController');
 
 
 	Route::post('schedule/confirm', 'ScheduleController@status');

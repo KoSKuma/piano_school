@@ -68,4 +68,26 @@ class Teacher extends Model
     public function user(){
         return $this->hasOne('App\User', 'teachers_id');
     }
+
+    public static function deletedList()
+    {
+            $teachers = DB::table('users')
+            ->join('teachers','users.teachers_id', '=', 'teachers.id')
+            ->select('teachers.id as id',
+                'users.firstname as firstname',
+                'users.lastname as lastname',
+                'users.nickname as nickname',
+                'users.email as email',
+                'users.date_of_birth as date_of_birth',
+                'teachers.experience as experience',
+                'teachers.degrees as degrees ',
+                'teachers.institute as institute ',
+                'teachers.teacher_phone as teacher_phone ', 
+                'users.picture as picture ')
+            ->whereNotNull('users.deleted_at');
+
+        return $teachers;
+    }
+
+    
 }

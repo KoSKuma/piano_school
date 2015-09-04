@@ -189,15 +189,29 @@ class StudentController extends Controller
 
        return $schedule; 
     }
+
     public static function viewDeletedStudent()
     {
 
         $students = Student::deletedList()->get();
-       //print_r($students);die();
-        
-
         return view('student.deleted',['deletedList'=>$students]);
     }
 
+    public function restore(Request $request)
+    {
+
+        $student = Student::withTrashed()
+                    ->where('id',$request->id)
+                    ->restore();
+
+
+
+        $users = User::withTrashed()
+                    ->where('students_id',$request->id)
+                    ->restore();
+
+        return redirect('student');
+
+    }
    
 }

@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Student <small>Deleted</small></h1>
+<h1>Teacher <small>Deleted</small></h1>
 @endsection
 
 
@@ -16,7 +16,7 @@ Add a new student
 	<div class="box-header">
 		<div class="row">
 			<div class="col-xs-6">
-				<h3 class="box-title">Student Deleted List</h3>
+				<h3 class="box-title">Teacher Deleted List</h3>
 			</div>
 		</div>
 	</div>
@@ -34,47 +34,41 @@ Add a new student
 	                            <strong>Picture</strong>
 	                    </div>
 	                    <div class="col-md-2">
-	                            <strong>Student Name</strong>
+	                            <strong>Full name</strong>
 	                    </div>
 	                    <div class="col-md-2">
-	                            <strong>Student Tel.</strong>
-	                    </div>
-	                    <div class="col-md-2">
-	                            <strong>Parent Tel.</strong>
+	                            <strong>Teacher Tel.</strong>
 	                    </div>
 	                    <div class="col-md-2">
 	                            <strong>Option</strong>
 	                    </div>
 				 	</div>
-				 	@foreach ($deletedList as $student)
+				 	@foreach ($teachersList as $teacher)
 				 	<div class="row">
 				 		
                         <div class="col-md-2 col-xs-10">
-                               {{$student->nickname}}      
+                               ครู{{$teacher->nickname}}      
                         </div>
                         <div class="col-md-2 col-xs-10">
-                               @if (!empty($student->picture))
-								<img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="80" />
+                               @if (!empty($teacher->picture))
+								<img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="80" />
 							   @else
 								<img src="{{url('/uploads/profile_pictures/')}}/default.jpg" height="80" />
 							   @endif     
                         </div>
                         <div class="col-md-2 col-xs-10">
-                               {{$student->firstname." ".$student->firstname}}       
+                               {{$teacher->firstname." ".$teacher->lastname}}       
                         </div>
                         <div class="col-md-2 col-xs-10">
-                               {{ substr($student->student_phone ,0,3)."-".substr($student->student_phone ,3,3)."-".substr($student->student_phone ,6)}}      
+                               {{ substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}      
                         </div>
-                        <div class="col-md-2 col-xs-10">
-                               {{ substr($student->parent_phone ,0,3)."-".substr($student->parent_phone  ,3,3)."-".substr($student->parent_phone  ,6)}}      
-                        </div>
-                  
-                        <form action="{{url('student/restore')}}" method="post">
+
+                        <form action="{{url('teacher/restore')}}" method="post">
                         	 {!! csrf_field() !!}
 	                        <div class="col-md-2 col-xs-10">
 	                        	<input type="hidden" name="_token" value="{{ csrf_token() }}">
                                  
-                                 <input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
+                                 <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
 	                            <button type="submit" ><span>restore</span></button> 
 
 	                        </div>
