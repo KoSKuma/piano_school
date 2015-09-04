@@ -109,6 +109,28 @@ class Student extends Model
 
         return $remainingTime;
     }
+    public static function deletedList()
+    {
+
+         $students = DB::table('users')
+            ->join('students','users.students_id', '=', 'students.id')
+            ->select('students.id' ,
+                'users.firstname as firstname' ,
+                'users.lastname as lastname',
+                'users.nickname as nickname' ,
+                'users.email as email',
+                'users.date_of_birth as date_of_birth',
+                'students.student_phone as student_phone',
+                'students.parent_phone as parent_phone',
+                'users.picture as picture' )
+            ->whereNotNull('users.deleted_at');
+
+        return $students;
+    }
+
+
+
+
 
 
 }

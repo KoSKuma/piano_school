@@ -40,12 +40,6 @@ Sample page
 				</a>
 				@endif
 			</div>
-			
-
-			
-			<div class="col-xs-12 text-right">
-							</div>
-			
 		</div>
 	</div><!-- /.box-header -->
 	<div class="box-body">
@@ -94,9 +88,9 @@ Sample page
 										<div class="col-md-2 col-xs-12"> {{$student->nickname}} </div>  
 										<div class="col-md-2 col-xs-12">
 											@if (!empty($student->picture))
-											<img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="80" />
+												<img src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}" height="80" />
 											@else
-											<img src="{{url('/uploads/profile_pictures/')}}/default.jpg" height="80" />
+												<img src="{{url('/uploads/profile_pictures/')}}/default.jpg" height="80" />
 											@endif
 										</div>   
 										<div class="col-md-3 col-xs-12"> {{$student->firstname."  ".$student->lastname}} </div>
