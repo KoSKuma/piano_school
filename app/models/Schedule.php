@@ -30,7 +30,6 @@ class Schedule extends Model
 
 	public static function scheduleList (){
 
-
 		$schedulelist = DB::table('students_teachers')
 		->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
 		->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
@@ -45,8 +44,8 @@ class Schedule extends Model
 			'teachers.nickname as teacher_nickname', 
 			'teachers.firstname as teacher_firstname', 
 			'teachers.lastname as teacher_lastname',
-			'students_teachers.status as status')
-		->get();
+			'students_teachers.status as status');
+
 		return $schedulelist;
 	}
 	public static function scheduleById ($id){
@@ -104,10 +103,7 @@ class Schedule extends Model
 			'teachers.lastname as teacher_lastname', 
 			'students_teachers.location as location',
 			'students_teachers.status as status')
-		->whereRaw( $whereClause )
-			//->where('students_teachers.teachers_id' , '=' , $teacher_id )
-			//->where('students_teachers.students_id' , "=" , $student_id )
-		->get();
+		->whereRaw( $whereClause );
 
 		return $schedule;
 	}
