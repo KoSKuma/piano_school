@@ -16,6 +16,7 @@
 
 <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
 
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

@@ -136,7 +136,7 @@ class Schedule extends Model
 	{
 		$schedules = Schedule::where('students_id',$students_id)
 		->where('teachers_id', $teachers_id)
-		->where('status' , 'Finish')
+		->where('status' , 1)
 		->get();
 
 		$totalTimeStudied = 0;

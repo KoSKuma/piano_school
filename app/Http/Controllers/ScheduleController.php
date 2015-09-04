@@ -45,7 +45,7 @@ class ScheduleController extends Controller
         if (Entrust::hasRole('student')) {
             $schedule = Student::scheduleOfStudent($user->students_id);
         }
-        return view('schedule.index' , ['scheduleList' => $schedule->get()]);
+        return view('schedule.index' , ['scheduleList' => $schedule->paginate(15)]);
     }
 
     /**

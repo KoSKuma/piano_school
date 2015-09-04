@@ -26,15 +26,15 @@ class HomeController extends Controller
 
         if (Entrust::hasRole('admin')) {
             $schedule = schedule::scheduleList();
-            return view('admin.home' , ['scheduleList' => $schedule]);
+            return view('admin.home' , ['scheduleList' => $schedule->get()]);
         }
         if (Entrust::hasRole('teacher')) {
             $teacher_schedule = Teacher::scheduleOfTeacher($user->teachers_id);
-            return view('teacher.home',['scheduleList'=>$teacher_schedule]);
+            return view('teacher.home',['scheduleList'=>$teacher_schedule->get()]);
         }
         if (Entrust::hasRole('student')) {
             $student_schedule = Student::scheduleOfStudent($user->students_id);
-            return view('student.home',['scheduleList'=>$student_schedule]);
+            return view('student.home',['scheduleList'=>$student_schedule->get()]);
         }
 
     }
