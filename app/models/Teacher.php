@@ -3,10 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\models\Schedule;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teacher extends Model
 {
     public $timestamps = false;
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     public static $rules = array(
             'firstname' => 'required' ,
             'lastname' => 'required' ,
@@ -36,8 +40,21 @@ class Teacher extends Model
     public static function teacherList() {
         $teacher = DB::table('users')
             ->join('teachers','users.teachers_id', '=', 'teachers.id')
-            ->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone')
-            ->get();
+            ->select('teachers.id',
+                'users.firstname',
+                'users.lastname',
+                'users.nickname',
+                'users.email',
+                'users.date_of_birth',
+                'teachers.experience',
+                'teachers.degrees',
+                'teachers.institute',
+                'teachers.teacher_phone', 
+                'teachers.deleted_at',
+                'users.deleted_at' ,
+                'users.picture')
+            ->whereNull('users.deleted_at');          
+
 
         return $teacher;
     }

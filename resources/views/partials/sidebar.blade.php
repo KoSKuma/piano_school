@@ -81,6 +81,26 @@
                 </a>
             </li>
             @endif
+
+            @if (Entrust::can(['delete-student']))
+            <li class="treeview">
+                <a href="#">
+                    <i class='fa  fa-trash-o'></i> 
+                    <span>Manage Deleted</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    @if (Entrust::can('delete-teacher'))
+                    <li><a href="{url('teacher/deleted')}}">Teacher</a></li>
+                    @endif
+                    @if (Entrust::can('delete-student'))
+                    <li><a href="{{url('student/deleted')}}">Student</a></li>
+                    @endif
+                </ul>
+            </li>
+            @endif
+
+
            
             
              
