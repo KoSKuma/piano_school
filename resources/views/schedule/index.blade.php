@@ -180,11 +180,22 @@ List of all classes
 
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    {{ (($scheduleList->currentPage() - 1) * $scheduleList->perPage() + 1) }}-{{ (($scheduleList->currentPage() - 1) * $scheduleList->perPage() + 1) + ($scheduleList->count() - 1)}} of {{$scheduleList->total()}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    {!! $scheduleList->render() !!}
+                </div>
+            </div>
 
         </div>
     </div>
 </div><!-- /.box-body -->
 </div>
+@endsection
 
 @section('script')
 <script type="text/javascript">
@@ -199,12 +210,6 @@ $('#cancelModal').on('shown.bs.modal',function(e){
     $("#delete_id").val(delete_schedule_id);
     
 });
-@endsection
-
-
-
-
-
 
 </script>
 @endsection

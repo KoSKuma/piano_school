@@ -62,7 +62,7 @@ class Teacher extends Model
     {
        $schedule = Schedule::_scheduleOfTeacher_Student($teachers_id, null);
 
-       return $schedule; 
+       return $schedule->get(); 
     }
 
     public function user(){
