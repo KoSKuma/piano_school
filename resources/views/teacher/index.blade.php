@@ -26,96 +26,165 @@ Sample page
     background: transparent!important;
 }
 </style>
-<div class="box">
-    <div class="box-header">
+<div class="box box-solid box-info">
+    <div class="box-header ">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <h3 class="box-title">Teacher List</h3>
             </div>
-            @if (Entrust::can('create-teacher'))
+           @if (Entrust::can('create-teacher'))
             <div class="col-xs-12 text-right">
-                <a href= "{{url('teacher/create')}}" class="btn btn-default" >
+                <a href= "{{url('teacher/create')}}" class="btn btn-primary" >
                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
                </a>
             </div>
             @endif
+        
         </div>
 
     </div><!-- /.box-header -->
     <div class="box-body">
-        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-            <div class="row">
-                <div class="col-sm-12">
-                    <table 
-                    id="example2" 
-                    class="table table-bordered table-hover dataTable" 
-                    role="grid" aria-describedby="example2_info">
-                    <thead>
-                       <tr role="row">
-                        <th 
-                        class="sorting_asc" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Rendering engine: activate to sort column descending" 
-                        aria-sort="ascending">Teacher Detail</th>
 
-                        <th class="sorting" 
-                        tabindex="0" 
-                        aria-controls="example2" 
-                        rowspan="1" colspan="1" 
-                        aria-label="Platform(s): activate to sort column ascending">Option</th>
+        <div class="row ">
+             <div class="col-sm-12 col-md-12 " id="schedule_list_table">
+                <div class="row hidden-xs hidden-sm" id="table_header">
+                    
+                    <div class="col-md-2">
+                            <strong>Picture</strong>
+                    </div>
+                    <div class="col-md-2">
+                            <strong>Nick Name</strong>
+                    </div>
+                    <div class="col-md-2">
+                            <strong>Full name</strong>
+                    </div>
+                    <div class="col-md-2">
+                            <strong>Teacher Tel.</strong>
+                    </div>
+                    <div class="col-md-2">
+                            <strong>Option</strong>
+                    </div>
+                </div>
+                @foreach ($teacherlist as $teacher)
+                    <div class="row ">
+                         <div class="col-md-2 visible-xs text-right">
+                            <form action="{{url('teacher/restore')}}" method="post">
+                            {!! csrf_field() !!}
+                            <!-- Single button -->
+                                <div class="btn-group  " >
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
 
+                                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                  </button>
+                                  <ul class="dropdown-menu dropdown-menu-right">
+                                    @if (Entrust::can('view-teacher'))
+                                    <li><a href= "{{url('teacher/'.$teacher->id)}}">View</a></li>
+                                    @endif
 
-                    </tr>
-                    <tr >
-                        <td class="hidden-xs hidden-sm">
-                            <div class="row">
-                                <div class="col-md-2 hidden-xs hidden-sm"><b>Nick Name</b></div>
-                                <div class="col-md-2 hidden-xs hidden-sm"><b>Pictuer</b></div>
-                                <div class="col-md-4 hidden-xs hidden-sm"><b>Full Name</b></div>
-                                <div class="col-md-4 hidden-xs hidden-sm"><b>Teacher Tel.</b></div>
+                                    @if (Entrust::can('edit-teacher'))
+                                    <li><a href= "{{url('teacher/'.$teacher->id.'/edit')}}">Edit</a></li>
+                                    @endif
 
-
-                            </td>
-
-                        </tr> 
-                    </thead>
-                    <tbody>
-
-                        @foreach ($teacherlist as $teacher)
-                        <tr role="row" class="odd">
-                            <td class="sorting_1"> 
-                                <div class="row" > </div>
-                                <div class="col-md-2 col-xs-12">ครู{{$teacher->nickname}} </div>
-                                <div class="col-md-2 col-xs-12"><img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="80" /></div> 
-                                <div class="col-md-4 col-xs-12">{{$teacher->firstname ." ".$teacher->lastname }} </div>
-                                <div class="col-md-4 col-xs-12">
-                                    {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone ,6)}} 
-                                    <span class="visible-xs-inline">(Teacher)</span>
+                                    @if (Entrust::can('delete-teacher'))
+                                    <li><a 
+                                        
+                                        data-toggle="modal" 
+                                        data-target="#myModal" 
+                                        teacher_id="{{$teacher->id}}" 
+                                        teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
+                                        Delete
+                                    </a></li>
+                                    @endif
+                                
+                                    
+                                  </ul>
                                 </div>
-                            </td>
-                            <td>
+                        
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-md-2 col-xs-4 ">
+                          @if (!empty($teacher->picture))
+                            <img class="img-responsive img-thumbnail" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
+                          @else
+                            <img class="img-responsive img-thumbnail"  src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
+                          @endif       
+                        </div>
+
+                        <div class="col-md-2 ">
+                               ครู{{$teacher->nickname}}  
+                        </div>
+                        <div class="col-md-2 ">
+                               {{$teacher->firstname." ".$teacher->lastname}}       
+                        </div>
+                        <div class="col-md-2 ">
+                               {{ substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}      
+                        </div>
+
+                    <form action="{{url('teacher/restore')}}" method="post">
+                        {!! csrf_field() !!}
+                        <!-- Single button -->
+                        <div class="col-md-2 hidden-xs">
+                            <div class="btn-group ">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
+                                <button type="button" class="btn btn-default">Select Action</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                 </button>
+
+                              
+                              <ul class="dropdown-menu">
                                 @if (Entrust::can('view-teacher'))
-                                <a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn-default" >
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                </a>
+                                <li><a href= "{{url('teacher/'.$teacher->id)}}">View</a></li>
                                 @endif
 
                                 @if (Entrust::can('edit-teacher'))
-                                <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-default" >
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </a>
+                                <li><a href= "{{url('teacher/'.$teacher->id.'/edit')}}">Edit</a></li>
                                 @endif
 
                                 @if (Entrust::can('delete-teacher'))
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#myModal" teacher_id="{{$teacher->id}}" teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
-                                    <span class="fa fa-trash" aria-hidden="true"> </span>
-                                </button>
+                                <li><a 
+                                    
+                                    data-toggle="modal" 
+                                    data-target="#myModal" 
+                                    teacher_id="{{$teacher->id}}" 
+                                    teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
+                                    Delete
+                                </a></li>
                                 @endif
-                            </td>
-                        </tr>
-                        @endforeach
+                                
+                              </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @endforeach
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+                                
+                       
 
                         <form action="" method="POST" id="confirm-delete"> 
 
@@ -144,17 +213,7 @@ Sample page
 
                         </form>
 
-                    </tbody>
-
-                </table>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-</div><!-- /.box-body -->
-</div>
+                    
 <script type="text/javascript">
 
 $('#myModal').on('shown.bs.modal',function(e){
