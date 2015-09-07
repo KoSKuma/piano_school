@@ -22,10 +22,25 @@ class TeacherController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$teacher = Teacher::teacherList()->get();
-		return view('teacher.index',['teacherlist'=>$teacher]);
+		if($request->has('search')){
+			$teachers = Teacher::searchTeacherList($request->input('search'));
+
+			$searchResult = array(
+				'status'	=>	'ok',
+				'keyword'	=>	$request->input('search'),
+				'count'		=>	$teachers->count(),
+			);
+
+			return view('teacher.index',['teachers'=>$teachers->paginate(2)])->with('searchResult', $searchResult);
+		}
+		else{
+			$teachers = Teacher::teacherList();
+			return view('teacher.index',['teachers'=>$teachers->paginate(2)]);
+		}
+
+		
 	}
 
 	/**
