@@ -91,7 +91,7 @@
                 </a>
                 <ul class="treeview-menu">
                     @if (Entrust::can('delete-teacher'))
-                    <li><a href="{url('teacher/deleted')}}">Teacher</a></li>
+                    <li><a href="{{url('teacher/deleted')}}">Teacher</a></li>
                     @endif
                     @if (Entrust::can('delete-student'))
                     <li><a href="{{url('student/deleted')}}">Student</a></li>

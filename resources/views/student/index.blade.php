@@ -98,13 +98,13 @@ Sample page
 										<div class="col-md-2 col-xs-12">
 											<!-- <div class="visible-xs ">Student:</div> -->
 
-											{{$student->student_phone}}
+											{{ substr($student->student_phone  ,0,3)."-".substr($student->student_phone   ,3,3)."-".substr($student->student_phone  ,6)}}
 											<span class="visible-xs-inline">(Student)</span>
 										</div>
 
 										<div class="col-md-2 col-xs-12">
 											<!-- <div class=" visible-xs">Parent:</div> -->
-											{{$student->parent_phone}}
+											{{substr($student->parent_phone  ,0,3)."-".substr($student->parent_phone   ,3,3)."-".substr($student->parent_phone  ,6)}}
 											<span class="visible-xs-inline">(Parent)</span>
 										</div>
 									</div>

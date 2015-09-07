@@ -63,16 +63,22 @@ Add a new student
                                {{$student->firstname." ".$student->firstname}}       
                         </div>
                         <div class="col-md-2 col-xs-10">
-                               {{$student->lastname}}      
+                               {{ substr($student->student_phone ,0,3)."-".substr($student->student_phone ,3,3)."-".substr($student->student_phone ,6)}}      
                         </div>
                         <div class="col-md-2 col-xs-10">
-                               {{$student->student_phone}}      
+                               {{ substr($student->parent_phone ,0,3)."-".substr($student->parent_phone  ,3,3)."-".substr($student->parent_phone  ,6)}}      
                         </div>
-                        <div class="col-md-2 col-xs-10">
-                               {{$student->parent_phone}}      
-                        </div>
+                  
+                        <form action="{{url('student/restore')}}" method="post">
+                        	 {!! csrf_field() !!}
+	                        <div class="col-md-2 col-xs-10">
+	                        	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                 
+                                 <input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
+	                            <button type="submit" ><span>restore</span></button> 
 
-
+	                        </div>
+                    	</form>
 				 	</div>
 				 	@endforeach
 				 </div>	
