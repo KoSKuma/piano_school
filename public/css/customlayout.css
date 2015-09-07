@@ -1,21 +1,20 @@
-.dataTables_wrapper {
-	padding: 12px;
-}
-
 .col-header {
 	display: table;
 	height: 46px;
-	border: 1px solid #eeeeee;
-	border-right: 0px;
-}
-
-.col-header:last-child {
-	border-right: 1px solid #eeeeee;
 }
 
 .col-header span {
-	vertical-align: middle;
 	display: table-cell;
+	vertical-align: middle;
+}
+
+.col-vcenter {
+	display: table;
+}
+
+.col-vcenter span {
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .col-content {
@@ -24,11 +23,17 @@
 	border-right: 0px;
 }
 
-.col-content:last-child {
-	border-right: 1px solid #eeeeee;
-}
 
 .col-content span {
 	vertical-align: middle;
 	display: table-cell;
+}
+
+.pagination-info span {
+	position: relative;
+	top: 6px;
+}
+
+.box-info .box-header .box-tools .glyphicon.with-white-bg {
+	color: #CCCCCC;
 }

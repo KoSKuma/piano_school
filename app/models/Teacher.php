@@ -55,9 +55,33 @@ class Teacher extends Model
                 'users.picture')
             ->whereNull('users.deleted_at');          
 
-
         return $teacher;
     }
+
+    public static function searchTeacherList($query) {
+        $teachers = DB::table('users')
+            ->join('teachers','users.teachers_id', '=', 'teachers.id')
+            ->select('teachers.id',
+                'users.firstname',
+                'users.lastname',
+                'users.nickname',
+                'users.email',
+                'users.date_of_birth',
+                'teachers.experience',
+                'teachers.degrees',
+                'teachers.institute',
+                'teachers.teacher_phone', 
+                'teachers.deleted_at',
+                'users.deleted_at' ,
+                'users.picture')
+            ->where('firstname', 'LIKE', "%$query%")
+            ->orWhere('lastname', 'LIKE', "%$query%")
+            ->orWhere('nickname', 'LIKE', "%$query%")
+            ->whereNull('users.deleted_at');
+
+        return $teachers;
+    }
+
     public static function scheduleOfTeacher($teachers_id)
     {
        $schedule = Schedule::_scheduleOfTeacher_Student($teachers_id, null);
