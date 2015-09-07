@@ -18,9 +18,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $student = Student::studentList()->get();
+        $students = Student::studentList();
         
-        return view('student.index',['studentlist'=>$student]);
+        return view('student.index',['studentList'=>$students->paginate(15)]);
     }
 
     /**

@@ -81,7 +81,7 @@ Sample page
 						</thead>
 						<tbody>
 
-							@foreach ($studentlist as $student)
+							@foreach ($studentList as $student)
 							<tr role="row" class="odd">
 								<td class="sorting_1"> 
 									<div class="row">
