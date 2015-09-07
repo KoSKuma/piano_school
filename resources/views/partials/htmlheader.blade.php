@@ -20,8 +20,10 @@
 
     <!-- included for projects -->
     <link href="{{ asset('/fullcalendar/fullcalendar.css')}}" rel='stylesheet' type="text/css" />
+
+    <link href="{{ asset('/css/customlayout.css')}}" rel='stylesheet' type="text/css" />
+
     <link href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
     @yield('style')
 

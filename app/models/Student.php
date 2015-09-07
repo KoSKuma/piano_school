@@ -37,10 +37,9 @@ class Student extends Model
         'profile_picture' => 'image|max:1000'
     );
 
-
     public static function studentList() {
 
-         $student = DB::table('users')
+         $students = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
             ->select('students.id',
                 'users.firstname',
@@ -51,9 +50,7 @@ class Student extends Model
                 'users.picture')
             ->whereNull('users.deleted_at');
            
-
-        
-        return $student;
+        return $students;
     }
 
     //
