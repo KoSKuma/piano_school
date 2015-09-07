@@ -81,8 +81,8 @@ class PaymentController extends Controller
     {
         $payments = Payment::paymentById($id);
 
-        $teacherlist =  Teacher::teacherList();
-        $studentlist = Student::studentList();
+        $teacherlist =  Teacher::teacherList()->get();
+        $studentlist = Student::studentList()->get();
         return view('payment.edit',['teacherlist'=>$teacherlist , 'studentlist'=>$studentlist , 'paymentById'=>$payments]);
     }
 

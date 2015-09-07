@@ -26,19 +26,17 @@ List of all classes
     background: transparent!important;
 }
 </style>
-<div class="box">
+<div class="box box-solid box-info">
     <div class="box-header">
         <div class="row">
             <div class="col-xs-6">
                 <h3 class="box-title">Payment List</h3>
             </div>
             <div class="col-xs-12 text-right">
-                <a href= "{{url('payment/create')}}" class="btn btn-default" >
+                <a href= "{{url('payment/create')}}" class="btn btn-primary" >
                  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add
              </a>
-                        <!-- <button type="button" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-                </button> -->
+                        
             </div>
         </div>
 
@@ -46,56 +44,93 @@ List of all classes
     <div class="box-body">
         <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row">
-                <!-- <div class="col-xs-12 visible-xs">xs</div>
-                <div class="col-sm-12 visible-sm">sm</div>
-                <div class="col-md-12 visible-md">md</div>
-                <div class="col-lg-12 visible-lg">lg</div> -->
-                <div class="col-sm-12" id="schedule_list_table">
+                
+                <div class="col-md-12" id="schedule_list_table">
 
                     <div class="row hidden-xs" id="table_header">
-                        <div class="col-sm-2">
-                            <strong>Date</strong>
+                        <div class="col-md-10">
+                            <div class="col-md-2">
+                                <strong>Date</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Teacher</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Student</strong>
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Hours</strong>
+                            </div>
                         </div>
-                        <div class="col-sm-3">
-                            <strong>Teacher</strong>
-                        </div>
-                        <div class="col-sm-3">
-                            <strong>Student</strong>
-                        </div>
-                        <div class="col-sm-1">
-                            <strong>Hours</strong>
-                        </div>
-                        <div class="col-sm-2">
+                         <div class="col-md-2">
                             <strong>Option</strong>
                         </div>
-                       
-                    
+                      
+                          
                     </div>
                     
                         @foreach($payments as $payment)
                             <div class="row">
-                                <div class="col-sm-2">
-                                    {{date('j M y G:i',strtotime($payment->created_at))}}
+                                <div class="col-md-10 col-xs-10">
+                                    <div class="col-md-2">
+                                        {{date('j M y G:i',strtotime($payment->created_at))}}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{'ครู'.$payment->teachers_nickname.' '.'('.$payment->teachers_firstname. ' ' .$payment->teachers_lastname.')' }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ $payment->students_nickname.' '.'('.$payment->students_firstname.' ' .$payment->students_lastname.')'}}
+                                        
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours']}}
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    {{'ครู'.$payment->teachers_nickname.' '.'('.$payment->teachers_firstname. ' ' .$payment->teachers_lastname.')' }}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{ $payment->students_nickname.' '.'('.$payment->students_firstname.' ' .$payment->students_lastname.')'}}
-                                    
-                                </div>
-                                <div class="col-sm-1">
-                                    {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours']}}
-                                    
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="{{url('payment/'.$payment->id.'/edit')}}" class="btn btn-default">
-                                            <i class='fa fa-edit'></i>
-                                    </a>
 
+                                
+                                    <div class="col-md-2 hidden-xs">
+                                        <div class="btn-group ">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        
+                                            
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                                Select Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="{{url('payment/'.$payment->id.'/edit')}}" >
+                                                        Edit
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                      <div class="col-md-2 col-xs-2 visible-xs">
+                                        <div class="btn-group ">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        
+                                            
+                                            <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a href="{{url('payment/'.$payment->id.'/edit')}}" >
+                                                        Edit
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12" style="height:24px">
                                 </div>
-                               
-                            
                             </div>
                         @endforeach
                       
