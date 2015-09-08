@@ -104,9 +104,9 @@ class ScheduleController extends Controller
     {
        $scheduleById = Schedule::scheduleById($id);
      
-        $teacherlist = Teacher::teacherList();
+        $teacherlist = Teacher::teacherList()->get();
   
-        $studentlist = Student::studentList();
+        $studentlist = Student::studentList()->get();
       
 
        

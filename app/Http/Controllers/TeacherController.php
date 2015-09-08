@@ -74,11 +74,11 @@ class TeacherController extends Controller
 			$user->email = $request->email;
 			$user->password = bcrypt($request->password);
 			$user->date_of_birth = $request->date_of_birth;
-
-			$teacherRole = Role::where('name', '=', 'teacher');
+			$user->save();
+			$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
 
 			$user->attachRole($teacherRole);
-			$user->save();
+			
 
 			if($request->hasFile('profile_picture')){
 				if($request->file('profile_picture')->isValid()){

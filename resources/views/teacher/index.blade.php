@@ -12,21 +12,8 @@ Sample page
 
 
 @section('main-content')
-<style>
-.example-modal .modal {
-	position: relative;
-	top: auto;
-	bottom: auto;
-	right: auto;
-	left: auto;
-	display: block;
-	z-index: 1;
-}
-.example-modal .modal {
-	background: transparent!important;
-}
-</style>
-<div class="box box-solid box-info">
+
+<div class="box box-solid box-custom-info">
 	<div class="box-header">
 		<div class="row">
 			<div class="col-xs-12">

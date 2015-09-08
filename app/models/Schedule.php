@@ -109,18 +109,20 @@ class Schedule extends Model
 	}
 	public static function setStatus($request)
 	{
+		print_r($request);die();
+
 		$schedule  = Schedule::where('students_teachers.id',$request->id)->first();
 
-		if($request->req == 'cancel' && $schedule->status == 'Not Finish'){
+		if($request->req == 'cancel' && $schedule->status == 'Not Start'){
 			$schedule->status = 'Cancel';
 		}
-		if($request->req == 'confirm' && $schedule->status == 'Not Finish')
+		if($request->req == 'confirm' && $schedule->status == 'Not Start')
 		{ 
 			$schedule->status = 'Finish';
 		}
 		elseif($request->req == 'confirm' && $schedule->status == 'Finish')
 		{
-			$schedule->status = 'Not Finish';
+			$schedule->status = 'Not Start';
 		}
 		$schedule->save();
 

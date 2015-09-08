@@ -112,7 +112,6 @@ List of all classes
 						<div class="col-md-2 hidden-xs">
 							<form action="{{url('schedule/confirm')}}" method="post">
 								{!! csrf_field() !!}
-
 								
 									<div class="btn-group ">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -131,13 +130,65 @@ List of all classes
 												<li>
 												<input type="hidden" 
 													   id="attr_schedule_{{$schedule->id}}" 
-													   class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" 
-													   teacher_nickname="ครู {{$schedule->teacher_nickname}}" 
-													   student_nickname="{{$schedule->student_nickname}}" />
+													   class_time="{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}" 
+													   teacher_name="ครู {{$schedule->teacher_nickname}} ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})" 
+													   student_name="{{$schedule->student_nickname}} ({{$schedule->student_firstname}} {{$schedule->student_lastname}})" />
 												<input type="hidden" name="id" value="{{$schedule->id}}">
 												<input type="hidden" name="req" value="confirm">
 												
-													<button class="btn btn-default btn-block t" type="submit" id="button_check" >
+													<button class="btn btn-default btn-block" type="submit" id="button_check" >
+														Confirm Status
+													</button>
+												</li>
+												@endif
+
+												@if (Entrust::can('edit-schedule'))
+													<li>
+														<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" >
+															Edit
+														</a>
+													</li>
+												@endif
+
+												@if (Entrust::can('delete-schedule'))
+													<li>
+														<a data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
+															Cancel
+														</a>
+													</li>
+												@endif
+										
+										</ul>
+									</div>
+							</form>
+							</div>
+
+						<div class="col-md-2 visible-xs">
+							<form action="{{url('schedule/confirm')}}" method="post">
+								{!! csrf_field() !!}
+
+								
+									<div class="btn-group ">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										
+										
+										<button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="glyphicon glyphicon-th"></span>
+										</button>
+
+
+										<ul class="dropdown-menu dropdown-menu-right">
+												@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
+												<li>
+												<input type="hidden" 
+													   id="attr_schedule_{{$schedule->id}}" 
+													   class_time="{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}" 
+													   teacher_name="ครู {{$schedule->teacher_nickname}} ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})" 
+													   student_name="{{$schedule->student_nickname}} ({{$schedule->student_firstname}} {{$schedule->student_lastname}})" />
+												<input type="hidden" name="id" value="{{$schedule->id}}">
+												<input type="hidden" name="req" value="confirm">
+												
+													<button class="btn btn-default btn-block" type="submit" id="button_check" >
 														Confirm Status
 													</button>
 												</li>
@@ -161,13 +212,10 @@ List of all classes
 										
 										</ul>
 									</div>
-						
-
-								
-								
-							
 							</form>
 							</div>
+
+
 
 
 					</div>
@@ -231,15 +279,17 @@ List of all classes
 @section('script')
 <script type="text/javascript">
 
-$('#cancelModal').on('shown.bs.modal',function(e){
+$(document).ready(function(){
+	$('#cancelModal').on('shown.bs.modal',function(e){
 
-	delete_schedule_id = e.relatedTarget.attributes.schedule_id.value;
-	delete_schedule_text = "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("class_time") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("teacher_nickname") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("student_nickname");
-
-	$("#delete_id_message").html(delete_schedule_id);
-	$("#will_be_deleted_text").html(delete_schedule_text);
-	$("#delete_id").val(delete_schedule_id);
-	
+		delete_schedule_id = e.relatedTarget.attributes.schedule_id.value;
+		delete_schedule_text = "<br />Class Time: " + $("#attr_schedule_"+delete_schedule_id).attr("class_time") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("teacher_name") + "<br />" + $("#attr_schedule_"+delete_schedule_id).attr("student_name");
+		
+		$("#delete_id_message").html(delete_schedule_id);
+		$("#will_be_deleted_text").html(delete_schedule_text);
+		$("#delete_id").val(delete_schedule_id);
+		
+	});
 });
 
 </script>
