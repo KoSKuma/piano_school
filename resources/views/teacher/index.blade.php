@@ -16,32 +16,41 @@ Sample page
 <div class="box box-solid box-custom-info">
 	<div class="box-header">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-xs-6 col-md-12 vtop">
 				<h3 class="box-title">Teacher List</h3>
+				<span class="visible-xs">{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) }}-{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) + ($teachers->count() - 1)}} of {{$teachers->total()}}</span>
 			</div>
-			<div class="col-xs-6 pagination-info">
-				<span>{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) }}-{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) + ($teachers->count() - 1)}} of {{$teachers->total()}}</span>
-			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-2 pull-right visible-xs">
 				@if (Entrust::can('create-teacher'))
 				<div class="pull-right">
-					&nbsp;&nbsp;&nbsp;
 					<a href= "{{url('teacher/create')}}" class="btn btn-primary" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>
 				@endif
-				
-				<div class="box-tools pull-right">
-					<form action="{{url('/teacher')}}" method="GET">
-						<div class="has-feedback">
-							<input class="form-control input-sm" name="search" placeholder="Search..." type="text">
-							<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
-						</div>
-					</form>
-				</div>
 			</div>
-
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 pagination-info vcenter hidden-xs">
+				<span>{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) }}-{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) + ($teachers->count() - 1)}} of {{$teachers->total()}}</span>
+			</div>
+			<div class="col-xs-12 col-sm-1 pull-right hidden-xs">
+				@if (Entrust::can('create-teacher'))
+				<div class="pull-right">
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary" >
+						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+					</a>
+				</div>
+				@endif
+			</div>
+			<div class="col-xs-12 col-sm-4 box-tools pull-right">
+				<form action="{{url('/teacher')}}" method="GET">
+					<div class="has-feedback">
+						<input class="form-control input-sm" name="search" placeholder="Search..." type="text">
+						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
+					</div>
+				</form>
+			</div>
 		</div>
 
 	</div><!-- /.box-header -->
@@ -60,21 +69,21 @@ Sample page
 			<div class="col-sm-12 col-md-12" id="teacher_list_table">
 				<div class="row hidden-xs hidden-sm" id="table_header">
 					<div class="col-md-2 col-xs-3">
-						<div class="col-md-2 col-header">
+						<div class="col-md-2 col-header vcenter">
 							<span><strong>Picture</strong></span>
 						</div>
 					</div>
 					<div class="col-md-10 col-xs-7">
-						<div class="col-md-2 col-header">
+						<div class="col-md-2 col-header vcenter">
 							<span><strong>Nick Name</strong></span>
 						</div>
-						<div class="col-md-3 col-header">
+						<div class="col-md-3 col-header vcenter">
 							<span><strong>Full name</strong></span>
 						</div>
-						<div class="col-md-2 col-header">
+						<div class="col-md-2 col-header vcenter">
 							<span><strong>Teacher Tel.</strong></span>
 						</div>
-						<div class="col-md-2 col-header">
+						<div class="col-md-2 col-header vcenter">
 							<span><strong>Option</strong></span>
 						</div>
 					</div>
