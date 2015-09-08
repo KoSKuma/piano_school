@@ -1,37 +1,31 @@
 .col-header {
-	display: table;
 	height: 46px;
 }
 
-.col-header span {
-	display: table-cell;
-	vertical-align: middle;
-}
-
-.col-vcenter {
+.vcenter {
 	display: table;
 }
 
-.col-vcenter span {
+.vcenter span {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.vtop {
+	display: table;
+}
+
+.vtop span {
+	display: table-cell;
+	vertical-align: top;
 }
 
 .col-content {
-	display: table;
 	border: 1px solid #eeeeee;
-	border-right: 0px;
 }
 
-
-.col-content span {
-	vertical-align: middle;
-	display: table-cell;
-}
-
-.pagination-info span {
-	position: relative;
-	top: 6px;
+.pagination-info {
+	height: 30px;
 }
 
 .box-info .box-header .box-tools .glyphicon.with-white-bg {
