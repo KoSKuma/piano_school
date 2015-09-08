@@ -55,8 +55,8 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $teacher = Teacher::teacherList();
-        $student = Student::studentList();
+        $teacher = Teacher::teacherList()->get();
+        $student = Student::studentList()->get();
         //print_r($teacher);die();
         return view('schedule.booking',['teacherlist'=>$teacher , 'studentlist'=>$student ]);
         

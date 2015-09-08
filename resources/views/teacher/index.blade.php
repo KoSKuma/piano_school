@@ -23,7 +23,7 @@ Sample page
 			<div class="col-xs-2 pull-right visible-xs">
 				@if (Entrust::can('create-teacher'))
 				<div class="pull-right">
-					<a href= "{{url('teacher/create')}}" class="btn btn-primary" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-custom-white" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>

@@ -52,22 +52,10 @@
   color: #ffffff;
 }
 
-.box.box-custom-white {
-  border-top-color: #ffffff;
-}
 
-.box.box-solid.box-custom-white {
-  border: 1px solid #ffffff;
-}
 
-.box.box-solid.box-custom-white > .box-header {
-  color: #ffffff;
-  background: #ffffff;
-  background-color: #ffffff;
-}
 
-.box.box-solid.box-custom-white > .box-header a,
-.box.box-solid.box-custom-white > .box-header .btn {
-  color: #000000;
+.box.box-solid > .box-header .btn:hover,
+.box.box-solid > .box-header a:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
 }
-
