@@ -234,7 +234,7 @@ class TeacherController extends Controller
 
 		
 		
-		$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
+		$teac herRole = Role::where('name', '=', 'teacher')->get()->first();
 		$user->attachRole($teacherRole);
 
 
