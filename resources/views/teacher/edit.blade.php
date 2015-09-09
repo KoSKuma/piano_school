@@ -108,8 +108,8 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{$teacher->date_of_birth}}" />
-                <input type="hidden" id="real_format_date_of_birth" name="class_date" value=""/>
+                <input type="text" name="human-format" class="form-control" id="human-format"  placeholder="DD/MM/YYYY" value="{{date('j/m/Y', strtotime($teacher->date_of_birth))}}" />
+                <input type="hidden" id="date_of_birth" name="date_of_birth" />
             </div>
           </div>
         </div><!-- /.box-body -->
@@ -127,6 +127,7 @@ Add a new student
 
 
         <div class="box-footer text-center">
+          <a href="{{url('teacher')}}" class="btn btn-default">Cancel</a>
           <button type="submit" class="btn btn-primary">Update</button>
         </div>
       </form>
@@ -146,6 +147,22 @@ Add a new student
   $(function () {
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
     $("[data-mask]").inputmask();
+  });
+
+  $(document).ready(function(){
+    $('#human-format').daterangepicker({
+        "singleDatePicker": true,
+        "showDropdowns": true,
+        "startDate": moment(),
+        "maxDate" : moment(),
+        "minDate": "01/01/1900",
+        "format": 'DD/MM/YYYY',
+    }, function(date){
+        //console.log('Class date: ' + date.format('YYYY-MM-DD'));
+        $("#date_of_birth").val(date.format('YYYY-MM-DD'));
+    });
+
+
   });
 </script>
 @endsection

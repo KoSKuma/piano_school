@@ -40,24 +40,24 @@ Add a new student
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Name</label>
 						<div class="col-sm-4">
-							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$student->firstname}}" />
+							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="First Name" value="{{$student->firstname}}" />
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$student->lastname}}" />
+							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Last Name" value="{{$student->lastname}}" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Nick Name</label>
 						<div class="col-sm-4">
-							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$student->nickname}}" />
+							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick Name" value="{{$student->nickname}}" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="email">Email</label>
 						<div class="col-sm-8">
-							<input type="text" name="email" class="form-control" id="email" placeholder="Email" value="{{$student->email}}" />
+							<input type="text" name="email" class="form-control" id="email" placeholder="E-mail" value="{{$student->email}}" />
 						</div>
 					</div>
 
@@ -68,7 +68,7 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-phone"></i>
 								</div>
-								<input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Studentphone" value="{{$student->student_phone}}"/>
+								<input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Student Phone" value="{{$student->student_phone}}"/>
 							</div>
 
 						</div>
@@ -82,7 +82,7 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-phone"></i>
 								</div>
-								<input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parentphone"  value="{{$student->parent_phone}}"/>
+								<input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parent Phone"  value="{{$student->parent_phone}}"/>
 							</div>
 						</div>
 					</div>
@@ -95,8 +95,8 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" name="birth_date_picker" class="form-control" id="birth_date_picker" placeholder="dd/mm/yyyy"  value="{{date('j F Y', strtotime($student->date_of_birth))}}"/>
-								<input type="hidden" name="date_of_birth" class="form-control" id="date_of_birth" value="{{$student->date_of_birth}}"/>
+								<input type="text" name="human-format" class="form-control" id="human-format"  placeholder="DD/MM/YYYY" value="{{date('j/m/Y', strtotime($student->date_of_birth))}}" />
+                				<input type="hidden" id="date_of_birth" name="date_of_birth" />
 							</div>
 						</div>
 					</div>
@@ -112,7 +112,8 @@ Add a new student
 					</div>
 				</div><!-- /.box-body -->
 
-				<div class="box-footer text-center">
+				<div class="box-footer text-right">
+					<a href="{{url('student')}}" class="btn btn-default">Cancel</a>
 					<button type="submit" class="btn btn-primary">Update</button>
 				</div>
 			</form>
@@ -127,31 +128,24 @@ Add a new student
 
 @section('script')
 
-<!-- InputMask -->
-<script src="{{url("plugins/input-mask/jquery.inputmask.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.date.extensions.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
-<script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$(function () {
-		$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-		$("[data-mask]").inputmask();
-	});
 
-	$('#birth_date_picker').daterangepicker({
-	    "singleDatePicker": true,
-	    "showDropdowns": true,
-        "startDate": moment('{{$student->date_of_birth}}'),
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+  	$("[data-mask]").inputmask();
+    $('#human-format').daterangepicker({
+        "singleDatePicker": true,
+        "showDropdowns": true,
+        "startDate": moment(),
+        "maxDate" : moment(),
         "minDate": "01/01/1900",
-        "maxDate": moment(),
-        //"format": "DD/MM/YYYY"
+        "format": 'DD/MM/YYYY',
     }, function(date){
         //console.log('Class date: ' + date.format('YYYY-MM-DD'));
-        $("#birth_date_picker").val(date.format('D MMM YYYY'));
         $("#date_of_birth").val(date.format('YYYY-MM-DD'));
     });
-});
+  });
 </script>
 
 @endsection
