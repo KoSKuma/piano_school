@@ -60,7 +60,6 @@ class Student extends Model
     
         $student->student_phone = $request->student_phone;
         $student->parent_phone =  $request->parent_phone;
-
         $student->save();
 
         return $student;
