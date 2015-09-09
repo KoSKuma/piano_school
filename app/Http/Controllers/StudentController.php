@@ -55,6 +55,8 @@ class StudentController extends Controller
         else {       
             
             $user = User::createUser($request);
+            $request->student_phone = str_replace('-', '', $request->student_phone);
+            $request->parent_phone = str_replace('-', '', $request->parent_phone);
             $student = Student::newStudent($request);
 
             $user->students_id = $student->id;
@@ -158,12 +160,12 @@ class StudentController extends Controller
 
             $student = Student::find($id);
 
-    
+            $request->student_phone = str_replace('-', '', $request->student_phone);
+            $request->parent_phone = str_replace('-', '', $request->parent_phone);
+
             $student->student_phone = $request->student_phone;
             $student->parent_phone =  $request->parent_phone;
 
-            
-       
             $student->save();
 
         return  redirect('student/'.$id);
