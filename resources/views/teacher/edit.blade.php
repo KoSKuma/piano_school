@@ -43,17 +43,17 @@ Add a new student
             <div class="form-group">
               <label class="col-sm-3 control-label" for="name">Name</label>
               <div class="col-sm-4">
-                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$teacher->firstname}}"/>
+                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="First Name" value="{{$teacher->firstname}}"/>
               </div>
               <div class="col-sm-4">
-                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$teacher->lastname}}"/>
+                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Last Name" value="{{$teacher->lastname}}"/>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label" for="name">Nick Name</label>
               <div class="col-sm-4">
-                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$teacher->nickname}}" />
+                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick Name" value="{{$teacher->nickname}}" />
               </div>
             </div>
 
@@ -81,21 +81,6 @@ Add a new student
 
      
 
-        <!--     <div class="form-group">
-              <label class="col-sm-3 control-label">Password</label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password"  / >
-              </div>
-            </div>
-
-
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Confirm Password</label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password_confirmation"/ >
-              </div>
-            </div> -->
-
      
 
           <div class="form-group">
@@ -105,7 +90,8 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                  <input type="text" name="teacher_phone" class="form-control" id="teacher_phone" placeholder="Telephone"  value="{{$teacher->teacher_phone}}" />
+                  <input type="text" name="teacher_phone" class="form-control" id="teacher_phone" placeholder="Telephone" data-inputmask="&quot;mask&quot;: &quot;999-999-9999&quot;" data-mask="" value="{{$teacher->teacher_phone}}">
+                  
                 </div>
 
             </div>
@@ -123,7 +109,7 @@ Add a new student
                   <i class="fa fa-calendar"></i>
                 </div>
                 <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{$teacher->date_of_birth}}" />
-
+                <input type="hidden" id="real_format_date_of_birth" name="class_date" value=""/>
             </div>
           </div>
         </div><!-- /.box-body -->
@@ -154,10 +140,8 @@ Add a new student
 
 
 @section('script')
-<!-- InputMask -->
-<script src="{{url("plugins/input-mask/jquery.inputmask.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.date.extensions.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
+
+
 <script type="text/javascript">
   $(function () {
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
