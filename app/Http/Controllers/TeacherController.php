@@ -25,7 +25,6 @@ class TeacherController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		var_dump(Auth::user()->roles);die();
 		if($request->has('search')){
 			$teachers = Teacher::searchTeacherList($request->input('search'));
 
