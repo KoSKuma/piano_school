@@ -227,12 +227,13 @@ class TeacherController extends Controller
 					->where('id',$request->id)
 					->restore();
 
-
-
 		$users = User::withTrashed()
 					->where('teachers_id',$request->id)
 					->restore();
 
+		$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
+		$user->attachRole($teacherRole);
+		
 		return redirect('teacher');
 
 	}
