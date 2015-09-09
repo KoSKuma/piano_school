@@ -33,11 +33,11 @@ class TeacherController extends Controller
 				'count'		=>	$teachers->count(),
 			);
 
-			return view('teacher.index',['teachers'=>$teachers->paginate(2)])->with('searchResult', $searchResult);
+			return view('teacher.index',['teachers'=>$teachers->paginate(5)])->with('searchResult', $searchResult);
 		}
 		else{
 			$teachers = Teacher::teacherList();
-			return view('teacher.index',['teachers'=>$teachers->paginate(2)]);
+			return view('teacher.index',['teachers'=>$teachers->paginate(5)]);
 		}
 
 		

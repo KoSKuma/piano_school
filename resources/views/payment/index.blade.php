@@ -52,12 +52,15 @@ List of all classes
                             <div class="col-md-2">
                                 <strong>Date</strong>
                             </div>
+
+                             <div class="col-md-4">
+                                <strong>Student</strong>
+                            </div>
+
                             <div class="col-md-4">
                                 <strong>Teacher</strong>
                             </div>
-                            <div class="col-md-4">
-                                <strong>Student</strong>
-                            </div>
+                           
                             <div class="col-md-2">
                                 <strong>Hours</strong>
                             </div>
@@ -75,13 +78,15 @@ List of all classes
                                     <div class="col-md-2">
                                         {{date('j M y G:i',strtotime($payment->created_at))}}
                                     </div>
+
+                                    <div class="col-md-4">
+                                        {{ $payment->students_nickname.' '.'('.$payment->students_firstname.' ' .$payment->students_lastname.')'}}         
+                                    </div>
+                                    
                                     <div class="col-md-4">
                                         {{'ครู'.$payment->teachers_nickname.' '.'('.$payment->teachers_firstname. ' ' .$payment->teachers_lastname.')' }}
                                     </div>
-                                    <div class="col-md-4">
-                                        {{ $payment->students_nickname.' '.'('.$payment->students_firstname.' ' .$payment->students_lastname.')'}}
-                                        
-                                    </div>
+                                 
                                     <div class="col-md-2">
                                         {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours']}}
                                     </div>
