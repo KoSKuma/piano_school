@@ -8,6 +8,7 @@ use Validator;
 use DB;
 use Log;
 use App\models\Role;
+use Auth;
 
 class TeacherController extends Controller
 {
@@ -24,6 +25,7 @@ class TeacherController extends Controller
 	 */
 	public function index(Request $request)
 	{
+		var_dump(Auth::user()->roles);die();
 		if($request->has('search')){
 			$teachers = Teacher::searchTeacherList($request->input('search'));
 
@@ -33,11 +35,11 @@ class TeacherController extends Controller
 				'count'		=>	$teachers->count(),
 			);
 
-			return view('teacher.index',['teachers'=>$teachers->paginate(2)])->with('searchResult', $searchResult);
+			return view('teacher.index',['teachers'=>$teachers->paginate(10)])->with('searchResult', $searchResult);
 		}
 		else{
 			$teachers = Teacher::teacherList();
-			return view('teacher.index',['teachers'=>$teachers->paginate(2)]);
+			return view('teacher.index',['teachers'=>$teachers->paginate(10)]);
 		}
 
 		
