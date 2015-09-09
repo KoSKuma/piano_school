@@ -8,6 +8,7 @@ use Validator;
 use DB;
 use Log;
 use App\models\Role;
+use Auth;
 
 class TeacherController extends Controller
 {
@@ -33,11 +34,11 @@ class TeacherController extends Controller
 				'count'		=>	$teachers->count(),
 			);
 
-			return view('teacher.index',['teachers'=>$teachers->paginate(5)])->with('searchResult', $searchResult);
+			return view('teacher.index',['teachers'=>$teachers->paginate(10)])->with('searchResult', $searchResult);
 		}
 		else{
 			$teachers = Teacher::teacherList();
-			return view('teacher.index',['teachers'=>$teachers->paginate(5)]);
+			return view('teacher.index',['teachers'=>$teachers->paginate(10)]);
 		}
 
 		
@@ -75,8 +76,8 @@ class TeacherController extends Controller
 			$user->password = bcrypt($request->password);
 			$user->date_of_birth = $request->date_of_birth;
 			$user->save();
-
 			$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
+
 			$user->attachRole($teacherRole);
 			
 
@@ -171,6 +172,8 @@ class TeacherController extends Controller
 				}
 			}
 
+
+			
 			$user->firstname = $request->firstname;
 			$user->lastname = $request->lastname;
 			$user->nickname = $request->nickname;
@@ -225,19 +228,13 @@ class TeacherController extends Controller
 					->where('id',$request->id)
 					->restore();
 
-		$user = User::withTrashed()
+		$users = User::withTrashed()
 					->where('teachers_id',$request->id)
 					->restore();
 
-		$user = User::where('teachers_id',$request->id)->first();
-		$user = User::find($user->id);
-
-		
-		
-		$teac herRole = Role::where('name', '=', 'teacher')->get()->first();
+		$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
 		$user->attachRole($teacherRole);
-
-
+		
 		return redirect('teacher');
 
 	}
