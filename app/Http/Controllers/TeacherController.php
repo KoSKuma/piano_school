@@ -217,7 +217,6 @@ class TeacherController extends Controller
 	public static function  viewDeletedTeacher()
 	{
 		$teachers = Teacher::deletedList()->get();
-		//print_r($teachers );die();
 		return view('teacher.deleted',['teachersList'=>$teachers]);
 	}
 
