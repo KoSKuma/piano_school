@@ -94,8 +94,7 @@ class TeacherController extends Controller
 			$teacher->degrees = $request->degrees;
 			$teacher->experience = $request->experience;
 			$teacher->institute = $request->institute;
-			$teacher->teacher_phone = $request->teacher_phone;
-			
+			$teacher->teacher_phone = str_replace('-', '', $request->teacher_phone);
 			
 			$teacher->save();
 
@@ -173,7 +172,6 @@ class TeacherController extends Controller
 			}
 
 
-			
 			$user->firstname = $request->firstname;
 			$user->lastname = $request->lastname;
 			$user->nickname = $request->nickname;
@@ -185,8 +183,8 @@ class TeacherController extends Controller
 			$teacher->degrees = $request->degrees;
 			$teacher->experience = $request->experience;
 			$teacher->institute = $request->institute;
-			$teacher->teacher_phone = str_replace($request->teacher_phone, '-', '');
-			
+			$teacher->teacher_phone = str_replace('-', '', $request->teacher_phone);
+
 			$teacher->save();
 
 			return  redirect('teacher');
