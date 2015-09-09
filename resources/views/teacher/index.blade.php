@@ -7,7 +7,7 @@ Sample page
 
 
 @section('contentheader_title')
-<h1>Teacher <small>List</small></h1>
+<h1>Teacher <small>List of all teachers</small></h1>
 @endsection
 
 
@@ -18,7 +18,7 @@ Sample page
 		<div class="row">
 			<div class="col-xs-6 col-md-12 vtop">
 				<h3 class="box-title">Teacher List</h3>
-				<span class="visible-xs">{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) }}-{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) + ($teachers->count() - 1)}} of {{$teachers->total()}}</span>
+				<span class="visible-xs">{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
 			</div>
 			<div class="col-xs-2 pull-right visible-xs">
 				@if (Entrust::can('create-teacher'))
@@ -32,7 +32,7 @@ Sample page
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 pagination-info vcenter hidden-xs">
-				<span>{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) }}-{{ (($teachers->currentPage() - 1) * $teachers->perPage() + 1) + ($teachers->count() - 1)}} of {{$teachers->total()}}</span>
+				<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
 			</div>
 			<div class="col-xs-12 col-sm-1 pull-right hidden-xs">
 				@if (Entrust::can('create-teacher'))

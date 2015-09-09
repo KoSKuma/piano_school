@@ -59,6 +59,7 @@ class Teacher extends Model
     }
 
     public static function searchTeacherList($query) {
+        $query = trim($query);
         $teachers = DB::table('users')
             ->join('teachers','users.teachers_id', '=', 'teachers.id')
             ->select('teachers.id',
@@ -74,9 +75,10 @@ class Teacher extends Model
                 'teachers.deleted_at',
                 'users.deleted_at' ,
                 'users.picture')
-            ->where('firstname', 'LIKE', "%$query%")
-            ->orWhere('lastname', 'LIKE', "%$query%")
-            ->orWhere('nickname', 'LIKE', "%$query%")
+            ->where('users.firstname', 'LIKE', "%$query%")
+            ->orWhere('users.lastname', 'LIKE', "%$query%")
+            ->orWhere('users.nickname', 'LIKE', "%$query%")
+            ->orWhere('teachers.teacher_phone', 'LIKE', "%$query%")
             ->whereNull('users.deleted_at');
 
         return $teachers;

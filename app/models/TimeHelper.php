@@ -31,3 +31,5 @@ class TimeHelper extends Model
 		return TimeHelper::secondsToMinutes(strtotime($end_time) - strtotime($start_time));
 	}
 }
+
+?>

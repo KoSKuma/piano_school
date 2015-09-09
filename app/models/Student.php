@@ -125,9 +125,4 @@ class Student extends Model
         return $students;
     }
 
-
-
-
-
-
 }

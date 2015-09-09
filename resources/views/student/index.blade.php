@@ -7,13 +7,13 @@ Sample page
 
 
 @section('contentheader_title')
-
+<h1>Student <small>List of all Students</small></h1>
 @endsection
 
 
 @section('main-content')
 
-<div class="box box-solid box-info">
+<div class="box box-solid box-custom-info">
 	<div class="box-header">
 		<div class="row">
 			<div class="col-xs-6">
@@ -32,6 +32,9 @@ Sample page
 
 	<div class="box-body">
 		<div class="row">
+			<div class="col-xs-12 col-sm-6 pagination-info vcenter hidden-xs">
+				<span>{{App\helpers\TextHelper::paginationInfo($students)}}</span>
+			</div>
 			<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 				<div class="row hidden-xs hidden-sm" id="table_header">
 					<div class="col-md-2 col-xs-2">
