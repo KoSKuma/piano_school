@@ -125,8 +125,8 @@ Add a new student
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" />
-                <input type="hidden" id="real_format_date_of_birth" name="class_date" value=""/>
+                <input type="text" name="human-format" class="form-control" id="human-format" placeholder="DD/MM/YYYY"/>
+                <input type="hidden" id="date_of_birth" name="date_of_birth" value=""/>
             </div>
           </div>
         </div><!-- /.box-body -->
@@ -167,7 +167,7 @@ Add a new student
 
 
   $(document).ready(function(){
-    $('#date_of_birth').daterangepicker({
+    $('#human-format').daterangepicker({
         "singleDatePicker": true,
         "showDropdowns": true,
         "startDate": moment(),
@@ -176,7 +176,7 @@ Add a new student
         "format": 'DD/MM/YYYY',
     }, function(date){
         //console.log('Class date: ' + date.format('YYYY-MM-DD'));
-        $("#real_format_date_of_birth").val(date.format('YYYY-MM-DD'));
+        $("#date_of_birth").val(date.format('YYYY-MM-DD'));
     });
 
 

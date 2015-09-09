@@ -38,17 +38,17 @@ Add a new student
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Name</label>
 						<div class="col-sm-4">
-							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" />
+							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="First Name" />
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" />
+							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Last Name" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="name">Nick Name</label>
 						<div class="col-sm-4">
-							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" />
+							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick Name" />
 						</div>
 					</div>
 
@@ -56,14 +56,14 @@ Add a new student
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="email">Email address</label>
 						<div class="col-sm-8">
-							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email" />
+							<input type="email" name="email" class="form-control" id="email" placeholder="Enter E-mail" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-3 control-label">Password</label>
 						<div class="col-sm-8">
-							<input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+							<input type="password" class="form-control" id="inputPassword" placeholder="Confirm Password" name="password">
 						</div>
 					</div>
 
@@ -71,7 +71,7 @@ Add a new student
 					<div class="form-group">
 						<label class="col-sm-3 control-label">Confirm Password</label>
 						<div class="col-sm-8">
-							<input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password_confirmation">
+							<input type="password" class="form-control" id="inputPassword" placeholder="Confirm Password" name="password_confirmation">
 						</div>
 					</div>
 
@@ -84,7 +84,7 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-phone"></i>
 								</div>
-								<input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Studentphone"/>
+								<input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Student Phone" data-inputmask="&quot;mask&quot;: &quot;999-999-9999&quot;" data-mask="">
 							</div>
 
 						</div>
@@ -98,7 +98,7 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-phone"></i>
 								</div>
-								<input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parentphone"/>
+								<input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parent Phone" data-inputmask="&quot;mask&quot;: &quot;999-999-9999&quot;" data-mask="">
 							</div>
 
 						</div>
@@ -115,7 +115,8 @@ Add a new student
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"/>
+								<input type="text" name="human-format" class="form-control" id="human-format" placeholder="DD/MM/YYYY"/>
+                				<input type="hidden" id="date_of_birth" name="date_of_birth" value=""/>
 
 							</div>
 						</div>
@@ -132,7 +133,8 @@ Add a new student
      			    </div>
 
 
-					<div class="box-footer text-center">
+					<div class="box-footer text-right">
+						<a href="{{url('student')}}" class="btn btn-default">Cancel</a>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
 
@@ -149,14 +151,27 @@ Add a new student
 
 
 @section('script')
-<!-- InputMask -->
-<script src="{{url("plugins/input-mask/jquery.inputmask.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.date.extensions.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
+
+
 <script type="text/javascript">
 $(function () {
 	$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 	$("[data-mask]").inputmask();
 });
+
+
+  $(document).ready(function(){
+    $('#human-format').daterangepicker({
+        "singleDatePicker": true,
+        "showDropdowns": true,
+        "startDate": moment(),
+        "maxDate" : moment(),
+        "minDate": "01/01/1900",
+        "format": 'DD/MM/YYYY',
+    }, function(date){
+        //console.log('Class date: ' + date.format('YYYY-MM-DD'));
+        $("#date_of_birth").val(date.format('YYYY-MM-DD'));
+    });
+  });
 </script>
 @endsection
