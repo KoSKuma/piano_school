@@ -19,7 +19,9 @@ Sample page
 			<div class="col-xs-6">
 				<h3 class="box-title">Student List</h3>
 			</div>
-			
+			<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs">
+				<span>{{App\helpers\TextHelper::paginationInfo($students)}}</span>
+			</div>
 			<div class="col-xs-12 text-right">
 				@if (Entrust::can('create-student'))
 				<a href= "{{url('student/create')}}" class="btn btn-primary" >
@@ -27,14 +29,19 @@ Sample page
 				</a>
 				@endif
 			</div>
+			<div class="col-xs-12 col-sm-4 box-tools pull-right">
+				<form action="{{url('/student')}}" method="GET">
+					<div class="has-feedback">
+						<input class="form-control input-sm" name="search" placeholder="Search..." type="text">
+						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div><!-- /.box-header -->
 
 	<div class="box-body">
 		<div class="row">
-			<div class="col-xs-12 col-sm-6 pagination-info vcenter hidden-xs">
-				<span>{{App\helpers\TextHelper::paginationInfo($students)}}</span>
-			</div>
 			<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 				<div class="row hidden-xs hidden-sm" id="table_header">
 					<div class="col-md-2 col-xs-2">
@@ -63,7 +70,7 @@ Sample page
 				</div>
 			</div>
 		</div>
-		@foreach ($studentList as $student)
+		@foreach ($students as $student)
 		<div class="row ">
 			<div class="col-md-2 col-xs-2">
 
@@ -179,7 +186,14 @@ Sample page
 		</div>
 		@endforeach
 
+	</div><!--End Student List Table -->
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			{!! $students->render() !!}
+		</div>
 	</div>
+
+
 </div>
 
 <form action="" method="POST" id="confirm-delete"> 

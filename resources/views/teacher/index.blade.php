@@ -2,7 +2,7 @@
 
 
 @section('htmlheader_title')
-Sample page
+List of all Teachers
 @endsection
 
 
