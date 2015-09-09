@@ -75,8 +75,8 @@ class TeacherController extends Controller
 			$user->password = bcrypt($request->password);
 			$user->date_of_birth = $request->date_of_birth;
 			$user->save();
-			$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
 
+			$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
 			$user->attachRole($teacherRole);
 			
 
@@ -171,8 +171,6 @@ class TeacherController extends Controller
 				}
 			}
 
-
-			
 			$user->firstname = $request->firstname;
 			$user->lastname = $request->lastname;
 			$user->nickname = $request->nickname;
@@ -227,11 +225,18 @@ class TeacherController extends Controller
 					->where('id',$request->id)
 					->restore();
 
-
-
-		$users = User::withTrashed()
+		$user = User::withTrashed()
 					->where('teachers_id',$request->id)
 					->restore();
+
+		$user = User::where('teachers_id',$request->id)->first();
+		$user = User::find($user->id);
+
+		
+		
+		$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
+		$user->attachRole($teacherRole);
+
 
 		return redirect('teacher');
 

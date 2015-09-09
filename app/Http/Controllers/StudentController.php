@@ -8,6 +8,8 @@ use Validator;
 use DB;
 use Entrust;
 use App;
+use App\models\Role;
+
 
 class StudentController extends Controller
 {
@@ -56,6 +58,9 @@ class StudentController extends Controller
             $student = Student::newStudent($request);
 
             $user->students_id = $student->id;
+
+            $studentRole = Role::where('name', '=', 'student')->get()->first();
+            $user->attachRole($studentRole);
             
             if($request->hasFile('profile_picture')){
                 if($request->file('profile_picture')->isValid()){
@@ -204,11 +209,17 @@ class StudentController extends Controller
                     ->where('id',$request->id)
                     ->restore();
 
-
-
-        $users = User::withTrashed()
+        $user = User::withTrashed()
                     ->where('students_id',$request->id)
                     ->restore();
+
+        $user = User::where('students_id',$request->id)->first();
+        $user = User::find($user->id);
+
+        $studentRole = Role::where('name', '=', 'student')->get()->first();
+        $user->attachRole($studentRole);
+
+
 
         return redirect('student');
 

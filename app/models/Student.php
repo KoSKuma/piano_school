@@ -80,7 +80,7 @@ class Student extends Model
     {
         $schedule = Schedule::_scheduleOfTeacher_Student(null ,$students_id );
 
-        return $schedule->get();
+        return $schedule;
 
     }
     
