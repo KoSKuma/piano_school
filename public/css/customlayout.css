@@ -33,30 +33,12 @@
 
 }
 
-.box.box-custom-info {
-	border-top-color: #666666;
+
+.box.box-solid > .box-header .btn.btn-default {
+  background: white;
 }
 
-.box.box-solid.box-custom-info {
-	border: 1px solid #666666;
-}
 
-.box.box-solid.box-custom-info > .box-header {
-	color: #ffffff;
-	background: #666666;
-	background-color: #666666;
-}
-
-.box.box-solid.box-custom-info > .box-header a,
-.box.box-solid.box-custom-info > .box-header .btn {
-	color: #ffffff;
-}
-
-.box.box-solid > .box-header .btn:hover,
-.box.box-solid > .box-header a:hover {
-	background: rgba(0, 0, 0, 0.1) !important;
-}
-
-.table-profile-picture {
-	max-height: 100px;
+.box.box-solid.box-default > .box-header a, .box.box-solid.box-default > .box-header .btn.custom-font{
+	color: white;
 }

@@ -12,52 +12,60 @@ List of all Teachers
 
 
 @section('main-content')
-<style type="text/css" >
-	.test{
-		    position: relative;
-		    min-height: 1px;
-		    padding-left: 40px;
-		    padding-right: 15px;
-	}
-	
+<style type="text/css">
+
+
 </style>
 
-<div class="box box-solid box-custom-info">
+
+<div class="box box-solid box-default">
 	<div class="box-header">
 		<div class="row">
 			<div class="col-xs-6 col-md-12 vtop">
 				
-				<span class="visible-xs">{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
+				
 			</div>
-			<div class="col-xs-2 pull-right visible-xs">
-				@if (Entrust::can('create-teacher'))
-				<div class="pull-right">
-					<a href= "{{url('teacher/create')}}" class="btn btn-custom-white" >
-						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-					</a>
-				</div>
-				@endif
-			</div>
+			
 		</div>
 		<div class="row">
-			
-			<div class="col-xs-12 col-sm-1 pull-right hidden-xs">
+				
+			<form action="{{url('/teacher')}}" method="GET">
 				@if (Entrust::can('create-teacher'))
-				<div class="pull-right">
-					<a href= "{{url('teacher/create')}}" class="btn btn-primary" >
+				<div class="col-xs-12  text-left visible-xs" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>
 				@endif
-			</div>
-			<div class="col-xs-12 col-sm-4 box-tools pull-right">
-				<form action="{{url('/teacher')}}" method="GET">
-					<div class="has-feedback">
-						<input class="form-control input-sm" name="search" placeholder="Search..." type="text">
-						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
+				<div class="row">
+					<div class="col-xs-12" style="height:10px">
 					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4  ">
+				
+					<div class="input-group ">
+					  <input type="text" class="form-control" name="search" placeholder="Search for...">
+				      <span class="input-group-btn">
+				        <button class="btn btn-default " type="submmit">
+				        	 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				        	Search
+				        </button>
+				      </span>
+					</div>
+				
 				</form>
 			</div>
+
+			@if (Entrust::can('create-teacher'))
+			<div class="col-sm-7  text-right hidden-xs col-md-8" >
+				<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
+					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+				</a>
+			</div>
+			@endif
+		
+			
 		</div>
 
 	</div><!-- /.box-header -->
@@ -116,13 +124,15 @@ List of all Teachers
 
 						<div class="col-xs-6 visible-xs">
 							ครู{{$teacher->nickname}} <br>
-							{{ substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}
+							{{$teacher->firstname." ".$teacher->lastname}} <br>
+							{{ substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}} 
+
 						</div>
 
 						<form action="{{url('teacher/restore')}}" method="post">
 							{!! csrf_field() !!}
 							<!-- Single button -->
-							<div class="col-sm-3 hidden-xs" >
+							<div class="col-sm-3 hidden-xs hidden-sm" >
 
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
@@ -152,7 +162,7 @@ List of all Teachers
 
 							</div>
 						</form>
-					<div class="visible-xs col-xs-2 " >
+					<div class="visible-xs visible-sm col-xs-2 " >
 						<form action="{{url('teacher/restore')}}" method="post">
 							{!! csrf_field() !!}
 							<!-- Single button -->
@@ -201,7 +211,7 @@ List of all Teachers
 
 	
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs text-center">
+				<div class="col-xs-12 col-sm-12 pagination-info vcenter  text-center">
 					<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
 				</div>
 				<div class="col-xs-12 text-center">
@@ -212,14 +222,6 @@ List of all Teachers
 					@endif
 				</div>
 			</div>
-
-
-		
-
-
-
-
-
 
 
 
