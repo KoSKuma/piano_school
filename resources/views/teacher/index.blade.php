@@ -92,17 +92,17 @@ List of all Teachers
 					<div class="col-md-2 col-xs-3">
 						<div class="col-xs-12 visible-xs">
 							@if (!empty($teacher->picture))
-							<img class="img-responsive img-thumbnail img-teacher" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
+							<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
 							@else
-							<img class="img-responsive img-thumbnail img-teacher" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
+							<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
 							@endif       
 						</div>
 
 						<div class="col-sm-12 hidden-xs">
 							@if (!empty($teacher->picture))
-							<img class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
+							<img class="img-responsive img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
 							@else
-							<img class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/')}}/default.jpg" />
+							<img class="img-responsive img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/')}}/default.jpg" />
 							@endif       
 						</div>
 					</div>
@@ -201,14 +201,18 @@ List of all Teachers
 			</div><!--End teacher_list_table-->
 
 	
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs text-center">
-						<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
-					</div>
-					<div class="col-xs-12 text-center">
-						{!! $teachers->render() !!}
-					</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs text-center">
+					<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
 				</div>
+				<div class="col-xs-12 text-center">
+					@if (isset($searchResult))
+						{!! $teachers->appends(['search' => $searchResult['keyword']])->render() !!}
+					@else
+						{!! $teachers->render() !!}
+					@endif
+				</div>
+			</div>
 
 
 		

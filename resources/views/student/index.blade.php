@@ -41,6 +41,16 @@ List of all Students
 	</div><!-- /.box-header -->
 
 	<div class="box-body">
+		@if (isset($searchResult))
+		<div class="row">
+			<div class="col-xs-2 hidden-sm"></div>
+		    <div class="col-xs-8 alert bg-gray color-palette">
+		        <div class="col-xs-12">
+		        	Search for {{$searchResult['keyword']}}, found {{$searchResult['count']}} results
+		        </div>
+		    </div>
+		</div>
+		@endif
 		<div class="row">
 			<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 				<div class="row hidden-xs hidden-sm" id="table_header">
@@ -71,11 +81,19 @@ List of all Students
 		<div class="row ">
 			<div class="col-md-2 col-xs-2">
 
-				<div class="col-xs-12 ">
+				<div class="col-xs-12 visible-xs">
 					@if (!empty($student->picture))
 					<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}"  >
 					@else
 					<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
+					@endif       
+				</div>
+
+				<div class="col-xs-12 hidden-xs">
+					@if (!empty($student->picture))
+					<img class="img-responsive img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}"  >
+					@else
+					<img class="img-responsive img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
 					@endif       
 				</div>
 			</div>
