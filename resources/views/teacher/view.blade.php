@@ -7,110 +7,170 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Teacher <small>view</small></h1>
+<h1>Teacher: {{ $teacher->firstname . ' ' . $teacher->lastname}}</h1>
 @endsection
 
-
 @section('main-content')
+
+<div class="row">
+        <div class="col-md-3 col-sm-5 ">
+        </div>
+
+        <div class="col-md-2 col-sm-2 hidden-xs ">
+                @if(empty($teacher->picture))
+                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
+                @else
+                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                @endif
+        </div>
+
+        <div class="col-md-1 col-sm-4 hidden-xs ">
+                <br/>
+                <div class="row">
+                    <b>Name</b>
+                </div>
+                <div class="row">
+                    <b>Telephone</b>
+                </div>
+                <div class="row">
+                    <b>Experience</b>
+                </div>
+                <div class="row">
+                    <b>Degrees</b>
+                </div>
+                <div class="row">
+                    <b>Institute:</b>
+                </div>
+                <div class="row">
+                    <b>DateofBirth</b>
+                </div>
+        </div>
+
+        <div class="col-md-3 col-sm-7 hidden-xs ">
+            <div class="row">
+                <br/>
+                {{$teacher->firstname.'   '.$teacher->lastname.'  '.'('.$teacher->nickname.')'}}
+            </div>
+            <div class="row hidden-xs">
+                {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}
+            </div>
+            <div class="row">
+                {{$teacher->experience}}
+            </div>
+            <div class="row">
+                {{$teacher->degrees}}
+            </div>
+            <div class="row">
+                {{$teacher->institute}} 
+            </div>
+             <div class="row">
+                {{date('j F Y' ,strtotime($teacher->date_of_birth))}} 
+            </div>
+        </div>
+
+
+        <div class="visible-xs   col-xs-12 " >
+            <div class="visible-xs visible-sm  col-xs-3">
+            </div>
+            <div class="visible-xs   col-xs-6">
+                @if(empty($teacher->picture))
+                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
+                @else
+                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                @endif
+            </div>
+            <div class="visible-xs  col-xs-3">
+            </div>
+        </div>
+
+       <div class="visible-xs  col-xs-1">
+    </div>
+
+        <div class="visible-xs  col-xs-4" >
+            <br/>
+               <div class="row">
+                    <b>Name</b>
+                </div>
+                <div class="row">
+                    <b>Experience</b>
+                </div>
+                <div class="row">
+                    <b>Degrees</b>
+                </div>
+                <div class="row">
+                    <b>Institute:</b>
+                </div>
+                <div class="row">
+                    <b>DateofBirth</b>
+                </div>
+        </div>  
+
+        <div class="visible-xs   col-xs-6" >  
+                <div class="row">
+                <br/>
+               {{'ครู'.$teacher->nickname}}
+            </div>
+            <div class="row">
+                {{$teacher->experience}}
+            </div>
+            <div class="row">
+                {{$teacher->degrees}}
+            </div>
+            <div class="row">
+                {{$teacher->institute}} 
+            </div>
+             <div class="row">
+                {{date('j F Y' ,strtotime($teacher->date_of_birth))}} 
+            </div>
+        </div>
+</div>
+<div class="row">
+    </br>
+    </div>
+
+
 <div class="row">
     <div class="col-md-2">
     </div>
     <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Teacher: {{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}</h3>
-            </div><!-- /.box-header -->
-            <!-- form start -->
-
-            <form class="form-horizontal" role="form">
-
-                <div class="box-body">
-
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            @if(empty($teacher->picture))
-                                <img src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
-                            @else
-                                <img src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
-                            @endif
-                        </div>
-                        
+                <h3 class="box-title">Schedule</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6 hidden-xs">
+                    Teacher
+                </div>
+                <div class="col-md-6 hidden-xs">
+                    Remaining Time (Hour)
+                </div>
+               @foreach ($scheduleList as $schedule)
+                    <div class="col-md-6">
+                     {{date('j M y G:i', strtotime($schedule->start_time))}}
                     </div>
-                    <br />
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="name">Name</label>
-                        <div class="col-sm-4">
-                            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$teacher->firstname}}" readonly />
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$teacher->lastname}}" readonly />
-                        </div>
+                    <div class="col-md-6">
+                        ..............
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="name">Nick Name</label>
-                        <div class="col-sm-4">
-                            <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$teacher->nickname}}" readonly />
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="experience">Experience</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="experience" class="form-control" id="experience" placeholder="Experience"  value="{{$teacher->experience}}" readonly />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="experience">Degrees</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="degrees" class="form-control" id="degrees" placeholder="Degrees"  value="{{$teacher->degrees}}" readonly />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="experience">Institute</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="institute" class="form-control" id="institute" placeholder="Institute"  value="{{$teacher->institute}}" readonly />
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" >Telephone</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-phone"></i>
-                                </div>
-                                <input type="text" name="teacher_phone" class="form-control" id="teacher_phone" placeholder="Telephone"  value="{{$teacher->teacher_phone}}" readonly />
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="date_of_birth">Date of Birth</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{$teacher->date_of_birth}}" readonly />
-
-                            </div>
-                        </div>
-                    </div><!-- /.box-body -->
-
-                </form>
+                @endforeach
             </div>
         </div>
-        <div class="col-md-2">
-        </div>
     </div>
+</div>
+
+
+  
+
+                   
+    
+                         
+                        
+
+                        
+
+                
+  
+
+
 
     @endsection
 
