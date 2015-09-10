@@ -103,7 +103,7 @@ class Student extends Model
         return $this->hasOne('App\User', 'students_id');
     }
 
-    public static function scheduleOfStudent($students_id) 
+    public static function scheduleOfStudent($students_id, $date = NULL) 
     {
         $schedule = Schedule::_scheduleOfTeacher_Student(null ,$students_id );
 
