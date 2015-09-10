@@ -38,24 +38,24 @@ List of all classes
 				<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 					<div class="row hidden-xs" id="table_header">
 					
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<strong>Start Time-End Time</strong>
 							</div>
 							@if (!Entrust::hasRole('teacher'))
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<strong>Teacher</strong>
 							</div>
 							@endif
 							@if (!Entrust::hasRole('student'))
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<strong>Student</strong>
 							</div>
 							@endif
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<strong>Status</strong>
 							</div>
 							@if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<strong>Option</strong>
 							</div>
 							@endif
@@ -90,7 +90,7 @@ List of all classes
 								{{$schedule->status}}
 							</div>                         
 					
-							<div class="col-md-2 hidden-xs">
+							<div class="col-md-3 hidden-xs">
 								<form action="{{url('schedule/confirm')}}" method="post">
 									{!! csrf_field() !!}
 									@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
@@ -102,15 +102,24 @@ List of all classes
 									<input type="hidden" name="id" value="{{$schedule->id}}">
 									<input type="hidden" name="req" value="confirm">
 													
-									<button class="btn btn-default btn-block" type="submit" id="button_check" >Confirm Status</button>
+									<button class="btn btn-default btn-flat" type="submit" id="button_check" >
+										<i class="fa fa-check"></i>
+										Status
+									</button>
 									@endif
 
 									@if (Entrust::can('edit-schedule'))
-									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}">Edit</a>	
+									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default btn-flat">
+										<i class="fa fa-edit"></i>
+										Edit
+									</a>	
 									@endif
 
 									@if (Entrust::can('delete-schedule'))
-									<a data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">Cancel</a>	
+									<a class="btn btn-danger btn-flat" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
+										<i class="fa fa-trash"></i>
+										Cancel
+									</a>	
 									@endif
 									
 								</form>
@@ -167,10 +176,6 @@ List of all classes
 									</div>
 							</form>
 							</div>
-
-
-
-
 					</div>
 					<div class="row row-splitter">
 						<div class="col-xs-12 visible-xs" style="height: 10px;">
@@ -187,7 +192,7 @@ List of all classes
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">Cancel Class</h4>
+										<h4 class="modal-title" id="myModalLabel">Cancel</h4>
 									</div>
 									<div class="modal-body">
 										Are you sure you want to Cancel this class? (id: <span id="delete_id_message"></span>) <br />
