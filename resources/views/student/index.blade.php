@@ -116,21 +116,21 @@ List of all Students
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
 						@if (Entrust::can('view-student'))
-						<a href= "{{url('student/'.$student->id)}}" class="btn btn-default btn-flat">
+						<a href= "{{url('student/'.$student->id)}}" class="btn btn-default btn-flat btn-sm">
 							<i class="fa fa-eye"></i>
 							View
 						</a>
 						@endif
 							
 						@if (Entrust::can('edit-student'))
-						<a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default btn-flat">
+						<a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default btn-flat btn-sm">
 							<i class="fa fa-edit"></i>
 							Edit
 						</a>
 						@endif
 
 						@if (Entrust::can('delete-student'))
-						<a class="btn btn-danger btn-flat"
+						<a class="btn btn-danger btn-flat btn-sm"
 						   data-toggle="modal" 
 						   data-target="#myModal" 
 						   student_id="{{$student->id}}" 

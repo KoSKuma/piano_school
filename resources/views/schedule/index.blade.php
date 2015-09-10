@@ -102,21 +102,21 @@ List of all classes
 									<input type="hidden" name="id" value="{{$schedule->id}}">
 									<input type="hidden" name="req" value="confirm">
 													
-									<button class="btn btn-default btn-flat" type="submit" id="button_check" >
+									<button class="btn btn-default btn-flat btn-sm" type="submit" id="button_check" >
 										<i class="fa fa-check"></i>
 										Status
 									</button>
 									@endif
 
 									@if (Entrust::can('edit-schedule'))
-									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default btn-flat">
+									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default btn-flat btn-sm">
 										<i class="fa fa-edit"></i>
 										Edit
 									</a>	
 									@endif
 
 									@if (Entrust::can('delete-schedule'))
-									<a class="btn btn-danger btn-flat" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
+									<a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
 										<i class="fa fa-trash"></i>
 										Cancel
 									</a>	
