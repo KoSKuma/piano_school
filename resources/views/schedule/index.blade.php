@@ -37,7 +37,7 @@ List of all classes
 
 				<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 					<div class="row hidden-xs" id="table_header">
-						<div class="col-md-10">
+					
 							<div class="col-md-3">
 								<strong>Start Time-End Time</strong>
 							</div>
@@ -54,28 +54,23 @@ List of all classes
 							<div class="col-md-3">
 								<strong>Status</strong>
 							</div>
-							
-						</div>
-						@if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
+							@if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
 							<div class="col-md-2">
 								<strong>Option</strong>
 							</div>
 							@endif
 							
-						
-						
-
 					</div>
 
 					@foreach ($scheduleList as $schedule)
 					<div class="row">
-						<div class="col-md-10">
-							<div class="col-md-3 col-xs-10">
+						
+							<div class="col-md-2 col-xs-10">
 								{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
 
 							</div>
 							@if (!Entrust::hasRole('teacher'))
-							<div class="col-md-3 col-xs-10">
+							<div class="col-md-2 col-xs-10">
 								ครู {{$schedule->teacher_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'><br /></span>
 								({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
@@ -83,7 +78,7 @@ List of all classes
 							@endif
 
 							@if (!Entrust::hasRole('student'))
-							<div class="col-md-3 col-xs-12">
+							<div class="col-md-2 col-xs-12">
 								{{$schedule->student_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'>
 									<br/>
@@ -94,60 +89,31 @@ List of all classes
 							<div class="col-md-2 col-xs-12">
 								{{$schedule->status}}
 							</div>                         
-						</div>	
+					
+							<div class="col-md-2 hidden-xs">
+								<form action="{{url('schedule/confirm')}}" method="post">
+									{!! csrf_field() !!}
+									@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
+									<input type="hidden" 
+										   id="attr_schedule_{{$schedule->id}}" 
+										   class_time="{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}" 
+										   teacher_name="ครู {{$schedule->teacher_nickname}} ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})" 
+										   student_name="{{$schedule->student_nickname}} ({{$schedule->student_firstname}} {{$schedule->student_lastname}})" />
+									<input type="hidden" name="id" value="{{$schedule->id}}">
+									<input type="hidden" name="req" value="confirm">
+													
+									<button class="btn btn-default btn-block" type="submit" id="button_check" >Confirm Status</button>
+									@endif
 
-						<div class="col-md-2 hidden-xs">
-							<form action="{{url('schedule/confirm')}}" method="post">
-								{!! csrf_field() !!}
-								
-									<div class="btn-group ">
-										<input type="hidden" name="_token" value="{{ csrf_token() }}">
-										
-										
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-											
-											<span class="sr-only">Toggle Dropdown</span>
-											Select Action
-											<span class="caret"></span>
-										</button>
+									@if (Entrust::can('edit-schedule'))
+									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}">Edit</a>	
+									@endif
 
-
-										<ul class="dropdown-menu">
-												@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
-												<li>
-												<input type="hidden" 
-													   id="attr_schedule_{{$schedule->id}}" 
-													   class_time="{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}" 
-													   teacher_name="ครู {{$schedule->teacher_nickname}} ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})" 
-													   student_name="{{$schedule->student_nickname}} ({{$schedule->student_firstname}} {{$schedule->student_lastname}})" />
-												<input type="hidden" name="id" value="{{$schedule->id}}">
-												<input type="hidden" name="req" value="confirm">
-												
-													<button class="btn btn-default btn-block" type="submit" id="button_check" >
-														Confirm Status
-													</button>
-												</li>
-												@endif
-
-												@if (Entrust::can('edit-schedule'))
-													<li>
-														<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" >
-															Edit
-														</a>
-													</li>
-												@endif
-
-												@if (Entrust::can('delete-schedule'))
-													<li>
-														<a data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
-															Cancel
-														</a>
-													</li>
-												@endif
-										
-										</ul>
-									</div>
-							</form>
+									@if (Entrust::can('delete-schedule'))
+									<a data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">Cancel</a>	
+									@endif
+									
+								</form>
 							</div>
 
 						<div class="col-md-2 visible-xs">

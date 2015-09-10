@@ -31,9 +31,7 @@ List of all Teachers
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 col-sm-6 pagination-info vcenter hidden-xs">
-				<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
-			</div>
+			
 			<div class="col-xs-12 col-sm-1 pull-right hidden-xs">
 				@if (Entrust::can('create-teacher'))
 				<div class="pull-right">
@@ -83,7 +81,7 @@ List of all Teachers
 						<div class="col-md-2 col-header vcenter">
 							<span><strong>Teacher Tel.</strong></span>
 						</div>
-						<div class="col-md-2 col-header vcenter">
+						<div class="col-md-4 col-header vcenter">
 							<span><strong>Option</strong></span>
 						</div>
 					</div>
@@ -124,39 +122,34 @@ List of all Teachers
 						<form action="{{url('teacher/restore')}}" method="post">
 							{!! csrf_field() !!}
 							<!-- Single button -->
-							<div class="col-md-2 hidden-xs">
-								<div class="btn-group ">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-										Select Action&nbsp;&nbsp;
-										<span class="caret"></span>
-										<span class="sr-only">Toggle Dropdown</span>
-									</button>
+							<div class="col-md-4 hidden-xs">
 
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
+								@if (Entrust::can('view-teacher'))
+								<a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn-flat btn-default ">
+									<i class="fa fa-eye"></i>
+									View
+								</a>
+								@endif
+								@if (Entrust::can('edit-teacher'))
+								<a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default">
+									<i class="fa fa-edit"></i>
+									Edit
+								</a>
+								@endif
+								@if (Entrust::can('delete-teacher'))
+								<a 
+									class="btn btn-flat btn-danger"
+									data-toggle="modal" 
+									data-target="#myModal" 
+									teacher_id="{{$teacher->id}}" 
+									teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
+									<i class="fa fa-trash"></i>
+									Delete
+								</a>
+								@endif
 
-									<ul class="dropdown-menu">
-										@if (Entrust::can('view-teacher'))
-										<li><a href= "{{url('teacher/'.$teacher->id)}}">View</a></li>
-										@endif
-
-										@if (Entrust::can('edit-teacher'))
-										<li><a href= "{{url('teacher/'.$teacher->id.'/edit')}}">Edit</a></li>
-										@endif
-
-										@if (Entrust::can('delete-teacher'))
-										<li><a 
-
-											data-toggle="modal" 
-											data-target="#myModal" 
-											teacher_id="{{$teacher->id}}" 
-											teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
-											Delete
-										</a></li>
-										@endif
-
-									</ul>
-								</div>
 							</div>
 						</form>
 					</div>
@@ -207,12 +200,18 @@ List of all Teachers
 				@endforeach
 			</div><!--End teacher_list_table-->
 
-			<div class="row">
-				<div class="col-xs-12 text-center">
-					{!! $teachers->render() !!}
+	
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs text-center">
+						<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
+					</div>
+					<div class="col-xs-12 text-center">
+						{!! $teachers->render() !!}
+					</div>
 				</div>
-			</div>
 
+
+		
 
 
 
