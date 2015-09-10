@@ -28,9 +28,9 @@ class Schedule extends Model
 		'location' => 'required',
 		);
 
-	public static function scheduleList (){
-
-		$schedulelist = DB::table('students_teachers')
+	public static function scheduleList ($date = NULL, $query = NULL)
+	{
+		$schedules = DB::table('students_teachers')
 		->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
 		->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
 		->select('students_teachers.id as id', 
@@ -46,7 +46,27 @@ class Schedule extends Model
 			'teachers.lastname as teacher_lastname',
 			'students_teachers.status as status');
 
-		return $schedulelist;
+		if(!is_null($date))
+		{
+			$schedules = $schedules->where('start_time', '>', $date . " 00:00:00")
+			->where('end_time', '<', $date . " 23:59:59");
+		}
+
+		if(!is_null($query))
+		{
+			$query = trim($query);
+
+			$schedules = $schedules->where(function( $filter ) use ( $query ) {
+				$filter->where('students.nickname', 'LIKE', "%$query%")
+				->orWhere('students.firstname', 'LIKE', "%$query%")
+				->orWhere('students.lastname', 'LIKE', "%$query%")
+				->orWhere('teachers.nickname', 'LIKE', "%$query%")
+				->orWhere('teachers.firstname', 'LIKE', "%$query%")
+				->orWhere('teachers.lastname', 'LIKE', "%$query%");
+			});
+		}
+
+		return $schedules;
 	}
 	public static function scheduleById ($id){
 		$scheduleById = DB::table('students_teachers')
@@ -66,7 +86,6 @@ class Schedule extends Model
 			'students_teachers.location as location',
 			'students_teachers.status as status')
 		->where('students_teachers.id' , '=' , $id )
-
 		->first();
 
 		return $scheduleById;
@@ -109,8 +128,6 @@ class Schedule extends Model
 	}
 	public static function setStatus($request)
 	{
-		print_r($request);die();
-
 		$schedule  = Schedule::where('students_teachers.id',$request->id)->first();
 
 		if($request->req == 'cancel' && $schedule->status == 'Reserved'){

@@ -126,7 +126,7 @@ Add a new student
         </div><!-- /.box-body -->
 
 
-        <div class="box-footer text-center">
+        <div class="box-footer text-right">
           <a href="{{url('teacher')}}" class="btn btn-default">Cancel</a>
           <button type="submit" class="btn btn-primary">Update</button>
         </div>

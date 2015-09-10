@@ -116,7 +116,7 @@ Add a new student
 									<i class="fa fa-calendar"></i>
 								</div>
 								<input type="text" name="human-format" class="form-control" id="human-format" placeholder="DD/MM/YYYY"/>
-                				<input type="hidden" id="date_of_birth" name="date_of_birth" value=""/>
+								<input type="hidden" id="date_of_birth" name="date_of_birth" value=""/>
 
 							</div>
 						</div>
@@ -124,13 +124,13 @@ Add a new student
 
 
 					<div class="form-group">
-			            <label class="col-sm-3 control-label" for="profile_picture">Profile Picture</label>
-			            <div class="col-sm-8">
-             				 <div class="input-group">
-               					 <input type="file" name="profile_picture" id="profile_picture" />
-             			 	</div>
-           				</div>
-     			    </div>
+						<label class="col-sm-3 control-label" for="profile_picture">Profile Picture</label>
+						<div class="col-sm-8">
+							 <div class="input-group">
+								 <input type="file" name="profile_picture" id="profile_picture" />
+							</div>
+						</div>
+					</div>
 
 
 					<div class="box-footer text-right">
@@ -160,18 +160,18 @@ $(function () {
 });
 
 
-  $(document).ready(function(){
-    $('#human-format').daterangepicker({
-        "singleDatePicker": true,
-        "showDropdowns": true,
-        "startDate": moment(),
-        "maxDate" : moment(),
-        "minDate": "01/01/1900",
-        "format": 'DD/MM/YYYY',
-    }, function(date){
-        //console.log('Class date: ' + date.format('YYYY-MM-DD'));
-        $("#date_of_birth").val(date.format('YYYY-MM-DD'));
-    });
-  });
+$(document).ready(function(){
+	$('#human-format').daterangepicker({
+		"singleDatePicker": true,
+		"showDropdowns": true,
+		"startDate": moment(),
+		"maxDate" : moment(),
+		"minDate": "01/01/1900",
+		"format": 'DD/MM/YYYY',
+	}, function(date){
+		//console.log('Class date: ' + date.format('YYYY-MM-DD'));
+		$("#date_of_birth").val(date.format('YYYY-MM-DD'));
+	});
+});
 </script>
 @endsection
