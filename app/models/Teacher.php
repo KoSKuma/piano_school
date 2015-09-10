@@ -84,7 +84,7 @@ class Teacher extends Model
         return $teachers;
     }
 
-    public static function scheduleOfTeacher($teachers_id)
+    public static function scheduleOfTeacher($teachers_id, $date = NULL)
     {
        $schedule = Schedule::_scheduleOfTeacher_Student($teachers_id, null);
 
