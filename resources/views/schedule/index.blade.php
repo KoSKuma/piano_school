@@ -33,10 +33,10 @@ List of all classes
 	</div><!-- /.box-header -->
 	<div class="box-body">
 		<div class="row">
-			<div class="col-xs-5">
+			<div class="col-xs-12 text-center">
 				<input type="text" />
 			</div>
-			<div class="col-xs-2 text-center">
+			<div class="col-xs-2 col-md-1 text-center">
 				to
 			</div>
 			<div class="col-xs-5">
