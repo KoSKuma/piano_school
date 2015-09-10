@@ -54,7 +54,7 @@ Sample page
 						<div class="col-md-2">
 							<strong>Nick Name</strong>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<strong>Full name</strong>
 						</div>
 						<div class="col-md-2">
@@ -63,7 +63,7 @@ Sample page
 						<div class="col-md-2">
 							<strong>Parent Tel.</strong>
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-4">
 							<strong>Option</strong>
 						</div>
 					</div>
@@ -84,7 +84,7 @@ Sample page
 			</div>
 			<div class="col-md-10 col-xs-8">
 
-				<div class="col-md-2 ">
+				<div class="col-md-1 ">
 					{{$student->nickname}} 
 				</div>
 				<div class="col-md-3">
@@ -100,46 +100,33 @@ Sample page
 				<form action="{{url('student/restore')}}" method="post">
 					{!! csrf_field() !!}
 					<!-- Single button -->
-					<div class="col-md-2 hidden-xs">
-						<div class="btn-group ">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
+					<div class="col-md-4 hidden-xs">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
+						@if (Entrust::can('view-student'))
+						<a href= "{{url('student/'.$student->id)}}" class="btn btn-default btn-flat">
+							<i class="fa fa-eye"></i>
+							View
+						</a>
+						@endif
 							
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								
-								<span class="sr-only">Toggle Dropdown</span>
-								Select Action
-								<span class="caret"></span>
-							</button>
+						@if (Entrust::can('edit-student'))
+						<a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default btn-flat">
+							<i class="fa fa-edit"></i>
+							Edit
+						</a>
+						@endif
 
-
-							<ul class="dropdown-menu">
-								@if (Entrust::can('view-student'))
-									<li>
-										<a href= "{{url('student/'.$student->id)}}" >
-											View
-										</a>
-									</li>
-									@endif
-									
-								@if (Entrust::can('edit-student'))
-									<li>
-										<a href= "{{url('student/'.$student->id.'/edit')}}">
-											Edit
-										</a>
-									</li>
-									@endif
-
-									@if (Entrust::can('delete-student'))
-									<li>
-										<a data-toggle="modal" data-target="#myModal" student_id="{{$student->id}}" student_name="{{$student->nickname . '(' . $student->firstname . ' ' . $student->lastname . ')'}}">
-											Delete
-										</a>
-									</li>
-								@endif
-
-							</ul>
-						</div>
+						@if (Entrust::can('delete-student'))
+						<a class="btn btn-danger btn-flat"
+						   data-toggle="modal" 
+						   data-target="#myModal" 
+						   student_id="{{$student->id}}" 
+						   student_name="{{$student->nickname . '(' . $student->firstname . ' ' . $student->lastname . ')'}}">
+						   <i class="fa fa-trash"></i>
+						   Delete
+						</a>	
+						@endif
 					</div>
 				</form>
 			</div>
@@ -151,7 +138,7 @@ Sample page
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
 
-						<button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="glyphicon glyphicon-th"></span>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right">

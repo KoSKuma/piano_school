@@ -97,7 +97,7 @@ Add a new student
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-phone"></i>
-								</div>
+								</div> 
 								<input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parent Phone" data-inputmask="&quot;mask&quot;: &quot;999-999-9999&quot;" data-mask="">
 							</div>
 
