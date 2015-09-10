@@ -225,9 +225,12 @@ class TeacherController extends Controller
 					->where('id',$request->id)
 					->restore();
 
-		$users = User::withTrashed()
+		$user = User::withTrashed()
 					->where('teachers_id',$request->id)
 					->restore();
+
+		$user = User::where('teachers_id',$request->id)->first();
+        $user = User::find($user->id);
 
 		$teacherRole = Role::where('name', '=', 'teacher')->get()->first();
 		$user->attachRole($teacherRole);

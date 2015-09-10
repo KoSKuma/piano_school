@@ -86,21 +86,11 @@ Add a new student
 									<div class="btn-group ">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
-										
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
 											
-											<span class="sr-only">Toggle Dropdown</span>
-											Select Action
-											<span class="caret"></span>
-										</button>
-
-										<ul class="dropdown-menu">
-											<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
-											<li>
-												<button type="submit" class="btn  btn-block"><span>restore</span></button> 
-											</li>
-
-										</ul>
+										<button type="submit" class="btn  btn-default">
+										    	<i class="fa fa-reply"></i> Restore 
+										   </button>
 									</div>
 								</div>
 							</form>

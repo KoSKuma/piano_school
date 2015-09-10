@@ -113,16 +113,16 @@ class Schedule extends Model
 
 		$schedule  = Schedule::where('students_teachers.id',$request->id)->first();
 
-		if($request->req == 'cancel' && $schedule->status == 'Not Start'){
-			$schedule->status = 'Cancel';
+		if($request->req == 'cancel' && $schedule->status == 'Reserved'){
+			$schedule->status = 'Canceled';
 		}
-		if($request->req == 'confirm' && $schedule->status == 'Not Start')
+		if($request->req == 'confirm' && $schedule->status == 'Reserved')
 		{ 
-			$schedule->status = 'Finish';
+			$schedule->status = 'Finished';
 		}
-		elseif($request->req == 'confirm' && $schedule->status == 'Finish')
+		elseif($request->req == 'confirm' && $schedule->status == 'Finished')
 		{
-			$schedule->status = 'Not Start';
+			$schedule->status = 'Reserved';
 		}
 		$schedule->save();
 
