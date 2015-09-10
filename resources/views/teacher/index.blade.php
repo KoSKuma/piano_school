@@ -12,43 +12,60 @@ List of all Teachers
 
 
 @section('main-content')
+<style type="text/css">
 
-<div class="box box-solid box-custom-info">
+
+</style>
+
+
+<div class="box box-solid box-default">
 	<div class="box-header">
 		<div class="row">
 			<div class="col-xs-6 col-md-12 vtop">
-				<h3 class="box-title">Teacher List</h3>
-				<span class="visible-xs">{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
+				
+				
 			</div>
-			<div class="col-xs-2 pull-right visible-xs">
-				@if (Entrust::can('create-teacher'))
-				<div class="pull-right">
-					<a href= "{{url('teacher/create')}}" class="btn btn-custom-white" >
-						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-					</a>
-				</div>
-				@endif
-			</div>
+			
 		</div>
 		<div class="row">
-			
-			<div class="col-xs-12 col-sm-1 pull-right hidden-xs">
+				
+			<form action="{{url('/teacher')}}" method="GET">
 				@if (Entrust::can('create-teacher'))
-				<div class="pull-right">
-					<a href= "{{url('teacher/create')}}" class="btn btn-primary" >
+				<div class="col-xs-12  text-left visible-xs" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>
 				@endif
-			</div>
-			<div class="col-xs-12 col-sm-4 box-tools pull-right">
-				<form action="{{url('/teacher')}}" method="GET">
-					<div class="has-feedback">
-						<input class="form-control input-sm" name="search" placeholder="Search..." type="text">
-						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
+				<div class="row">
+					<div class="col-xs-12" style="height:10px">
 					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4  ">
+				
+					<div class="input-group ">
+					  <input type="text" class="form-control" name="search" placeholder="Search for...">
+				      <span class="input-group-btn">
+				        <button class="btn btn-default " type="submmit">
+				        	 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				        	Search
+				        </button>
+				      </span>
+					</div>
+				
 				</form>
 			</div>
+
+			@if (Entrust::can('create-teacher'))
+			<div class="col-sm-7  text-right hidden-xs col-md-8" >
+				<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
+					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+				</a>
+			</div>
+			@endif
+		
+			
 		</div>
 
 	</div><!-- /.box-header -->
@@ -64,83 +81,76 @@ List of all Teachers
 		</div>
 		@endif
 		<div class="row ">
-			<div class="col-sm-12 col-md-12" id="teacher_list_table">
+			<div class="col-sm-12 col-md-11 col-md-offset-1" id="teacher_list_table">
 				<div class="row hidden-xs hidden-sm" id="table_header">
-					<div class="col-md-2 col-xs-3">
-						<div class="col-md-2 col-header vcenter">
-							<span><strong>Picture</strong></span>
+						<div class="col-sm-2 col-xs-4 col-header vcenter">
+							<span><strong>Profile Picture</strong></span>
 						</div>
-					</div>
-					<div class="col-md-10 col-xs-7">
-						<div class="col-md-2 col-header vcenter">
+						<div class="col-sm-2 col-header vcenter">
 							<span><strong>Nick Name</strong></span>
 						</div>
-						<div class="col-md-3 col-header vcenter">
+						<div class="col-sm-3 col-header vcenter">
 							<span><strong>Full name</strong></span>
 						</div>
-						<div class="col-md-2 col-header vcenter">
+						<div class="col-sm-2 col-header vcenter">
 							<span><strong>Teacher Tel.</strong></span>
 						</div>
-						<div class="col-md-4 col-header vcenter">
+						<div class="col-sm-3 col-header vcenter">
 							<span><strong>Option</strong></span>
 						</div>
-					</div>
 				</div>
 
 				@foreach ($teachers as $teacher)
-				<div class="row ">
-					<div class="col-md-2 col-xs-3">
-						<div class="col-xs-12 visible-xs">
+				<div class="row" >	
+
+						<div class="col-sm-2 col-xs-4" id="profile-picture">
 							@if (!empty($teacher->picture))
-							<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
+							<img class=" img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  width="70px">
 							@else
-							<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
+							<img class=" img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/')}}/default.jpg" width="70px" />
 							@endif       
 						</div>
 
-						<div class="col-sm-12 hidden-xs">
-							@if (!empty($teacher->picture))
-							<img class="img-responsive img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}"  >
-							@else
-							<img class="img-responsive img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/')}}/default.jpg" />
-							@endif       
-						</div>
-					</div>
-					<div class="col-md-10 col-xs-7">
 
-
-						<div class="col-md-2 ">
+						<div class="col-sm-2 hidden-xs">
 							ครู{{$teacher->nickname}}  
 						</div>
-						<div class="col-md-3 ">
+						<div class="col-sm-3 hidden-xs">
 							{{$teacher->firstname." ".$teacher->lastname}}       
 						</div>
-						<div class="col-md-2 ">
+						<div class="col-sm-2 hidden-xs">
 							{{ substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}      
+						</div>
+
+						<div class="col-xs-6 visible-xs">
+							ครู{{$teacher->nickname}} <br>
+							{{$teacher->firstname." ".$teacher->lastname}} <br>
+							{{ substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}} 
+
 						</div>
 
 						<form action="{{url('teacher/restore')}}" method="post">
 							{!! csrf_field() !!}
 							<!-- Single button -->
-							<div class="col-md-4 hidden-xs">
+							<div class="col-sm-3 hidden-xs hidden-sm" >
 
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
 								@if (Entrust::can('view-teacher'))
-								<a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn-flat btn-default ">
+								<a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn- btn-default btn-sm">
 									<i class="fa fa-eye"></i>
 									View
 								</a>
 								@endif
 								@if (Entrust::can('edit-teacher'))
-								<a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default">
+								<a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
 									<i class="fa fa-edit"></i>
 									Edit
 								</a>
 								@endif
 								@if (Entrust::can('delete-teacher'))
 								<a 
-									class="btn btn-flat btn-danger"
+									class="btn btn-flat btn-danger btn-sm"
 									data-toggle="modal" 
 									data-target="#myModal" 
 									teacher_id="{{$teacher->id}}" 
@@ -152,8 +162,7 @@ List of all Teachers
 
 							</div>
 						</form>
-					</div>
-					<div class="visible-xs col-xs-2 ">
+					<div class="visible-xs visible-sm col-xs-2 " >
 						<form action="{{url('teacher/restore')}}" method="post">
 							{!! csrf_field() !!}
 							<!-- Single button -->
@@ -161,7 +170,7 @@ List of all Teachers
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
 
-								<button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="glyphicon glyphicon-th"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right">
@@ -194,7 +203,7 @@ List of all Teachers
 
 				</div>
 				<div class="row">
-					<div class="col-xs-12" style="height:24px">
+					<div class="col-xs-12" style="height:10px">
 					</div>
 				</div>
 				@endforeach
@@ -202,7 +211,7 @@ List of all Teachers
 
 	
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs text-center">
+				<div class="col-xs-12 col-sm-12 pagination-info vcenter  text-center">
 					<span>{{App\helpers\TextHelper::paginationInfo($teachers)}}</span>
 				</div>
 				<div class="col-xs-12 text-center">
@@ -213,14 +222,6 @@ List of all Teachers
 					@endif
 				</div>
 			</div>
-
-
-		
-
-
-
-
-
 
 
 
