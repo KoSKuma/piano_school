@@ -148,7 +148,22 @@ class Schedule extends Model
 		}
 
 		return $totalTimeStudied;
+	}
 
+	public static function getReservedClassTime($students_id, $teachers_id)
+	{
+		$schedules = Schedule::where('students_id',$students_id)
+		->where('teachers_id', $teachers_id)
+		->where('status' , 2)
+		->get();
+
+		$totalReservedClassTime = 0;
+
+		foreach ($schedules as $schedule) {
+			$totalReservedClassTime += $schedule->time();
+		}
+
+		return $totalReservedClassTime;
 	}
 
 

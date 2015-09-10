@@ -39,15 +39,43 @@ class Student extends Model
 
     public static function studentList() {
 
-         $students = DB::table('users')
+        $students = DB::table('users')
             ->join('students','users.students_id', '=', 'students.id')
             ->select('students.id',
                 'users.firstname',
-                'users.lastname','users.nickname',
-                'users.email','users.date_of_birth',
+                'users.lastname',
+                'users.nickname',
+                'users.email',
+                'users.date_of_birth',
+                'users.students_id',
                 'students.student_phone',
                 'students.parent_phone',
                 'users.picture')
+            ->whereNull('users.deleted_at');
+           
+        return $students;
+    }
+
+    public static function searchStudentList($query) {
+        
+        $query = trim($query);
+        $students = DB::table('users')
+            ->join('students','users.students_id', '=', 'students.id')
+            ->select('students.id',
+                'users.firstname',
+                'users.lastname',
+                'users.nickname',
+                'users.email',
+                'users.date_of_birth',
+                'users.students_id',
+                'students.student_phone',
+                'students.parent_phone',
+                'users.picture')
+            ->where('users.firstname', 'LIKE', "%$query%")
+            ->orWhere('users.lastname', 'LIKE', "%$query%")
+            ->orWhere('users.nickname', 'LIKE', "%$query%")
+            ->orWhere('students.student_phone', 'LIKE', "%$query%")
+            ->orWhere('students.parent_phone', 'LIKE', "%$query%")
             ->whereNull('users.deleted_at');
            
         return $students;
@@ -98,9 +126,12 @@ class Student extends Model
         foreach( $this->teachers as $teacher )
         {
             array_push($remainingTime, array(
-                'teacher' => $teacher->user->nickname,
-                'time'    => TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['hours']. ':' .TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['minutes']
-                ));
+                'teacher'   =>  $teacher->user,
+                'timeText'      =>  TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['hours']. ':' .str_pad(TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['minutes'], 2, '0',STR_PAD_LEFT),
+                'totalMinutes'  =>  Student::getRemainingStudyTime($this->id, $teacher->id),
+                'textHours'     =>  TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['hours'],
+                'textMinutes'   =>  str_pad(TimeHelper::calculateTimeFromMinutes(Student::getRemainingStudyTime($this->id, $teacher->id))['minutes'], 2, '0',STR_PAD_LEFT)
+            ));
         }
 
         return $remainingTime;

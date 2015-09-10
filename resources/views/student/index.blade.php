@@ -2,12 +2,12 @@
 
 
 @section('htmlheader_title')
-Sample page
+List of all Students
 @endsection
 
 
 @section('contentheader_title')
-<h1>Student <small>List of all Students</small></h1>
+<h1>Student <small>List of all students</small></h1>
 @endsection
 
 
@@ -45,26 +45,23 @@ Sample page
 			<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 				<div class="row hidden-xs hidden-sm" id="table_header">
 					<div class="col-md-2 col-xs-2">
-						<div class="col-md-2">
-							<strong>Picture</strong>
+						<div class="col-xs-12 col-header vcenter">
+							<span><strong>Picture</strong></span>
 						</div>
 					</div>
 
 					<div class="col-md-10 col-xs-8">
-						<div class="col-md-2">
-							<strong>Nick Name</strong>
+						<div class="col-md-4 col-header vcenter">
+							<span><strong>Name</strong></span>
 						</div>
-						<div class="col-md-3">
-							<strong>Full name</strong>
+						<div class="col-md-2 col-header vcenter">
+							<span><strong>Student Tel.</strong></span>
 						</div>
-						<div class="col-md-2">
-							<strong>Student Tel.</strong>
+						<div class="col-md-2 col-header vcenter">
+							<span><strong>Parent Tel.</strong></span>
 						</div>
-						<div class="col-md-2">
-							<strong>Parent Tel.</strong>
-						</div>
-						<div class="col-md-2">
-							<strong>Option</strong>
+						<div class="col-md-2 col-header vcenter">
+							<span><strong>Option</strong></span>
 						</div>
 					</div>
 				</div>
@@ -76,19 +73,16 @@ Sample page
 
 				<div class="col-xs-12 ">
 					@if (!empty($student->picture))
-					<img class="img-responsive img-thumbnail" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}"  >
+					<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}"  >
 					@else
-					<img class="img-responsive img-thumbnail" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
+					<img class="img-responsive img-thumbnail table-profile-picture" style="min-width:52px; left:-10px; position:relative;" src="{{url('/uploads/profile_pictures/')}}/default.jpg"   />
 					@endif       
 				</div>
 			</div>
 			<div class="col-md-10 col-xs-8">
 
-				<div class="col-md-2 ">
-					{{$student->nickname}} 
-				</div>
-				<div class="col-md-3">
-					{{$student->firstname."  ".$student->lastname}}       
+				<div class="col-md-4 ">
+					{{$student->firstname."  ".$student->lastname}} ({{$student->nickname}})
 				</div>
 				<div class="col-md-2 ">
 					{{ substr($student->student_phone  ,0,3)."-".substr($student->student_phone   ,3,3)."-".substr($student->student_phone  ,6)}}      
@@ -189,7 +183,11 @@ Sample page
 	</div><!--End Student List Table -->
 	<div class="row">
 		<div class="col-xs-12 text-center">
-			{!! $students->render() !!}
+			@if (isset($searchResult))
+				{!! $students->appends(['search' => $searchResult['keyword']])->render() !!}
+			@else
+				{!! $students->render() !!}
+			@endif
 		</div>
 	</div>
 

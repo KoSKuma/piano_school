@@ -130,7 +130,7 @@ Add a new student
 						{{$time['teacher']}}
 					</div>
 					<div class="col-md-6">
-						{{$time['time']}}
+						{{$time['timeText']}}
 					</div>
 				@endforeach
 			</div>

@@ -18,11 +18,25 @@ class StudentController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::studentList();
+        if($request->has('search'))
+        {
+            $students = Student::searchStudentList($request->input('search'));
+            $searchResult = array(
+                'status'    =>  'ok',
+                'keyword'   =>  $request->input('search'),
+                'count'     =>  $students->count(),
+            );
+            return view('student.index',['students'=>$students->paginate(10)])->with('searchResult', $searchResult);
+        }
+        else
+        {
+            $students = Student::studentList();
+            return view('student.index',['students'=>$students->paginate(10)]);
+        }
         
-        return view('student.index',['students'=>$students->paginate(10)]);
+        
     }
 
     /**
