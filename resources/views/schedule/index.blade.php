@@ -32,9 +32,19 @@ List of all classes
 
 	</div><!-- /.box-header -->
 	<div class="box-body">
+		<div class="row">
+			<div class="col-xs-5">
+				<input type="text" />
+			</div>
+			<div class="col-xs-2 text-center">
+				to
+			</div>
+			<div class="col-xs-5">
+				<input type="text" />
+			</div>
+		</div>
 		<div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 			<div class="row">
-
 				<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 					<div class="row hidden-xs" id="table_header">
 					
