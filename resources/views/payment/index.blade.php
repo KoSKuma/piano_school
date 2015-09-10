@@ -80,11 +80,11 @@ List of all classes
                                     </div>
 
                                     <div class="col-md-4">
-                                        {{ $payment->students_nickname.' '.'('.$payment->students_firstname.' ' .$payment->students_lastname.')'}}         
+                                        {{ $payment->students_firstname.' ' .$payment->students_lastname.' '.'('.$payment->students_nickname.')'}}         
                                     </div>
                                     
                                     <div class="col-md-4">
-                                        {{'ครู'.$payment->teachers_nickname.' '.'('.$payment->teachers_firstname. ' ' .$payment->teachers_lastname.')' }}
+                                        {{ $payment->teachers_firstname. ' ' .$payment->teachers_lastname.' '.'('.'ครู'.$payment->teachers_nickname.')' }}
                                     </div>
                                  
                                     <div class="col-md-2">
@@ -93,25 +93,11 @@ List of all classes
                                 </div>
 
                                 
-                                    <div class="col-md-2 hidden-xs">
-                                        <div class="btn-group ">
+                                    <div class="col-md-2 hidden-xs">     
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        
-                                            
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                                Select Action
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="{{url('payment/'.$payment->id.'/edit')}}" >
-                                                        Edit
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                                <a class="btn btn-default"  href="{{url('payment/'.$payment->id.'/edit')}}">
+                                                    <i class="fa fa-edit"></i> Edit 
+                                                </a>
                                     </div>
 
                                       <div class="col-md-2 col-xs-2 visible-xs">
