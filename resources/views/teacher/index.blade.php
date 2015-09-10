@@ -20,15 +20,8 @@ List of all Teachers
 
 <div class="box box-solid box-default">
 	<div class="box-header">
+		
 		<div class="row">
-			<div class="col-xs-6 col-md-12 vtop">
-				
-				
-			</div>
-			
-		</div>
-		<div class="row">
-				
 			<form action="{{url('/teacher')}}" method="GET">
 				@if (Entrust::can('create-teacher'))
 				<div class="col-xs-12  text-left visible-xs" >

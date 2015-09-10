@@ -13,31 +13,47 @@ List of all Students
 
 @section('main-content')
 
-<div class="box box-solid box-custom-info">
+<div class="box box-solid box-default">
 	<div class="box-header">
 		<div class="row">
-			<div class="col-xs-6">
-				<h3 class="box-title">Student List</h3>
+
+			<form action="{{url('/teacher')}}" method="GET">
+				@if (Entrust::can('create-teacher'))
+				<div class="col-xs-12  text-left visible-xs" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
+						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+					</a>
+				</div>
+				@endif
+				<div class="row">
+					<div class="col-xs-12" style="height:10px">
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4  ">
+				
+					<div class="input-group ">
+					  <input type="text" class="form-control" name="search" placeholder="Search for...">
+				      <span class="input-group-btn">
+				        <button class="btn btn-default " type="submmit">
+				        	 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				        	Search
+				        </button>
+				      </span>
+					</div>
+				
+				</form>
 			</div>
-			<div class="col-xs-12 col-sm-12 pagination-info vcenter hidden-xs">
-				<span>{{App\helpers\TextHelper::paginationInfo($students)}}</span>
-			</div>
-			<div class="col-xs-12 text-right">
-				@if (Entrust::can('create-student'))
+
+			@if (Entrust::can('create-student'))
+			<div class="col-sm-7  text-right hidden-xs col-md-8" >
 				<a href= "{{url('student/create')}}" class="btn btn-primary" >
 					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 				</a>
-				@endif
 			</div>
-			<div class="col-xs-12 col-sm-4 box-tools pull-right">
-				<form action="{{url('/student')}}" method="GET">
-					<div class="has-feedback">
-						<input class="form-control input-sm" name="search" placeholder="Search..." type="text">
-						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
-					</div>
-				</form>
-			</div>
+			@endif
 		</div>
+
 	</div><!-- /.box-header -->
 
 	<div class="box-body">
