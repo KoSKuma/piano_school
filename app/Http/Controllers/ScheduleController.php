@@ -25,27 +25,48 @@ class ScheduleController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        //$scheduleList = Schedule::scheduleList();
-      
-
-
-        //return view('schedule.index', ['scheduleList' => $scheduleList]);
-
         $user = Auth::user();
+        $searchResult = array();
 
-        if (Entrust::hasRole('admin')) {
-            $schedule = schedule::scheduleList();
+        if($request->has('date'))
+        {
+            $date = $request->input('date');
         }
-        if (Entrust::hasRole('teacher')) {
-            $schedule = Teacher::scheduleOfTeacher($user->teachers_id);
+        else
+        {
+            $date = date("Y-m-d");
         }
-        if (Entrust::hasRole('student')) {
-            $schedule = Student::scheduleOfStudent($user->students_id);
+
+        if($request->has('search'))
+        {
+            $search = $request->input('search');
         }
-        return view('schedule.index' , ['scheduleList' => $schedule->paginate(15)]);
+        else
+        {
+            $search = NULL;
+        }
+
+        if (Entrust::hasRole('admin'))
+        {
+            $schedules = schedule::scheduleList($date, $search);
+            $searchResult = array(
+                'status'    =>  'ok',
+                'keyword'   =>  $request->input('search'),
+                'count'     =>  $schedules->count(),
+            );
+        }
+        if (Entrust::hasRole('teacher'))
+        {
+            $schedules = Teacher::scheduleOfTeacher($user->teachers_id, $date);
+        }
+        if (Entrust::hasRole('student'))
+        {
+            $schedules = Student::scheduleOfStudent($user->students_id, $date);
+        }
+
+        return view('schedule.index' , ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 
     /**

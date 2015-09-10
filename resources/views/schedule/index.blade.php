@@ -28,19 +28,51 @@ List of all classes
 				</a>
 			</div>
 			@endif
+
+			<div class="col-xs-12 col-sm-4 box-tools pull-right">
+				<form action="{{url('/schedule')}}" method="GET">
+					<div class="has-feedback">
+						<input class="form-control input-sm" name="search" id="searchBox" placeholder="Search..." type="text" value="{!! $searchResult['keyword'] !!}"/>
+						<input type="hidden" name="date" value="{{$date}}" />
+						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
+					</div>
+				</form>
+			</div>
 		</div>
 
 	</div><!-- /.box-header -->
 	<div class="box-body">
+		@if (isset($searchResult['keyword']))
 		<div class="row">
-			<div class="col-xs-12 text-center">
-				<input type="text" />
+			<div class="col-xs-2 hidden-sm"></div>
+		    <div class="col-xs-8 alert bg-gray color-palette">
+		        <div class="col-xs-12">
+		        	Search for {{$searchResult['keyword']}}, found {{$searchResult['count']}} results
+		        </div>
+		    </div>
+		</div>
+		@endif
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="col-xs-1 text-right col-sm-offset-3 col-md-offset-4">
+					<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('-1 day', strtotime($date))))}}" class="btn btn-default btn-flat">
+						<i class="glyphicon glyphicon-chevron-left"></i>
+					</a>
+	            </div>
+				<div class="col-xs-10 col-sm-4 col-md-2">
+					<div class="input-group" id="select-date-input">
+	                    <input class="form-control" type="text" name="human-select-date" id="human-select-date" value="{{date('j M Y', strtotime($date))}}" />
+	                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                </div>
+	                <input type="hidden" name="date" id="date" value="{{$date}}" />
+	            </div>
+	            <div class="col-xs-1">
+					<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('+1 day', strtotime($date))))}}" class="btn btn-default btn-flat">
+						<i class="glyphicon glyphicon-chevron-right"></i>
+					</a>
+	            </div>
 			</div>
-			<div class="col-xs-2 col-md-1 text-center">
-				to
-			</div>
-			<div class="col-xs-5">
-				<input type="text" />
+			<div class="col-xs-12" style="height:12px;">
 			</div>
 		</div>
 		<div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -48,31 +80,31 @@ List of all classes
 				<div class="col-sm-12 col-md-12 " id="schedule_list_table">
 					<div class="row hidden-xs" id="table_header">
 					
-							<div class="col-md-2">
-								<strong>Start Time-End Time</strong>
-							</div>
-							@if (!Entrust::hasRole('teacher'))
-							<div class="col-md-2">
-								<strong>Teacher</strong>
-							</div>
-							@endif
-							@if (!Entrust::hasRole('student'))
-							<div class="col-md-2">
-								<strong>Student</strong>
-							</div>
-							@endif
-							<div class="col-md-2">
-								<strong>Status</strong>
-							</div>
-							@if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
-							<div class="col-md-3">
-								<strong>Option</strong>
-							</div>
-							@endif
+						<div class="col-md-2">
+							<strong>Start Time-End Time</strong>
+						</div>
+						@if (!Entrust::hasRole('teacher'))
+						<div class="col-md-3">
+							<strong>Teacher</strong>
+						</div>
+						@endif
+						@if (!Entrust::hasRole('student'))
+						<div class="col-md-3">
+							<strong>Student</strong>
+						</div>
+						@endif
+						<div class="col-md-1">
+							<strong>Status</strong>
+						</div>
+						@if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
+						<div class="col-md-3">
+							<strong>Option</strong>
+						</div>
+						@endif
 							
 					</div>
 
-					@foreach ($scheduleList as $schedule)
+					@foreach ($schedules as $schedule)
 					<div class="row">
 						
 							<div class="col-md-2 col-xs-10">
@@ -80,7 +112,7 @@ List of all classes
 
 							</div>
 							@if (!Entrust::hasRole('teacher'))
-							<div class="col-md-2 col-xs-10">
+							<div class="col-md-3 col-xs-10">
 								ครู {{$schedule->teacher_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'><br /></span>
 								({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
@@ -88,7 +120,7 @@ List of all classes
 							@endif
 
 							@if (!Entrust::hasRole('student'))
-							<div class="col-md-2 col-xs-12">
+							<div class="col-md-3 col-xs-12">
 								{{$schedule->student_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'>
 									<br/>
@@ -96,7 +128,7 @@ List of all classes
 								({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 							</div>
 							@endif
-							<div class="col-md-2 col-xs-12">
+							<div class="col-md-1 col-xs-12">
 								{{$schedule->status}}
 							</div>                         
 					
@@ -229,12 +261,16 @@ List of all classes
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-center">
-					{{ (($scheduleList->currentPage() - 1) * $scheduleList->perPage() + 1) }}-{{ (($scheduleList->currentPage() - 1) * $scheduleList->perPage() + 1) + ($scheduleList->count() - 1)}} of {{$scheduleList->total()}}
+					{{ (($schedules->currentPage() - 1) * $schedules->perPage() + 1) }}-{{ (($schedules->currentPage() - 1) * $schedules->perPage() + 1) + ($schedules->count() - 1)}} of {{$schedules->total()}}
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-center">
-					{!! $scheduleList->render() !!}
+					@if (isset($searchResult['keyword']))
+						{!! $schedules->appends(['search' => $searchResult['keyword']])->render() !!}
+					@else
+						{!! $schedules->render() !!}
+					@endif
 				</div>
 			</div>
 
@@ -258,6 +294,19 @@ $(document).ready(function(){
 		$("#delete_id").val(delete_schedule_id);
 		
 	});
+
+	$('#select-date-input').daterangepicker({
+		"singleDatePicker": true,
+		"showDropdowns": true,
+		"startDate": "{{date('d/m/Y', strtotime($date))}}",
+		"minDate": "01/01/2000",
+		"format": 'DD/MM/YYYY',
+	}, function(date){
+		$("#human-select-date").val(moment(date.format('YYYY-MM-DD')).format('D MMM YYYY'));
+		$("#date").val(date.format('YYYY-MM-DD'));
+		window.location.href = "{{url('/schedule?date=')}}"+ $('#date').val();
+	});
+
 });
 
 </script>
