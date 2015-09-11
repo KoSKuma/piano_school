@@ -32,10 +32,10 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        $teacher = Teacher::teacherList();
-        $student = Student::studentList();
-        //print_r($teacher);die();
-        return view('payment.addhours',['teacherlist'=>$teacher , 'studentlist'=>$student ]);
+        $teachers = Teacher::teacherList();
+        $students = Student::studentList();
+
+        return view('payment.addhours',['teacherlist'=>$teachers->get(), 'studentlist'=>$students->get()]);
     }
 
     /**

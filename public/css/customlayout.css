@@ -35,13 +35,51 @@
 
 
 .box.box-solid > .box-header .btn.btn-default {
-  background: white;
+	background: white;
 }
 
 
 .box.box-solid.box-default > .box-header a, .box.box-solid.box-default > .box-header .btn.custom-font{
 	color: white;
 }
+
+.schedule-today {
+	font-weight: bold;
+}
+
+.schedule-passed {
+	color: #837E7C;
+}
+
+.class-reserved {
+
+}
+
+.class-studying {
+	font-weight: bold;
+}
+
+.class-finished {
+	color: #59C817;
+}
+
+.class-canceled {
+	color: #D11B17;
+}
+
+@media (max-width: 767px) {
+  .btn-responsive {
+    padding:1px 5px;
+    font-size:12px;
+    line-height: 1.5;
+    border-radius:3px;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn-responsive {
+
+  }
 
 .box.box-solid.box-danger > .box-header a, .box.box-solid.box-danger > .box-header .btn.custom-to-black {
     color: #000000;

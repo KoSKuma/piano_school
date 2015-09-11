@@ -44,7 +44,8 @@ class Schedule extends Model
 			'teachers.nickname as teacher_nickname', 
 			'teachers.firstname as teacher_firstname', 
 			'teachers.lastname as teacher_lastname',
-			'students_teachers.status as status');
+			'students_teachers.status as status')
+		->orderBy('students_teachers.start_time', 'asc');
 
 		if(!is_null($date))
 		{
@@ -91,22 +92,10 @@ class Schedule extends Model
 		return $scheduleById;
 	}
 
-	public static function _scheduleOfTeacher_Student($teachers_id = null, $students_id = null)
+	public static function _scheduleOfTeacher_Student($teachers_id = null, $students_id = null, $date = null, $mode = null)
 	{
-		if(!is_null($teachers_id) && !is_null($students_id))
-		{
-			$whereClause = 'students_teachers.teachers_id = '.$teachers_id.' AND '.'students_teachers.students_id = '.$student_id;
-		}
-		elseif (!is_null($teachers_id)) 
-		{
-			$whereClause = 'students_teachers.teachers_id = '.$teachers_id;
-		}
-		elseif(!is_null($students_id)) 
-		{
-			$whereClause = 'students_teachers.students_id = '.$students_id;
-		}
 
-		$schedule = DB::table('students_teachers')
+		$schedules = DB::table('students_teachers')
 		->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
 		->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
 		->select('students_teachers.id as id', 
@@ -122,10 +111,34 @@ class Schedule extends Model
 			'teachers.lastname as teacher_lastname', 
 			'students_teachers.location as location',
 			'students_teachers.status as status')
-		->whereRaw( $whereClause );
+		->orderBy('students_teachers.start_time', 'asc');
 
-		return $schedule;
+		if (!is_null($teachers_id)) 
+		{
+			$schedules->where('students_teachers.teachers_id', '=', $teachers_id);
+		}
+		elseif(!is_null($students_id)) 
+		{
+			$schedules->where('students_teachers.students_id', '=', $students_id);
+		}
+
+		if(!is_null($date))
+		{
+			$schedules = $schedules->where('start_time', '>', $date . " 00:00:00")
+			->where('end_time', '<', $date . " 23:59:59");
+		}
+
+		if(!is_null($mode))
+		{
+			if($mode == "From Now")
+			{
+				$schedules = $schedules->where('start_time', '>', date("Y-m-d") . " 00:00:00");
+			}
+		}
+
+		return $schedules;
 	}
+
 	public static function setStatus($request)
 	{
 		$schedule  = Schedule::where('students_teachers.id',$request->id)->first();

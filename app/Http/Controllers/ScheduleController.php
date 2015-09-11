@@ -67,6 +67,12 @@ class ScheduleController extends Controller
             $schedules = Student::scheduleOfStudent($user->students_id, $date);
         }
 
+        $searchResult = array(
+            'status'    =>  'ok',
+            'keyword'   =>  $request->input('search'),
+            'count'     =>  $schedules->count(),
+        );
+
         return view('schedule.index', ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 
@@ -137,9 +143,9 @@ class ScheduleController extends Controller
     }
     public function status(Request $request)
     {
-        $schedule  = Schedule::setStatus($request);
+        $schedule = Schedule::setStatus($request);
         
-        return redirect('schedule')->with('status', $schedule);
+        return redirect('schedule?date='.$request->date)->with('status', $schedule);
     }
 
 
@@ -156,7 +162,7 @@ class ScheduleController extends Controller
 
         else {
 
-            $schedule  = Schedule::where('students_teachers.id',$id)->first();
+            $schedule = Schedule::where('students_teachers.id',$id)->first();
             
             $schedule->teachers_id = $request->teachers_id;
             $schedule->students_id = $request->students_id;
@@ -165,9 +171,8 @@ class ScheduleController extends Controller
             $schedule->location = $request->location;
 
             $schedule->save();
-
-        
-        return  redirect('schedule');
+            
+        return  redirect( ('schedule?date='.date('Y-m-d', strtotime($schedule->start_time))) );
         }
     }
 
