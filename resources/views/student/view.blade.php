@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Student <small>view</small></h1>
+<h1>Student: {{$student->user->firstname.' '.$student->user->lastname}}</h1>
 @endsection
 
 
@@ -97,19 +97,19 @@ Add a new student
                 {{date('j F Y' ,strtotime($student->user->date_of_birth))}}
             </div>
             <div class="row">
- 				..ชั่วโมงที่เหลือ..						            
+ 				 @foreach($times as $time)  
+                     {{$time['textHours']}} 
+                 @endforeach					            
             </div>
-             <div class="row">
-                
+            <div class="row">    
             </div>
         </div>
 </div>
 
 
 <div class="visible-xs  col-xs-12" >
-        <div class="visible-xs visible-sm  col-xs-3">
+            <div class="visible-xs visible-sm  col-xs-3">
             </div>
-
             <div class="visible-xs   col-xs-6">
                 @if(empty($student->user->picture))
 					<img   class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
@@ -117,51 +117,52 @@ Add a new student
 					<img  class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/').'/'.$student->user->picture}}" height="200" />
 				@endif
             </div>
-
             <div class="visible-xs  col-xs-3">
             </div>
 </div>
 
-        <div class="visible-xs  col-xs-1">
-        </div>
+            <div class="visible-xs  col-xs-1">
+            </div>
 
-        <div class="visible-xs  col-xs-4" >
-            <br/>
-               <div class="row">
-                    <b>Name</b>
-                </div>
-                <div class="row">
-                    <b>Tel.</b>
-                </div>
-                <div class="row">
-                    <b>E-mail</b>
-                </div>
-                <div class="row">
-                    <b>DateofBirth</b>
-                </div>
-                <div class="row">
-                    <b>hours.</b>
-                </div>
-        </div>  
-
-        <div class="visible-xs   col-xs-6" >  
-            <div class="row">
+             <div class="visible-xs  col-xs-4" >
                 <br/>
-               {{$student->user->nickname}}
-            </div>
-            <div class="row">
-               {{$student->user->email}}
-            </div>
-            <div class="row">
-               {{date('j F Y' ,strtotime($student->date_of_birth))}}
-            </div>
-            <div class="row">
-               {{$student->user->email}}
-            </div>
-             <div class="row">
-                ..ชั่วโมงที่เหลือ..
-            </div>
-        </div>
+                   <div class="row">
+                        <b>Name</b>
+                    </div>
+                    <div class="row">
+                        <b>Tel.</b>
+                    </div>
+                    <div class="row">
+                        <b>E-mail</b>
+                    </div>
+                    <div class="row">
+                        <b>DateofBirth</b>
+                    </div>
+                    <div class="row">
+                        <b>hours.</b>
+                    </div>
+             </div>  
+
+            <div class="visible-xs   col-xs-6" >  
+                <div class="row">
+                    <br/>
+                   {{$student->user->nickname}}
+                </div>
+                <div class="row">
+                   {{$student->user->email}}
+                </div>
+                <div class="row">
+                   {{date('j F Y' ,strtotime($student->date_of_birth))}}
+                </div>
+                <div class="row">
+                   {{$student->user->email}}
+                </div>
+                 <div class="row">
+                    @foreach($times as $time)  
+                         {{$time['textHours']}}
+                    @endforeach
+                </div>
+              </div>
 
 <div class="row">
     </br>
@@ -169,11 +170,11 @@ Add a new student
     </div>
 </div>
 
-<div class="col-md-1">
+<div class="col-md-2">
 	</br>
 </div>
 <div class="row">
- <div class="col-md-10">
+ <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Schedule</h3>
@@ -183,20 +184,15 @@ Add a new student
                 <div class="col-sm-12 col-md-12 ">
                     <div class="row hidden-xs" id="table_header">
                     
-                        <div class="col-md-3">
-                            <strong>Start Time-End Time</strong>
+                        <div class="col-md-4">
+                            <strong>Class Date</strong>
                         </div>
                         
-                        <div class="col-md-3">
-                            <strong>Student</strong>
-                        </div>
-                       
-                        
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <strong>Teacher </strong>
                         </div>
                         
-                        <div class="col-md-1">
+                        <div class="col-md-4">
                             <strong>Status</strong>
                         </div>
                               
@@ -205,34 +201,29 @@ Add a new student
 
 
                 <div class="row">
-                        
-                            <div class="col-md-3 col-xs-10">
-                                 วัน                       
+                    @foreach($schedules as $schedule)
+                            <div class="col-md-4 col-xs-10">
+                                {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}                      
 
                             </div>
                             
-                            <div class="col-md-3 col-xs-10">
-                                ครู ชื่อเล่น 
+                            <div class="col-md-4 col-xs-10">
+                                {{'ครู'.$schedule->teacher_nickname}}
                                 <span class='visible-sm-inline visible-md-inline'><br /></span>
-                                ชื่อจริงนามสกุล
-                            </div>
-                            
-
-                            
-                            <div class="col-md-3 col-xs-12">
-                                นักเรียนชื่อเล่น 
-                                <span class='visible-sm-inline visible-md-inline'>
-                                    <br/>
-                                </span>
-                                ชื่อจริงนักเรียน
+                                ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
                             </div>
                         
-                            <div class="col-md-1 col-xs-12">
-                                สถานะ
+                            <div class="col-md-4 col-xs-12">
+                                {{$schedule->status}}
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-xs-12" style="height:10px">
+                                    </div>
                             </div>
 
 
-                            
+                  @endforeach          
                 </div>   
 
             </div>

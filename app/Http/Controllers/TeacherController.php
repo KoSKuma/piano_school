@@ -123,7 +123,11 @@ class TeacherController extends Controller
 
 		$teacher = $teacher->first();
 
-		return view('teacher.view', ['teacher'=>$teacher]);
+		
+		$schedules = Teacher::scheduleOfTeacher($id);
+		
+
+		return view('teacher.view', ['teacher'=>$teacher , 'schedules'=>$schedules->get()]);
 	}
 
 	/**
@@ -241,5 +245,9 @@ class TeacherController extends Controller
 		return redirect('teacher');
 
 	}
+
+
+	
+	
 
 }
