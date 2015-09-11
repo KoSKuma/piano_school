@@ -64,7 +64,7 @@ List of all classes
 	            </div>
 				<div class="col-xs-7 col-sm-4 col-md-2">
 					<div class="input-group" id="select-date-input">
-	                    <input class="form-control" type="text" name="human-select-date" id="human-select-date" value="{{date('j M Y', strtotime($date))}}" />
+	                    <input class="form-control" type="text" name="human-select-date" id="human-select-date" value="{{date('j M y', strtotime($date))}}" />
 	                    <span class="input-group-addon btn-responsive"><i class="glyphicon glyphicon-calendar"></i></span>
 	                </div>
 	                <input type="hidden" name="date" id="date" value="{{$date}}" />
@@ -317,7 +317,7 @@ $(document).ready(function(){
 		"minDate": "01/01/2000",
 		"format": 'DD/MM/YYYY',
 	}, function(date){
-		$("#human-select-date").val(moment(date.format('YYYY-MM-DD')).format('D MMM YYYY'));
+		$("#human-select-date").val(moment(date.format('YYYY-MM-DD')).format('D MMM YY'));
 		$("#date").val(date.format('YYYY-MM-DD'));
 		window.location.href = "{{url('/schedule?date=')}}"+ $('#date').val();
 	});
