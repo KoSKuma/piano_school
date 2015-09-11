@@ -32,8 +32,8 @@ List of all classes
 			<div class="col-xs-12 col-sm-4 box-tools pull-right">
 				<form action="{{url('/schedule')}}" method="GET">
 					<div class="has-feedback">
-						<input class="form-control input-sm" name="search" id="searchBox" placeholder="Search..." type="text" value="{!! $searchResult['keyword'] !!}"/>
 						<input type="hidden" name="date" value="{{$date}}" />
+						<input class="form-control input-sm" name="search" id="searchBox" placeholder="Search..." type="text" value="{!! $searchResult['keyword'] !!}"/>
 						<span class="glyphicon glyphicon-search form-control-feedback with-white-bg" id="search-icon"></span>
 					</div>
 				</form>
@@ -42,7 +42,7 @@ List of all classes
 
 	</div><!-- /.box-header -->
 	<div class="box-body">
-		@if (isset($searchResult['keyword']))
+		@if (isset($searchResult['keyword']) && !empty($searchResult['keyword']))
 		<div class="row">
 			<div class="col-xs-2 hidden-sm"></div>
 		    <div class="col-xs-8 alert bg-gray color-palette">
@@ -54,22 +54,27 @@ List of all classes
 		@endif
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="col-xs-1 text-right col-sm-offset-3 col-md-offset-4">
-					<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('-1 day', strtotime($date))))}}" class="btn btn-default btn-flat">
-						<i class="glyphicon glyphicon-chevron-left"></i>
-					</a>
+				<div class="col-xs-2 text-right col-sm-offset-2 col-md-offset-3 vcenter" style="height:34px;">
+					<span>
+						<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('-1 day', strtotime($date))))}}@if(isset($searchResult['keyword']) && !empty($searchResult['keyword'])){{'&search='.$searchResult['keyword']}}@endif" 
+							class="btn btn-responsive btn-default btn-flat">
+							<i class="glyphicon glyphicon-chevron-left"></i>
+						</a>
+					</span>
 	            </div>
-				<div class="col-xs-10 col-sm-4 col-md-2">
+				<div class="col-xs-7 col-sm-4 col-md-2">
 					<div class="input-group" id="select-date-input">
 	                    <input class="form-control" type="text" name="human-select-date" id="human-select-date" value="{{date('j M Y', strtotime($date))}}" />
-	                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                    <span class="input-group-addon btn-responsive"><i class="glyphicon glyphicon-calendar"></i></span>
 	                </div>
 	                <input type="hidden" name="date" id="date" value="{{$date}}" />
 	            </div>
-	            <div class="col-xs-1">
-					<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('+1 day', strtotime($date))))}}" class="btn btn-default btn-flat">
-						<i class="glyphicon glyphicon-chevron-right"></i>
-					</a>
+	            <div class="col-xs-2 vcenter" style="height:34px;">
+	            	<span>
+						<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('+1 day', strtotime($date))))}}@if(isset($searchResult['keyword']) && !empty($searchResult['keyword'])){{'&search='.$searchResult['keyword']}}@endif" class="btn btn-responsive btn-default btn-flat">
+							<i class="glyphicon glyphicon-chevron-right"></i>
+						</a>
+					</span>
 	            </div>
 			</div>
 			<div class="col-xs-12" style="height:12px;">
@@ -105,7 +110,7 @@ List of all classes
 					</div>
 
 					@foreach ($schedules as $schedule)
-					<div class="row">
+					<div class="row @if($date == date('Y-m-d')) schedule-today @elseif(strtotime($date) < strtotime(date('Y-m-d'))) schedule-passed @endif" >
 						
 							<div class="col-md-2 col-xs-10">
 								{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
@@ -129,7 +134,15 @@ List of all classes
 							</div>
 							@endif
 							<div class="col-md-1 col-xs-12">
-								{{$schedule->status}}
+								@if (App\helpers\TextHelper::isStatus($schedule->status, 1))
+									<span class="class-finished">	
+								@elseif (App\helpers\TextHelper::isStatus($schedule->status, 2))
+									<span class="class-reserved">
+								@elseif (App\helpers\TextHelper::isStatus($schedule->status, 3))
+									<span class="class-canceled">
+								@endif
+									{{$schedule->status}}
+								</span>
 							</div>                         
 					
 							<div class="col-md-3 hidden-xs">
@@ -141,6 +154,7 @@ List of all classes
 										   class_time="{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}" 
 										   teacher_name="ครู {{$schedule->teacher_nickname}} ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})" 
 										   student_name="{{$schedule->student_nickname}} ({{$schedule->student_firstname}} {{$schedule->student_lastname}})" />
+									<input type="hidden" name="date" value="{{$date}}" />
 									<input type="hidden" name="id" value="{{$schedule->id}}">
 									<input type="hidden" name="req" value="confirm">
 													
@@ -247,6 +261,7 @@ List of all classes
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 											<input type="hidden" name="req" value="cancel">
 											<input type="hidden" name="id" id="delete_id" value="">
+											<input type="hidden" name="date" value="{{$date}}" />
 											<button class="btn btn-warning" >
 												<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Yes
 											</button>
@@ -266,7 +281,7 @@ List of all classes
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-center">
-					@if (isset($searchResult['keyword']))
+					@if (isset($searchResult['keyword']) && !empty($searchResult['keyword']))
 						{!! $schedules->appends(['search' => $searchResult['keyword']])->render() !!}
 					@else
 						{!! $schedules->render() !!}

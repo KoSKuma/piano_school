@@ -72,7 +72,7 @@ Add a new student
                         <div class="col-sm-3">
                             <div class="bootstrap-timepicker">
                                 <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="start_time_display" id="start_time_picker" value="{{date('H:i', strtotime($scheduleById->end_time) )}}" />
+                                    <input type="text" class="form-control" name="start_time_display" id="start_time_picker" value="{{date('H:i', strtotime($scheduleById->start_time) )}}" />
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
@@ -91,7 +91,7 @@ Add a new student
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                <input type="hidden" id="class_end_time" name="class_end_time" value="{{date('H:i', strtotime($scheduleById->end_time) )}}"/>
+                                <input type="hidden" id="class_end_time" name="class_end_time" value="{{date('H:i:s', strtotime($scheduleById->end_time) )}}"/>
                                 </div>
                             </div>
                         </div>
