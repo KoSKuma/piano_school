@@ -89,7 +89,9 @@ List of all Students
 				</div>
 
 				@foreach ($students as $student)
-				<div class="row ">
+				
+				<div class="row  ">
+				
 					<div class="col-sm-2 col-xs-4">
 						@if (!empty($student->picture))
 						<img class="img-thumbnail table-profile-picture" src="{{url('/uploads/profile_pictures/').'/'.$student->picture}}"  width="70px">
@@ -180,10 +182,14 @@ List of all Students
 							</div>
 						</div>
 					</form>
+				
+			</div>
+				<div class="row visible-xs">
+					<div class="col-xs-12" style="height:30px">
+					</div>
 				</div>
-
-				<div class="row">
-					<div class="col-xs-12" style="height:15px">
+				<div class="row hidden-xs">
+					<div class="col-xs-12" style="height:10px">
 					</div>
 				</div>
 				@endforeach

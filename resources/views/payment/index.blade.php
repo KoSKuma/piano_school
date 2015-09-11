@@ -7,65 +7,89 @@ List of all classes
 
 
 @section('contentheader_title')
-
+<h1>Payment<small>List of all payment topup</small></h1>
 @endsection
 
 
 @section('main-content')
-<style>
-.example-modal .modal {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    right: auto;
-    left: auto;
-    display: block;
-    z-index: 1;
-}
-.example-modal .modal {
-    background: transparent!important;
-}
-</style>
-<div class="box box-solid box-info">
+
+<div class="box box-solid box-default">
     <div class="box-header">
         <div class="row">
-            <div class="col-xs-6">
-                <h3 class="box-title">Payment List</h3>
-            </div>
-            <div class="col-xs-12 text-right">
-                <a href= "{{url('payment/create')}}" class="btn btn-primary" >
-                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add
-             </a>
-                        
-            </div>
+            <form action="{{url('/student')}}" method="GET">
+            
+                <div class="col-xs-12  text-left visible-xs" >
+                    <a href= "{{url('payment/create')}}" class="btn btn-primary  custom-font" >
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+                    </a>
+                </div>
+               
+                <div class="row">
+                    <div class="col-xs-12" style="height:10px">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4  ">
+                    <div class="input-group ">
+                      <input type="text" class="form-control" name="search" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default " type="submmit">
+                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            Search
+                        </button>
+                      </span>
+                    </div>
+                </div>
+                @if (Entrust::can('create-student'))
+                <div class="col-sm-7  text-right hidden-xs col-md-8" >
+                    <a href= "{{url('payment/create')}}" class="btn btn-primary custom-font" >
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+                    </a>
+                </div>
+                @endif
+                
+            </form>
+        
+            
+          
         </div>
 
     </div><!-- /.box-header -->
     <div class="box-body">
-        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        @if (isset($searchResult))
+        <div class="row">
+            <div class="col-xs-2 hidden-sm"></div>
+            <div class="col-xs-8 alert bg-gray color-palette">
+                <div class="col-xs-12">
+                    Search for {{$searchResult['keyword']}}, found {{$searchResult['count']}} results
+                </div>
+            </div>
+        </div>
+        @endif
+        
             <div class="row">
                 
-                <div class="col-md-12" id="schedule_list_table">
+               <div class="col-sm-12 col-md-11 col-md-offset-1 " id="schedule_list_table">
 
-                    <div class="row hidden-xs" id="table_header">
-                        <div class="col-md-10">
-                            <div class="col-md-2">
+                    <div class="row hidden-xs hidden-sm" id="table_header">
+                        
+                             <div class="col-sm-2 col-header vcenter">
                                 <strong>Date</strong>
                             </div>
 
-                             <div class="col-md-4">
+                             <div class="col-sm-3 col-header vcenter">
                                 <strong>Student</strong>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-sm-3 col-header vcenter">
                                 <strong>Teacher</strong>
                             </div>
                            
-                            <div class="col-md-2">
+                            <div class="col-sm-2 col-header vcenter">
                                 <strong>Hours</strong>
                             </div>
-                        </div>
-                         <div class="col-md-2">
+                  
+                         <div class="col-sm-2 col-header vcenter">
                             <strong>Option</strong>
                         </div>
                       
@@ -74,47 +98,52 @@ List of all classes
                     
                         @foreach($payments as $payment)
                             <div class="row">
-                                <div class="col-md-10 col-xs-10">
-                                    <div class="col-md-2">
-                                        {{date('j M y G:i',strtotime($payment->created_at))}}
+                              
+                                    <div class="col-sm-2 hidden-xs">
+                                        {{date('j M Y G:i',strtotime($payment->created_at))}}
                                     </div>
 
-                                    <div class="col-md-4">
+                                     <div class="col-sm-3 hidden-xs">
                                         {{ $payment->students_firstname.' ' .$payment->students_lastname.' '.'('.$payment->students_nickname.')'}}         
                                     </div>
                                     
-                                    <div class="col-md-4">
+                                     <div class="col-sm-3 hidden-xs">
                                         {{ $payment->teachers_firstname. ' ' .$payment->teachers_lastname.' '.'('.'ครู'.$payment->teachers_nickname.')' }}
                                     </div>
                                  
-                                    <div class="col-md-2">
-                                        {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours']}}
+                                     <div class="col-sm-2 hidden-xs">
+                                      
+                                        {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours'].' '}}
+                                       
                                     </div>
-                                </div>
+                                    <div class="col-xs-10 visible-xs" >
+                                        <span><b>Date :</b></span>
+                                        {{date('j M Y G:i',strtotime($payment->created_at))}}<br>
+                                        <span><b>Student :</b></span>
+                                        {{$payment->students_firstname.' ' .$payment->students_lastname.' '.'('.$payment->students_nickname.')'}} <br>
+                                        <span><b>Teacher :</b></span>
+                                        {{ $payment->teachers_firstname. ' ' .$payment->teachers_lastname.' '.'('.'ครู'.$payment->teachers_nickname.')' }}<br>
+                                        <span><b>Top Up :</b></span>
+                                        {{App\models\TimeHelper::calculateTimeFromMinutes($payment->topup_time)['hours']." "}}
+                                        <span>Hours</span>
+                                        <br>
+                                    </div>
+                               
 
-                                
-                                    <div class="col-md-2 hidden-xs">     
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <a class="btn btn-default"  href="{{url('payment/'.$payment->id.'/edit')}}">
-                                                    <i class="fa fa-edit"></i> Edit 
-                                                </a>
+                                    <div class="col-sm-2 hidden-xs">     
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <a class="btn btn-default"  href="{{url('payment/'.$payment->id.'/edit')}}">
+                                                <i class="fa fa-edit"></i> Edit 
+                                            </a>
                                     </div>
 
-                                      <div class="col-md-2 col-xs-2 visible-xs">
+                                      <div class="col-xs-2 visible-xs">
                                         <div class="btn-group ">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        
-                                            
-                                            <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                <li>
-                                                    <a href="{{url('payment/'.$payment->id.'/edit')}}" >
-                                                        Edit
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <a class="btn btn-default btn-flat btn-xs" href="{{url('payment/'.$payment->id.'/edit')}}" >
+                                                 <i class="fa fa-edit"></i>
+                                            </a>
+                                              
                                         </div>
                                     </div>
                             </div>
