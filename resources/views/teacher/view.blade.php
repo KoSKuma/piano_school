@@ -172,13 +172,16 @@ Add a new student
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Schedule</h3>
+
                 <div class="col-xs-12text-right">
-                <a href= "{{url('payment/create')}}" class="btn btn-primary" >
-                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add
-                </a>
+                    <a href= "{{url('schedule/create')}}" class="btn btn-primary" >
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                        Booking
+                    </a>
+                </div>
                         
             </div>
-            </div>
+           
             <div class="box-body">
 
                 <div class="col-sm-12 col-md-12 " id="schedule_list_table">

@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Payment<small>Add</small></h1>
+<h1>Payment<small></small></h1>
 @endsection
 
 
@@ -16,7 +16,7 @@ Add a new student
     <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Booking</h3>
+                <h3 class="box-title">Add Payment</h3>
             </div><!-- /.box-header -->
 
             <!-- form start -->
@@ -108,7 +108,7 @@ Add a new student
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
                                         </button>
                                     </td>
-
+                                </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -165,7 +165,7 @@ Add a new student
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Select
                                         </button>
                                     </td>
-
+                                </tr>
                                 @endforeach
                                 </tbody>
                             </table>
