@@ -32,7 +32,7 @@ List of all classes
 			<div class="box-header">
 				<div class="row">
 					<div class="col-xs-6">
-						<h3 class="box-title">Dashboard</h3>
+						<h3 class="box-title">Schedule of student</h3>
 					</div>
 
 				</div>
