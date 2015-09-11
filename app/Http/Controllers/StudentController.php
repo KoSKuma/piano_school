@@ -28,15 +28,19 @@ class StudentController extends Controller
                 'keyword'   =>  $request->input('search'),
                 'count'     =>  $students->count(),
             );
-            return view('student.index',['students'=>$students->paginate(10)])->with('searchResult', $searchResult);
+            
         }
         else
         {
             $students = Student::studentList();
-            return view('student.index',['students'=>$students->paginate(10)]);
+            $searchResult = array(
+                'status'    =>  'ok',
+                'keyword'   =>  null,
+                'count'     =>  $students->count(),
+            );
         }
         
-        
+        return view('student.index',['students'=>$students->paginate(10)])->with('searchResult', $searchResult);
     }
 
     /**

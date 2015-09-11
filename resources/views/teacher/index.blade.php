@@ -33,7 +33,7 @@ List of all Teachers
 
 				<div class="col-xs-12 col-sm-6 col-md-4  ">
 					<div class="input-group ">
-					  <input type="text" class="form-control" name="search" placeholder="Search for..." value="{!! $searchResult['keyword'] !!}">
+					  <input type="text" class="form-control" name="search" placeholder="Search for..." value="@if(!is_null($searchResult['keyword'])){{$searchResult['keyword']}}@endif">
 				      <span class="input-group-btn">
 				        <button class="btn btn-default " type="submmit">
 				        	 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -54,7 +54,7 @@ List of all Teachers
 	</div><!-- /.box-header -->
 
 	<div class="box-body">
-		@if (isset($searchResult))
+		@if (isset($searchResult['keyword']) && !empty($searchResult['keyword']))
 		<div class="row">
 			<div class="col-xs-2 hidden-sm"></div>
 		    <div class="col-xs-8 alert bg-gray color-palette">
