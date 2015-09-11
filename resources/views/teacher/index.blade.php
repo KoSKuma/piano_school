@@ -12,15 +12,11 @@ List of all Teachers
 
 
 @section('main-content')
-<style type="text/css">
 
-
-</style>
 
 
 <div class="box box-solid box-default">
-	<div class="box-header">
-		
+	<div class="box-header">	
 		<div class="row">
 			<form action="{{url('/teacher')}}" method="GET">
 				@if (Entrust::can('create-teacher'))
@@ -36,7 +32,6 @@ List of all Teachers
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-md-4  ">
-				
 					<div class="input-group ">
 					  <input type="text" class="form-control" name="search" placeholder="Search for...">
 				      <span class="input-group-btn">
@@ -46,22 +41,18 @@ List of all Teachers
 				        </button>
 				      </span>
 					</div>
-				
-				</form>
-			</div>
-
-			@if (Entrust::can('create-teacher'))
-			<div class="col-sm-7  text-right hidden-xs col-md-8" >
-				<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
-					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-				</a>
-			</div>
-			@endif
-		
-			
+				</div>
+				@if (Entrust::can('create-teacher'))
+				<div class="col-sm-7  text-right hidden-xs col-md-8" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
+						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+					</a>
+				</div>
+				@endif
+			</form>
 		</div>
-
 	</div><!-- /.box-header -->
+
 	<div class="box-body">
 		@if (isset($searchResult))
 		<div class="row">
@@ -177,7 +168,6 @@ List of all Teachers
 
 									@if (Entrust::can('delete-teacher'))
 									<li><a 
-										
 										data-toggle="modal" 
 										data-target="#myModal" 
 										teacher_id="{{$teacher->id}}" 
