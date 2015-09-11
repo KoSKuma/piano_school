@@ -106,9 +106,7 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        //$student = $student->first();
-
-       $times = $student->remainingStudyTime();
+        $times = $student->remainingStudyTime();
         return view('student.view', ['times'=>$times,'student'=>$student]);
     }
 

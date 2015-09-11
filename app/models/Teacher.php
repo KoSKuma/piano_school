@@ -11,6 +11,16 @@ class Teacher extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    public function students()
+    {
+        return $this->belongsToMany('App\models\Student', 'students_teachers', 'teachers_id', 'students_id')->groupBy('teachers_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\User', 'teachers_id');
+    }
+
     public static $rules = array(
             'firstname' => 'required' ,
             'lastname' => 'required' ,
