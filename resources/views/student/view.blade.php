@@ -105,6 +105,7 @@ Add a new student
         </div>
 </div>
 
+
 <div class="visible-xs  col-xs-12" >
         <div class="visible-xs visible-sm  col-xs-3">
             </div>
@@ -119,7 +120,7 @@ Add a new student
 
             <div class="visible-xs  col-xs-3">
             </div>
- </div>
+</div>
 
         <div class="visible-xs  col-xs-1">
         </div>
@@ -161,10 +162,15 @@ Add a new student
                 ..ชั่วโมงที่เหลือ..
             </div>
         </div>
+
 <div class="row">
     </br>
     <div class="col-md-1">
+    </div>
  </div>
+
+<div class="col-md-1">
+</div>
 
  <div class="col-md-10">
         <div class="box box-primary">
@@ -232,6 +238,7 @@ Add a new student
         </div>
     </div>
 
+
 <form action="" method="POST" id="confirm-delete"> 
 
 				<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -257,7 +264,7 @@ Add a new student
 					</div>
 				</div>
 
-			</form>
+</form>
 	
 
 
