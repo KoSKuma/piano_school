@@ -86,9 +86,16 @@ class Teacher extends Model
 
     public static function scheduleOfTeacher($teachers_id, $date = NULL)
     {
-       $schedule = Schedule::_scheduleOfTeacher_Student($teachers_id, null);
+       $schedules = Schedule::_scheduleOfTeacher_Student($teachers_id, null, $date);
 
-       return $schedule; 
+       return $schedules; 
+    }
+
+    public function scheduleFromNow()
+    {
+        $schedules = Schedule::_scheduleOfTeacher_Student($this->user->teachers_id , null, null, "From Now");
+
+        return $schedules;
     }
 
     public function user(){
