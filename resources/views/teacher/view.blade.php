@@ -59,7 +59,7 @@ Add a new student
                 @endif
         </div>
 
-        <div class="col-md-1 col-sm-4 hidden-xs ">
+        <div class="col-md-1 col-sm-5 hidden-xs ">
                 <br/>
                 <div class="row">
                     <b>Name</b>
@@ -166,7 +166,7 @@ Add a new student
 
 <div class="row">
     <div class="col-md-1">
-    </div>
+</div>
     
     <div class="col-md-10">
         <div class="box box-primary">
