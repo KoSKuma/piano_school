@@ -60,12 +60,12 @@
                 </ul>
             </li>
 
-            <li >
+         <!--    <li >
                 <a href="{{url('calendar')}}">
                     <i class='fa fa-calendar'></i> 
                     <span>Calendar</span>
                 </a>
-            </li>
+            </li> -->
             <li >
                 <a href="{{url('schedule')}}">
                     <i class='fa fa-calendar-o'></i> 
