@@ -173,7 +173,7 @@ List of all classes
 
 									@if (Entrust::can('delete-schedule'))
 									<a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
-										<i class="fa fa-trash"></i>
+										<i class="fa fa-close"></i>
 										Cancel
 									</a>	
 									@endif

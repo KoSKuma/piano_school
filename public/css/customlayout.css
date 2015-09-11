@@ -80,4 +80,7 @@
   .btn-responsive {
 
   }
+
+.box.box-solid.box-danger > .box-header a, .box.box-solid.box-danger > .box-header .btn.custom-to-black {
+    color: #000000;
 }

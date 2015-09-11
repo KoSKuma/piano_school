@@ -96,7 +96,7 @@ Add a new student
 									<i class="fa fa-calendar"></i>
 								</div>
 								<input type="text" name="human-format" class="form-control" id="human-format"  placeholder="DD/MM/YYYY" value="{{date('j/m/Y', strtotime($student->date_of_birth))}}" />
-                				<input type="hidden" id="date_of_birth" name="date_of_birth" />
+                				<input type="hidden" id="date_of_birth" name="date_of_birth" value="human-format"/>
 							</div>
 						</div>
 					</div>
