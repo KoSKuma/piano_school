@@ -94,7 +94,7 @@ Add a new student
             	{{$student->user->email}}
             </div>
             <div class="row">
-                {{date('j F Y' ,strtotime($student->user->date_of_birth))}}"
+                {{date('j F Y' ,strtotime($student->user->date_of_birth))}}
             </div>
             <div class="row">
  				..ชั่วโมงที่เหลือ..						            
@@ -104,6 +104,7 @@ Add a new student
             </div>
         </div>
 </div>
+
 
 <div class="visible-xs  col-xs-12" >
         <div class="visible-xs visible-sm  col-xs-3">
@@ -119,7 +120,7 @@ Add a new student
 
             <div class="visible-xs  col-xs-3">
             </div>
- </div>
+</div>
 
         <div class="visible-xs  col-xs-1">
         </div>
@@ -152,7 +153,7 @@ Add a new student
                {{$student->user->email}}
             </div>
             <div class="row">
-               {{date('j F Y' ,strtotime($student->user->date_of_birth))}}
+               {{date('j F Y' ,strtotime($student->date_of_birth))}}
             </div>
             <div class="row">
                {{$student->user->email}}
@@ -161,11 +162,17 @@ Add a new student
                 ..ชั่วโมงที่เหลือ..
             </div>
         </div>
+
 <div class="row">
     </br>
-    <div class="col-md-1">
- </div>
+    <div class="col-md-2">
+    </div>
+</div>
 
+<div class="col-md-1">
+	</br>
+</div>
+<div class="row">
  <div class="col-md-10">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -231,6 +238,7 @@ Add a new student
             </div>
         </div>
     </div>
+</div>
 
 <form action="" method="POST" id="confirm-delete"> 
 
@@ -257,7 +265,7 @@ Add a new student
 					</div>
 				</div>
 
-			</form>
+</form>
 	
 
 
