@@ -33,17 +33,19 @@ class TeacherController extends Controller
 				'status'	=>	'ok',
 				'keyword'	=>	$request->input('search'),
 				'count'		=>	$teachers->count(),
-			);
-
-			return view('teacher.index',['teachers'=>$teachers->paginate(10)])->with('searchResult', $searchResult);
+			);		
 		}
 		else{
 			$teachers = Teacher::teacherList();
-			return view('teacher.index',['teachers'=>$teachers->paginate(10)]);
+
+			$searchResult = array(
+				'status'	=>	'ok',
+				'keyword'	=>	null,
+				'count'		=>	$teachers->count(),
+			);
 		}
 		
-
-		
+		return view('teacher.index',['teachers'=>$teachers->paginate(10)])->with('searchResult', $searchResult);
 	}
 
 	/**
@@ -115,18 +117,11 @@ class TeacherController extends Controller
 	 */
 	public function show($id)
 	{
-		$teacher = DB::table('users')
-		->join('teachers','users.teachers_id', '=', 'teachers.id')
-		->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone', 'users.picture')
-		->where('teachers.id','=',$id);
-
-		$teacher = $teacher->first();
-
-		// $schedules		=	$teacher->scheduleFromNow();
-		$schedules = Teacher::scheduleOfTeacher($id);
+		$teacher = Teacher::find($id);
 		
-
-		return view('teacher.view', ['teacher'=>$teacher , 'schedules'=>$schedules->get()]);
+        $schedules = $teacher->scheduleFromNow();
+		
+		return view('teacher.view', ['teacher'=>$teacher ,'schedules'=>$schedules->get()]);
 	}
 
 	/**

@@ -105,7 +105,6 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-        //$student = $student->first();
     
         $times = $student->remainingStudyTime();
         $schedules = $student->scheduleFromNow();
