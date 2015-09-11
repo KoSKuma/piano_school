@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Student <small>Deleted</small></h1>
+<h1>Student <small>Deleted students list</small></h1>
 @endsection
 
 
@@ -16,13 +16,7 @@ Add a new student
 	<div class="box-header">
 		<div class="row">
 			<form action="{{url('/student')}}" method="GET">
-				@if (Entrust::can('create-student'))
-				<div class="col-xs-12  text-left visible-xs" >
-					<a href= "{{url('student/create')}}" class="btn btn-primary  custom-font" >
-						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-					</a>
-				</div>
-				@endif
+			
 				<div class="row">
 					<div class="col-xs-12" style="height:10px">
 					</div>
@@ -39,13 +33,7 @@ Add a new student
 				      </span>
 					</div>
 				</div>
-				@if (Entrust::can('create-student'))
-				<div class="col-sm-7  text-right hidden-xs col-md-8" >
-					<a href= "{{url('student/create')}}" class="btn btn-primary custom-font" >
-						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-					</a>
-				</div>
-				@endif
+			
 			</form>
 		</div>
 	</div>

@@ -51,11 +51,6 @@ class ScheduleController extends Controller
         if (Entrust::hasRole('admin'))
         {
             $schedules = schedule::scheduleList($date, $search);
-            $searchResult = array(
-                'status'    =>  'ok',
-                'keyword'   =>  $request->input('search'),
-                'count'     =>  $schedules->count(),
-            );
         }
         if (Entrust::hasRole('teacher'))
         {
@@ -143,6 +138,13 @@ class ScheduleController extends Controller
     }
     public function status(Request $request)
     {
+        $user = Auth::user();
+
+        $check  = Schedule::where('students_teachers.id',$request->id)->first();
+        if($user->teachers_id != $check->teachers_id){
+            abort(403);
+        }
+
         $schedule = Schedule::setStatus($request);
         
         return redirect('schedule?date='.$request->date)->with('status', $schedule);

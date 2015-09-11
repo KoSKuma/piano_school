@@ -108,7 +108,6 @@ class Student extends Model
         $schedules = Schedule::_scheduleOfTeacher_Student(null ,$students_id, $date);
 
         return $schedules;
-
     }
 
     public function scheduleFromNow()
