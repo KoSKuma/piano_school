@@ -122,7 +122,7 @@ class TeacherController extends Controller
 
 		$teacher = $teacher->first();
 
-		
+		// $schedules		=	$teacher->scheduleFromNow();
 		$schedules = Teacher::scheduleOfTeacher($id);
 		
 

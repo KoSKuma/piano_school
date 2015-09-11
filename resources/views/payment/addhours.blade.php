@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Schedule<small>booking</small></h1>
+<h1>Payment<small>Add</small></h1>
 @endsection
 
 
