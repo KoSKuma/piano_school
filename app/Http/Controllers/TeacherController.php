@@ -119,7 +119,6 @@ class TeacherController extends Controller
 	{
 		$teacher = Teacher::find($id);
 		
-		$schedules = Teacher::scheduleOfTeacher($id);
         $schedules = $teacher->scheduleFromNow();
 		
 		return view('teacher.view', ['teacher'=>$teacher ,'schedules'=>$schedules->get()]);
