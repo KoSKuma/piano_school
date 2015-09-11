@@ -67,6 +67,12 @@ class ScheduleController extends Controller
             $schedules = Student::scheduleOfStudent($user->students_id, $date);
         }
 
+        $searchResult = array(
+            'status'    =>  'ok',
+            'keyword'   =>  $request->input('search'),
+            'count'     =>  $schedules->count(),
+        );
+
         return view('schedule.index', ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 

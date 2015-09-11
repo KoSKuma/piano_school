@@ -105,10 +105,17 @@ class Student extends Model
 
     public static function scheduleOfStudent($students_id, $date = NULL) 
     {
-        $schedule = Schedule::_scheduleOfTeacher_Student(null ,$students_id );
+        $schedules = Schedule::_scheduleOfTeacher_Student(null ,$students_id, $date);
 
-        return $schedule;
+        return $schedules;
 
+    }
+
+    public function scheduleFromNow()
+    {
+        $schedules = Schedule::_scheduleOfTeacher_Student(null ,$this->user->students_id, null, "From Now");
+
+        return $schedules;
     }
     
     public static function getRemainingStudyTime($students_id, $teachers_id)
