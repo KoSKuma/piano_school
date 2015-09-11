@@ -115,6 +115,8 @@ class TeacherController extends Controller
 	 */
 	public function show($id)
 	{
+
+		
 		$teacher = DB::table('users')
 		->join('teachers','users.teachers_id', '=', 'teachers.id')
 		->select('teachers.id','users.firstname','users.lastname','users.nickname','users.email','users.date_of_birth','teachers.experience','teachers.degrees','teachers.institute','teachers.teacher_phone', 'users.picture')
@@ -240,5 +242,9 @@ class TeacherController extends Controller
 		return redirect('teacher');
 
 	}
+
+
+	
+	
 
 }

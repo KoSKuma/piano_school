@@ -200,6 +200,7 @@ Add a new student
 
 
                 <div class="row">
+                
                         
                             <div class="col-md-3 col-xs-10">
                                  วัน                       
@@ -227,7 +228,7 @@ Add a new student
                             </div>
 
 
-                            
+                          
                 </div>   
 
             </div>
