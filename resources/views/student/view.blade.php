@@ -13,130 +13,259 @@ Add a new student
 
 @section('main-content')
 <div class="row">
-	<div class="col-md-2">
-	</div>
-	<div class="col-md-8">
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Student: {{$student->user->nickname}} ({{$student->user->firstname. ' ' .$student->user->lastname}})</h3>
-			</div><!-- /.box-header -->
-			<!-- form start -->
-			<form class="form-horizontal" role="form">
+	<form action="{{url('student/restore')}}" method="post">
+					{!! csrf_field() !!}
+					<!-- Single button -->
+					<div class="col-sm-11  text-right">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="id" id="delete_id" value="{{$student->id}}">
+						
+							
+						@if (Entrust::can('edit-student'))
+						<a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default btn-flat btn-sm">
+							<i class="fa fa-edit"></i>
+							Edit
+						</a>
+						@endif
 
-				<div class="box-body">
-
-					@if ($errors->has())
-					<div class="alert alert-danger">
-						@foreach ($errors->all() as $error)
-						{{ $error }} <br>
-						@endforeach
+						@if (Entrust::can('delete-student'))
+						<a class="btn btn-danger btn-flat btn-sm"
+						   data-toggle="modal" 
+						   data-target="#myModal" 
+						   student_id="{{$student->id}}" 
+						   student_name="{{$student->nickname . '(' . $student->firstname . ' ' . $student->lastname . ')'}}">
+						   <i class="fa fa-trash"></i>
+						   Delete
+						</a>	
+						@endif
 					</div>
-					@endif
+	</form>
+</div>
 
-					<div class="row">
-						<div class="col-xs-12 text-center">
-							@if(empty($student->user->picture))
-								<img src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
-							@else
-								<img src="{{url('/uploads/profile_pictures/').'/'.$student->user->picture}}" height="200" />
-							@endif
-						</div>
-					</div>
+<div class="row">
 
-					<br />
+	 <div class="col-md-3 col-sm-5 ">
+     </div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="name">Name</label>
-						<div class="col-sm-4">
-							<input type="text" name="firstname" class="form-control" id="firstname" placeholder="Firstname" value="{{$student->user->firstname}}" readonly="" />
-						</div>
-						<div class="col-sm-4">
-							<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="{{$student->user->lastname}}" readonly />
-						</div>
-					</div>
+     <div class="col-md-2 col-sm-2 hidden-xs ">
+     	@if(empty($student->user->picture))
+				<img   class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
+		@else
+				<img  class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/').'/'.$student->user->picture}}" height="200" />
+		@endif
+     </div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="name">Nick Name</label>
-						<div class="col-sm-4">
-							<input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nick name" value="{{$student->user->nickname}}" readonly />
-						</div>
-					</div>
 
-					<div class="form-group">
-						<label class="col-sm-3 control-label" >Student Phone</label>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-phone"></i>
-								</div>
-								<input type="text" name="student_phone" class="form-control" id="student_phone" placeholder="Studentphone" value="{{$student->student_phone}}" readonly />
+        <div class="col-md-1 col-sm-4 hidden-xs ">
+                <br/>
+                <div class="row">
+                    <b>Name</b>
+                </div>
+                <div class="row">
+                    <b>Tel.</b>
+                </div>
+                <div class="row">
+                    <b>Parent Tel.</b>
+                </div>
+                 <div class="row">
+                    <b>E-mail</b>
+                </div>
+                <div class="row">
+                    <b>DateofBirth</b>
+                </div>
+                <div class="row">
+                    <b>hours.</b>
+                </div>
+          
+        </div>
+
+        <div class="col-md-3 col-sm-7 hidden-xs ">
+            <div class="row">
+                <br/>
+                {{ $student->user->lastname.'   '.$student->user->lastname.'  '.'('.$student->user->nickname.')'}}
+            </div>
+            <div class="row hidden-xs">
+               	{{substr($student->student_phone,0,3)."-".substr($student->student_phone,3,3)."-".substr($student->student_phone,6)}}
+            </div>
+            <div class="row">
+             	{{substr($student->parent_phone,0,3)."-".substr($student->parent_phone,3,3)."-".substr($student->parent_phone,6)}}
+            </div>
+            <div class="row">
+            	{{$student->user->email}}
+            </div>
+            <div class="row">
+                {{date('j F Y' ,strtotime($student->user->date_of_birth))}}"
+            </div>
+            <div class="row">
+ 				..ชั่วโมงที่เหลือ..						            
+            </div>
+             <div class="row">
+                
+            </div>
+        </div>
+</div>
+
+<div class="visible-xs  col-xs-12" >
+        <div class="visible-xs visible-sm  col-xs-3">
+            </div>
+
+            <div class="visible-xs   col-xs-6">
+                @if(empty($student->user->picture))
+					<img   class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
+				@else
+					<img  class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/').'/'.$student->user->picture}}" height="200" />
+				@endif
+            </div>
+
+            <div class="visible-xs  col-xs-3">
+            </div>
+ </div>
+
+        <div class="visible-xs  col-xs-1">
+        </div>
+
+        <div class="visible-xs  col-xs-4" >
+            <br/>
+               <div class="row">
+                    <b>Name</b>
+                </div>
+                <div class="row">
+                    <b>Tel.</b>
+                </div>
+                <div class="row">
+                    <b>E-mail</b>
+                </div>
+                <div class="row">
+                    <b>DateofBirth</b>
+                </div>
+                <div class="row">
+                    <b>hours.</b>
+                </div>
+        </div>  
+
+        <div class="visible-xs   col-xs-6" >  
+            <div class="row">
+                <br/>
+               {{$student->user->nickname}}
+            </div>
+            <div class="row">
+               {{$student->user->email}}
+            </div>
+            <div class="row">
+               {{date('j F Y' ,strtotime($student->user->date_of_birth))}}
+            </div>
+            <div class="row">
+               {{$student->user->email}}
+            </div>
+             <div class="row">
+                ..ชั่วโมงที่เหลือ..
+            </div>
+        </div>
+<div class="row">
+    </br>
+    <div class="col-md-1">
+ </div>
+
+ <div class="col-md-10">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Schedule</h3>
+            </div>
+            <div class="box-body">
+
+                <div class="col-sm-12 col-md-12 ">
+                    <div class="row hidden-xs" id="table_header">
+                    
+                        <div class="col-md-3">
+                            <strong>Start Time-End Time</strong>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <strong>Student</strong>
+                        </div>
+                       
+                        
+                        <div class="col-md-3">
+                            <strong>Teacher </strong>
+                        </div>
+                        
+                        <div class="col-md-1">
+                            <strong>Status</strong>
+                        </div>
+                              
+                    </div> 
+                </div>
+
+
+                <div class="row">
+                        
+                            <div class="col-md-3 col-xs-10">
+                                 วัน                       
+
+                            </div>
+                            
+                            <div class="col-md-3 col-xs-10">
+                                ครู ชื่อเล่น 
+                                <span class='visible-sm-inline visible-md-inline'><br /></span>
+                                ชื่อจริงนามสกุล
+                            </div>
+                            
+
+                            
+                            <div class="col-md-3 col-xs-12">
+                                นักเรียนชื่อเล่น 
+                                <span class='visible-sm-inline visible-md-inline'>
+                                    <br/>
+                                </span>
+                                ชื่อจริงนักเรียน
+                            </div>
+                        
+                            <div class="col-md-1 col-xs-12">
+                                สถานะ
+                            </div>
+
+
+                            
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+<form action="" method="POST" id="confirm-delete"> 
+
+				<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Delete Student</h4>
 							</div>
+							<div class="modal-body">
+								Are you sure you want to delete <span id="delete_message"></span>? 
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-						</div>
-					</div>
-
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label" >Parent Phone</label>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-phone"></i>
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<button class="btn btn-danger" >
+										<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+									</button>
 								</div>
-								<input type="text" name="parent_phone" class="form-control" id="parent_phone" placeholder="Parentphone"  value="{{$student->parent_phone}}" readonly />
-							</div>
-
-						</div>
-					</div>
-
-					
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="date_of_birth">Date of Birth</label>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="yyyy/mm/dd"  value="{{date('j F Y' ,strtotime($student->user->date_of_birth))}}" readonly />
-
 							</div>
 						</div>
 					</div>
-				</div><!-- /.box-body -->
+				</div>
 
 			</form>
-		</div>
-	</div>
-	<div class="col-md-2">
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-2">
-	</div>
-	<div class="col-md-8">
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Remaining Study Time</h3>
-			</div>
-			<div class="box-body">
-				<div class="col-md-6 hidden-xs">
-					Teacher
-				</div>
-				<div class="col-md-6 hidden-xs">
-					Remaining Time (Hour)
-				</div>
-				@foreach ($times as $time)
-					<div class="col-md-6">
-						{{$time['teacher']}}
-					</div>
-					<div class="col-md-6">
-						{{$time['timeText']}}
-					</div>
-				@endforeach
-			</div>
-		</div>
-	</div>
-</div>
+	
+
+
+
+
+				
+
+
 
 @endsection
 

@@ -12,9 +12,44 @@ Add a new student
 
 @section('main-content')
 
+
+<div class="row">
+    <form action="{{url('teacher/restore')}}" method="post">
+                            {!! csrf_field() !!}
+                            <!-- Single button -->
+                            <div class="col-sm-11 text-right " >
+
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
+                            
+                                @if (Entrust::can('edit-teacher'))
+                                <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
+                                    <i class="fa fa-edit"></i>
+                                    Edit
+                                </a>
+                                @endif
+                                @if (Entrust::can('delete-teacher'))
+                                <a 
+                                    class="btn btn-flat btn-danger btn-sm"
+                                    data-toggle="modal" 
+                                    data-target="#myModal" 
+                                    teacher_id="{{$teacher->id}}" 
+                                    teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
+                                    <i class="fa fa-trash"></i>
+                                    Delete
+                                </a>
+                                @endif
+
+                            </div>
+                        </form>
+</div>
+
+
 <div class="row">
         <div class="col-md-3 col-sm-5 ">
         </div>
+
+        
 
         <div class="col-md-2 col-sm-2 hidden-xs ">
                 @if(empty($teacher->picture))
@@ -69,7 +104,7 @@ Add a new student
         </div>
 
 
-        <div class="visible-xs   col-xs-12 " >
+        <div class="visible-xs  col-xs-12" >
             <div class="visible-xs visible-sm  col-xs-3">
             </div>
             <div class="visible-xs   col-xs-6">
@@ -130,34 +165,101 @@ Add a new student
 
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-1">
     </div>
-    <div class="col-md-8">
+    
+    <div class="col-md-10">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Schedule</h3>
             </div>
             <div class="box-body">
-                <div class="col-md-6 hidden-xs">
-                    Teacher
+
+                <div class="col-sm-12 col-md-12 " id="schedule_list_table">
+                    <div class="row hidden-xs" id="table_header">
+                    
+                        <div class="col-md-3">
+                            <strong>Start Time-End Time</strong>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <strong>Teacher</strong>
+                        </div>
+                       
+                        
+                        <div class="col-md-3">
+                            <strong>Student</strong>
+                        </div>
+                        
+                        <div class="col-md-1">
+                            <strong>Status</strong>
+                        </div>
+                              
+                    </div> 
                 </div>
-                <div class="col-md-6 hidden-xs">
-                    Remaining Time (Hour)
-                </div>
-               @foreach ($scheduleList as $schedule)
-                    <div class="col-md-6">
-                     {{date('j M y G:i', strtotime($schedule->start_time))}}
-                    </div>
-                    <div class="col-md-6">
-                        ..............
-                    </div>
-                @endforeach
+
+
+                <div class="row">
+                        
+                            <div class="col-md-3 col-xs-10">
+                                 วัน                       
+
+                            </div>
+                            
+                            <div class="col-md-3 col-xs-10">
+                                ครู ชื่อเล่น 
+                                <span class='visible-sm-inline visible-md-inline'><br /></span>
+                                ชื่อจริงนามสกุล
+                            </div>
+                            
+
+                            
+                            <div class="col-md-3 col-xs-12">
+                                นักเรียนชื่อเล่น 
+                                <span class='visible-sm-inline visible-md-inline'>
+                                    <br/>
+                                </span>
+                                ชื่อจริงนักเรียน
+                            </div>
+                        
+                            <div class="col-md-1 col-xs-12">
+                                สถานะ
+                            </div>
+
+
+                            
+                </div>   
+
             </div>
         </div>
     </div>
-</div>
 
+    <form action="" method="POST" id="confirm-delete"> 
 
+                <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Delete Teacher</h4>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <span id="delete_message"></span>? 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button class="btn btn-danger" >
+                                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
   
 
                    
@@ -184,6 +286,18 @@ Add a new student
     $(function () {
         $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
         $("[data-mask]").inputmask();
+    });
+    <script type="text/javascript">
+
+$(document).ready(function(){
+    $('#myModal').on('shown.bs.modal',function(e){
+        $('#myInput').focus();
+        console.log(e);
+        delete_teacher_id = e.relatedTarget.attributes.teacher_id.value;
+        delete_teacher_name = e.relatedTarget.attributes.teacher_name.value;
+
+        $("#delete_message").html(delete_teacher_name);
+        $("#confirm-delete").attr("action", "{{url('teacher')}}"+"/"+delete_teacher_id);
     });
     </script>
     @endsection

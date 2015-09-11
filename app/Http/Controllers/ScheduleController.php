@@ -60,13 +60,14 @@ class ScheduleController extends Controller
         if (Entrust::hasRole('teacher'))
         {
             $schedules = Teacher::scheduleOfTeacher($user->teachers_id, $date);
+       
         }
         if (Entrust::hasRole('student'))
         {
             $schedules = Student::scheduleOfStudent($user->students_id, $date);
         }
 
-        return view('schedule.index' , ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
+        return view('schedule.index', ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 
     /**

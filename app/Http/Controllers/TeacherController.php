@@ -25,6 +25,7 @@ class TeacherController extends Controller
 	 */
 	public function index(Request $request)
 	{
+		$user = Auth::user();
 		if($request->has('search')){
 			$teachers = Teacher::searchTeacherList($request->input('search'));
 
@@ -40,6 +41,7 @@ class TeacherController extends Controller
 			$teachers = Teacher::teacherList();
 			return view('teacher.index',['teachers'=>$teachers->paginate(10)]);
 		}
+		
 
 		
 	}
@@ -238,4 +240,5 @@ class TeacherController extends Controller
 		return redirect('teacher');
 
 	}
+
 }
