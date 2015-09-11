@@ -119,7 +119,7 @@ Add a new student
         </div>
 
        <div class="visible-xs  col-xs-1">
-    </div>
+        </div>
 
         <div class="visible-xs  col-xs-4" >
             <br/>
@@ -165,33 +165,34 @@ Add a new student
 
 
 <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-2">
 </div>
     
-    <div class="col-md-10">
+    <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Schedule</h3>
+                <div class="col-xs-12text-right">
+                <a href= "{{url('payment/create')}}" class="btn btn-primary" >
+                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add
+                </a>
+                        
+            </div>
             </div>
             <div class="box-body">
 
                 <div class="col-sm-12 col-md-12 " id="schedule_list_table">
                     <div class="row hidden-xs" id="table_header">
                     
-                        <div class="col-md-3">
-                            <strong>Start Time-End Time</strong>
+                        <div class="col-md-4">
+                            <strong>Class Date</strong>
                         </div>
-                        
-                        <div class="col-md-3">
-                            <strong>Teacher</strong>
-                        </div>
-                       
-                        
-                        <div class="col-md-3">
+
+                        <div class="col-md-4">
                             <strong>Student</strong>
                         </div>
                         
-                        <div class="col-md-1">
+                        <div class="col-md-4">
                             <strong>Status</strong>
                         </div>
                               
@@ -200,34 +201,33 @@ Add a new student
 
 
                 <div class="row">
+                    @foreach($schedules as $schedule)
                         
-                            <div class="col-md-3 col-xs-10">
-                                 วัน                       
+                            <div class="col-md-4 col-xs-10">              
+                                {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}                     
 
                             </div>
                             
-                            <div class="col-md-3 col-xs-10">
-                                ครู ชื่อเล่น 
-                                <span class='visible-sm-inline visible-md-inline'><br /></span>
-                                ชื่อจริงนามสกุล
-                            </div>
-                            
 
-                            
-                            <div class="col-md-3 col-xs-12">
-                                นักเรียนชื่อเล่น 
+                            <div class="col-md-4 col-xs-12">
+                                {{$schedule->student_nickname}}
                                 <span class='visible-sm-inline visible-md-inline'>
                                     <br/>
                                 </span>
-                                ชื่อจริงนักเรียน
+                                ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
                             </div>
                         
-                            <div class="col-md-1 col-xs-12">
-                                สถานะ
+                            <div class="col-md-4 col-xs-12">
+                                {{$schedule->status}}
                             </div>
 
+                            <div class="row">
+                                    <div class="col-xs-12" style="height:10px">
+                                    </div>
+                            </div>
+                           
 
-                            
+                    @endforeach        
                 </div>   
 
             </div>
