@@ -52,10 +52,10 @@ Add a new student
         
 
         <div class="col-md-2 col-sm-2 hidden-xs ">
-                @if(empty($teacher->picture))
+                @if(empty($teacher->user->picture))
                      <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
                 @else
-                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->user->picture}}" height="200" />
                 @endif
         </div>
 
@@ -84,7 +84,7 @@ Add a new student
         <div class="col-md-3 col-sm-7 hidden-xs ">
             <div class="row">
                 <br/>
-                {{$teacher->firstname.'   '.$teacher->lastname.'  '.'('.$teacher->nickname.')'}}
+                {{$teacher->user->firstname.'   '.$teacher->user->lastname.'  '.'('.$teacher->user->nickname.')'}}
             </div>
             <div class="row hidden-xs">
                 {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}
