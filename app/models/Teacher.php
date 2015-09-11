@@ -38,7 +38,7 @@ class Teacher extends Model
             );
      
     public static function teacherList() {
-        $teacher = DB::table('users')
+        $teachers = DB::table('users')
             ->join('teachers','users.teachers_id', '=', 'teachers.id')
             ->select('teachers.id',
                 'users.firstname',
@@ -55,7 +55,7 @@ class Teacher extends Model
                 'users.picture')
             ->whereNull('users.deleted_at');          
 
-        return $teacher;
+        return $teachers;
     }
 
     public static function searchTeacherList($query) {

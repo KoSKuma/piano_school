@@ -291,10 +291,6 @@ $(document).ready(function(){
         {
             showMeridian: false
         }).on('hide.timepicker', function(e) {
-    // console.log('The time is ' + e.time.value);
-    // console.log('The hour is ' + e.time.hours);
-    // console.log('The minute is ' + e.time.minutes);
-    // console.log('The meridian is ' + e.time.meridian);
 
     $("#class_start_time").val( ("0" + e.time.hours).slice(-2) + ":" + ("0" + e.time.minutes).slice(-2) + ":" + "00");
   });
@@ -306,10 +302,6 @@ $(document).ready(function(){
         {
            showMeridian: false 
         }).on('hide.timepicker', function(e) {
-    // console.log('The time is ' + e.time.value);
-    // console.log('The hour is ' + e.time.hours);
-    // console.log('The minute is ' + e.time.minutes);
-    // console.log('The meridian is ' + e.time.meridian);
 
      $("#class_end_time").val( ("0" + e.time.hours).slice(-2) + ":" + ("0" + e.time.minutes).slice(-2) + ":" + "00");
     });
