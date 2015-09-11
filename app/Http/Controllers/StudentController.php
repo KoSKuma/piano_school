@@ -101,11 +101,12 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-
         //$student = $student->first();
+    
+        $times = $student->remainingStudyTime();
+        $schedules = $student->scheduleFromNow();
 
-       $times = $student->remainingStudyTime();
-        return view('student.view', ['times'=>$times,'student'=>$student]);
+        return view('student.view', ['times'=>$times,'student'=>$student ,'schedules'=>$schedules->get()]);
     }
 
     /**
