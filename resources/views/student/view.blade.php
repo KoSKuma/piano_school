@@ -44,10 +44,10 @@ Add a new student
 
 <div class="row">
 
-	 <div class="col-md-3 col-sm-5 ">
+	 <div class="col-md-3 col-sm-1 ">
      </div>
 
-     <div class="col-md-2 col-sm-2 hidden-xs ">
+     <div class="col-md-2 col-sm-3 hidden-xs ">
      	@if(empty($student->user->picture))
 				<img   class="img-responsive img-thumbnail img-student" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
 		@else
@@ -56,7 +56,7 @@ Add a new student
      </div>
 
 
-        <div class="col-md-1 col-sm-4 hidden-xs ">
+        <div class="col-md-1 col-sm-2 hidden-xs ">
                 <br/>
                 <div class="row">
                     <b>Name</b>
@@ -79,7 +79,7 @@ Add a new student
           
         </div>
 
-        <div class="col-md-3 col-sm-7 hidden-xs ">
+        <div class="col-md-3 col-sm-5 hidden-xs ">
             <div class="row">
                 <br/>
                 {{ $student->user->lastname.'   '.$student->user->lastname.'  '.'('.$student->user->nickname.')'}}
@@ -182,7 +182,7 @@ Add a new student
             <div class="box-body">
 
                 <div class="col-sm-12 col-md-12 ">
-                    <div class="row hidden-xs" id="table_header">
+                    <div class="row hidden-xs hidden-sm" id="table_header">
                     
                         <div class="col-md-4">
                             <strong>Class Date</strong>

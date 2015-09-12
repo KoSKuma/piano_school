@@ -46,12 +46,12 @@ Add a new student
 
 
 <div class="row">
-        <div class="col-md-3 col-sm-5 ">
+        <div class="col-md-3 col-sm-2 ">
         </div>
 
         
 
-        <div class="col-md-2 col-sm-2 hidden-xs ">
+        <div class="col-md-2 col-sm-3 hidden-xs ">
                 @if(empty($teacher->user->picture))
                      <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
                 @else
@@ -59,7 +59,7 @@ Add a new student
                 @endif
         </div>
 
-        <div class="col-md-1 col-sm-5 hidden-xs ">
+        <div class="col-md-1 col-sm-2 hidden-xs ">
                 <br/>
                 <div class="row">
                     <b>Name</b>
@@ -81,7 +81,7 @@ Add a new student
                 </div>
         </div>
 
-        <div class="col-md-3 col-sm-7 hidden-xs ">
+        <div class="col-md-3 col-sm-5 hidden-xs ">
             <div class="row">
                 <br/>
                 {{$teacher->user->firstname.'   '.$teacher->user->lastname.'  '.'('.$teacher->user->nickname.')'}}
@@ -108,10 +108,10 @@ Add a new student
             <div class="visible-xs visible-sm  col-xs-3">
             </div>
             <div class="visible-xs   col-xs-6">
-                @if(empty($teacher->picture))
+                @if(empty($teacher->user->picture))
                      <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
                 @else
-                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->picture}}" height="200" />
+                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->user->picture}}" height="200" />
                 @endif
             </div>
             <div class="visible-xs  col-xs-3">
@@ -185,7 +185,7 @@ Add a new student
             <div class="box-body">
 
                 <div class="col-sm-12 col-md-12 " id="schedule_list_table">
-                    <div class="row hidden-xs" id="table_header">
+                    <div class="row hidden-xs hidden-sm" id="table_header">
                     
                         <div class="col-md-4">
                             <strong>Class Date</strong>
