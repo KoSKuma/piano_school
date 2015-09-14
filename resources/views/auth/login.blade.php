@@ -35,13 +35,13 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
-            <div class="col-sm-8 col-xs-12">
+           <!--  <div class="col-sm-8 col-xs-12">
                 <div class="checkbox icheck">
                     <label>
                         <input type="checkbox"> Remember Me
                     </label>
                 </div>
-            </div><!-- /.col -->
+            </div> -->
             <div class="col-sm-4 col-xs-12">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
             </div><!-- /.col -->

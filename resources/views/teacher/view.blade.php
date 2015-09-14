@@ -67,6 +67,9 @@ Add a new student
                 <div class="row">
                     <b>Telephone</b>
                 </div>
+                 <div class="row">
+                    <b>E-mail</b>
+                </div>
                 <div class="row">
                     <b>Experience</b>
                 </div>
@@ -89,6 +92,10 @@ Add a new student
             <div class="row hidden-xs">
                 {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}
             </div>
+             <div class="row">
+                {{$teacher->user->email}}
+            </div>
+
             <div class="row">
                 {{$teacher->experience}}
             </div>

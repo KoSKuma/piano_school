@@ -33,11 +33,11 @@ List of all classes
 				<div class="col-xs-6">
 					<h3 class="box-title">All Schedule</h3>
 				</div>
-				<div class="col-xs-6 text-right">
+			<!-- 	<div class="col-xs-6 text-right">
 					<a href= "{{url('schedule/create')}}" class="btn btn-default" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
 					</a>
-				</div>
+				</div> -->
 			</div>
 		</div><!-- /.box-header -->
 
@@ -49,10 +49,7 @@ List of all classes
 
 						<div class="row hidden-xs" id="table_header">
 							<div class="col-sm-2">
-								<strong>Start Time</strong>
-							</div>
-							<div class="col-sm-2">
-								<strong>End Time</strong>
+								<strong>Class Time</strong>
 							</div>
 							<div class="col-sm-3">
 								<strong>Teacher</strong>
@@ -60,9 +57,7 @@ List of all classes
 							<div class="col-sm-3">
 								<strong>Student</strong>
 							</div>
-							<div class="col-sm-2">
-								<strong>Option</strong>
-							</div>
+						
 						</div>
 
 						@foreach ($scheduleList as $schedule)
@@ -71,14 +66,12 @@ List of all classes
 								Start:
 							</div>
 							<div class="col-md-2 col-xs-10">
-								{{date('j M y G:i', strtotime($schedule->start_time))}}
+								{{date('j M y G:i', strtotime($schedule->start_time))}} - {{date('G:i', strtotime($schedule->end_time))}}
 							</div>
 							<div class="col-xs-2 visible-xs">
 								End:
 							</div>
-							<div class="col-md-2 col-xs-10">
-								{{date('j M y G:i', strtotime($schedule->end_time))}}
-							</div>
+							
 							<div class="col-md-3 col-xs-12">
 								{{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
 							</div>
@@ -86,16 +79,7 @@ List of all classes
 								{{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 							</div>
 
-							<div class="col-md-2 col-xs-12">
-								<input type="hidden" id="attr_schedule_{{$schedule->id}}" class_time="{{$schedule->start_time}} - {{$schedule->end_time}}" teacher_nickname="ครู {{$schedule->teacher_nickname}}" student_nickname="{{$schedule->student_nickname}}" />
-								
-								<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default" >
-									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-								</a>
-								<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" schedule_id="{{$schedule->id}}">
-									<span class="fa fa-trash" aria-hidden="true"> </span>
-								</button>
-							</div>
+					
 						</div>
 						<div class="row row-splitter visible-xs">
 							<div class="col-xs-12 visible-xs" style="height: 10px;">

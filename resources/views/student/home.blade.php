@@ -48,9 +48,7 @@ List of all classes
 								<div class="col-sm-4">
 									<strong>Start Time</strong>
 								</div>
-								<div class="col-sm-4">
-									<strong>End Time</strong>
-								</div>
+							
 								<div class="col-sm-4">
 									<strong>Teacher</strong>
 								</div>

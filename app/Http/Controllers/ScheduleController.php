@@ -139,9 +139,9 @@ class ScheduleController extends Controller
     public function status(Request $request)
     {
         $user = Auth::user();
-
+       
         $check  = Schedule::where('students_teachers.id',$request->id)->first();
-        if($user->teachers_id != $check->teachers_id){
+        if(!Entrust::hasRole('admin') && $user->teachers_id != $check->teachers_id){
             abort(403);
         }
 

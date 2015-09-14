@@ -7,7 +7,12 @@ List of all classes
 
 
 @section('contentheader_title')
+@if(Entrust::hasRole('admin'))
 <h1>Schedule <small>List of all Schedule</small></h1>
+@endif
+@if(Entrust::hasRole('teacher'))
+<h1>Schedule <small>List of teacher's Schedule</small></h1>
+@endif
 @endsection
 
 
@@ -71,7 +76,7 @@ List of all classes
 		@endif
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="col-xs-2 text-right col-sm-offset-2 col-md-offset-3 vcenter" style="height:34px;">
+				<div class="col-xs-2 col-sm-4 text-right" style="height:34px;">
 					<span>
 						<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('-1 day', strtotime($date))))}}@if(isset($searchResult['keyword']) && !empty($searchResult['keyword'])){{'&search='.$searchResult['keyword']}}@endif" 
 							class="btn btn-responsive btn-default btn-flat">
@@ -79,14 +84,14 @@ List of all classes
 						</a>
 					</span>
 	            </div>
-				<div class="col-xs-7 col-sm-4 col-md-2">
+				<div class="col-xs-8 col-sm-3">
 					<div class="input-group" id="select-date-input">
-	                    <input class="form-control" type="text" name="human-select-date" id="human-select-date" value="{{date('j M y', strtotime($date))}}" />
+	                    <input class="form-control" type="text" name="human-select-date" id="human-select-date" value="{{date('j M Y', strtotime($date))}}" />
 	                    <span class="input-group-addon btn-responsive"><i class="glyphicon glyphicon-calendar"></i></span>
 	                </div>
 	                <input type="hidden" name="date" id="date" value="{{$date}}" />
 	            </div>
-	            <div class="col-xs-2 vcenter" style="height:34px;">
+	            <div class="col-xs-2 col-sm-5 " style="height:34px;">
 	            	<span>
 						<a href="{{url('/schedule?date=' . date('Y-m-d', strtotime('+1 day', strtotime($date))))}}@if(isset($searchResult['keyword']) && !empty($searchResult['keyword'])){{'&search='.$searchResult['keyword']}}@endif" class="btn btn-responsive btn-default btn-flat">
 							<i class="glyphicon glyphicon-chevron-right"></i>
@@ -103,7 +108,7 @@ List of all classes
 					<div class="row hidden-xs" id="table_header">
 					
 						<div class="col-md-2">
-							<strong>Start Time-End Time</strong>
+							<strong>Class Time</strong>
 						</div>
 						@if (!Entrust::hasRole('teacher'))
 						<div class="col-md-3">
@@ -120,21 +125,34 @@ List of all classes
 						</div>
 						@if (Entrust::can('confirm-taught-class') || Entrust::can('edit-schedule') || Entrust::can('delete-schedule'))
 						<div class="col-md-3">
-							<strong>Option</strong>
+							<strong>Action</strong>
 						</div>
 						@endif
 							
 					</div>
+					<div class="row">
+                            <div class="col-xs-12" style="height:10px">
+                            </div>
+                    </div>
+
+
+
+
 
 					@foreach ($schedules as $schedule)
+					
 					<div class="row @if($date == date('Y-m-d')) schedule-today @elseif(strtotime($date) < strtotime(date('Y-m-d'))) schedule-passed @endif" >
 						
-							<div class="col-md-2 col-xs-10">
-								{{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}
-
+							<div class="col-md-2 col-xs-10 hidden-xs">
+								 {{date('H:i', strtotime($schedule->start_time))}} -
+								 {{date('H:i', strtotime($schedule->end_time))}}
+							<div class="row">
+                         		  <div class="col-xs-12" style="height:10px"></div>
+                    		</div>
 							</div>
+							
 							@if (!Entrust::hasRole('teacher'))
-							<div class="col-md-3 col-xs-10">
+							<div class="col-md-3 col-xs-10 hidden-xs">
 								ครู {{$schedule->teacher_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'><br /></span>
 								({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
@@ -142,7 +160,7 @@ List of all classes
 							@endif
 
 							@if (!Entrust::hasRole('student'))
-							<div class="col-md-3 col-xs-12">
+							<div class="col-md-3 col-xs-12 hidden-xs">
 								{{$schedule->student_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'>
 									<br/>
@@ -150,7 +168,7 @@ List of all classes
 								({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 							</div>
 							@endif
-							<div class="col-md-1 col-xs-12">
+							<div class="col-md-1 col-xs-12 hidden-xs">
 								@if (App\helpers\TextHelper::isStatus($schedule->status, 1))
 									<span class="class-finished">	
 								@elseif (App\helpers\TextHelper::isStatus($schedule->status, 2))
@@ -160,7 +178,40 @@ List of all classes
 								@endif
 									{{$schedule->status}}
 								</span>
-							</div>                         
+							</div>  
+							<div class="col-xs-10 visible-xs">
+								{{date('j M Y ',strtotime($schedule->start_time))}} 
+								 {{date('H:i', strtotime($schedule->start_time))}} -
+								 {{date('H:i', strtotime($schedule->end_time))}} <br>
+
+							 	@if (!Entrust::hasRole('teacher'))
+								ครู{{$schedule->teacher_nickname}} 
+								<span class='visible-sm-inline visible-md-inline'><br /></span>
+								({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
+								@endif <br>
+
+								@if (!Entrust::hasRole('student'))
+								{{$schedule->student_nickname}} 
+								<span class='visible-sm-inline visible-md-inline'></span>
+								({{$schedule->student_firstname}} {{$schedule->student_lastname}})
+								@endif
+								<br>
+								@if (App\helpers\TextHelper::isStatus($schedule->status, 1))
+									<span class="class-finished">	
+								@elseif (App\helpers\TextHelper::isStatus($schedule->status, 2))
+									<span class="class-reserved">
+								@elseif (App\helpers\TextHelper::isStatus($schedule->status, 3))
+									<span class="class-canceled">
+								@endif
+									{{$schedule->status}}
+								</span>
+
+								<div class="row ">
+									<div class="col-xs-12" style="height:20px"></div>
+								</div>
+
+							
+							</div>                       
 					
 							<div class="col-md-3 hidden-xs">
 								<form action="{{url('schedule/confirm')}}" method="post">
@@ -175,21 +226,21 @@ List of all classes
 									<input type="hidden" name="id" value="{{$schedule->id}}">
 									<input type="hidden" name="req" value="confirm">
 													
-									<button class="btn btn-default btn-flat btn-sm" type="submit" id="button_check" >
+									<button class="btn btn-default btn-flat btn-sm" type="submit" id="button_check"  >
 										<i class="fa fa-check"></i>
-										Status
+										Finished 
 									</button>
 									@endif
 
 									@if (Entrust::can('edit-schedule'))
-									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default btn-flat btn-sm">
+									<a href= "{{url('schedule/'.$schedule->id.'/edit')}}" class="btn btn-default btn-flat btn-sm"  >
 										<i class="fa fa-edit"></i>
 										Edit
 									</a>	
 									@endif
 
-									@if (Entrust::can('delete-schedule'))
-									<a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}">
+									@if (Entrust::can('confirm-taught-class'))
+									<a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" data-target="#cancelModal" schedule_id="{{$schedule->id}}" <?php if($schedule->status=='Finished') echo 'disabled'; ?>>
 										<i class="fa fa-close"></i>
 										Cancel
 									</a>	
@@ -198,20 +249,14 @@ List of all classes
 								</form>
 							</div>
 
-						<div class="col-md-2 visible-xs">
+						<div class="col-xs-2 visible-xs">
 							<form action="{{url('schedule/confirm')}}" method="post">
 								{!! csrf_field() !!}
-
-								
 									<div class="btn-group ">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
-										
-										
-										<button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<button type="button" class="btn btn-default btn-xs btn-flat dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<span class="glyphicon glyphicon-th"></span>
 										</button>
-
-
 										<ul class="dropdown-menu dropdown-menu-right">
 												@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
 												<li>
@@ -249,12 +294,11 @@ List of all classes
 									</div>
 							</form>
 							</div>
-					</div>
-					<div class="row row-splitter">
-						<div class="col-xs-12 visible-xs" style="height: 10px;">
 						</div>
-					</div>
+						
+					
 					@endforeach
+					
 
 
 					<form action="{{url('schedule/confirm')}}" method="POST" > 
