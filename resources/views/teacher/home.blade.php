@@ -7,25 +7,12 @@ List of all classes
 
 
 @section('contentheader_title')
-
+<h1>Homepage<small>Teacher</small></h1>
 @endsection
 
 
 @section('main-content')
-<style>
-.example-modal .modal {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    right: auto;
-    left: auto;
-    display: block;
-    z-index: 1;
-}
-.example-modal .modal {
-    background: transparent!important;
-}
-</style>
+
 <div class="col-md-12">
 	<div class="box ">
 	    <div class="box-header">
@@ -35,11 +22,8 @@ List of all classes
 	            </div>
 	            <div class="col-xs-6 text-right">
 	                <a href= "{{url('schedule/create')}}" class="btn btn-default" >
-	                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-	             </a>
-	                        <!-- <button type="button" class="btn btn-default" >
-	                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-	                </button> -->
+	                	 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+	             	</a>
 	            </div>
 	        </div>
 	    </div><!-- /.box-header -->
@@ -47,10 +31,7 @@ List of all classes
 	    <div class="box-body">
 	        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 	            <div class="row">
-	                <!-- <div class="col-xs-12 visible-xs">xs</div>
-	                <div class="col-sm-12 visible-sm">sm</div>
-	                <div class="col-md-12 visible-md">md</div>
-	                <div class="col-lg-12 visible-lg">lg</div> -->
+	
 	                <div class="col-sm-12" id="schedule_list_table">
 
 	                    <div class="row hidden-xs" id="table_header">
@@ -135,7 +116,7 @@ List of all classes
 	                        </div>
 	                    </form>
 
-	                </div>
+	                
 	            </div>
 
 	        </div>

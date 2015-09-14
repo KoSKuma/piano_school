@@ -7,7 +7,7 @@ List of all classes
 
 
 @section('contentheader_title')
-
+<h1>Homepage<small>Admin</small></h1>
 @endsection
 
 

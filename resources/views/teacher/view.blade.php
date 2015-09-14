@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Teacher: {{ $teacher->firstname . ' ' . $teacher->lastname}}</h1>
+<h1>Teacher: {{ $teacher->user->firstname . ' ' . $teacher->user->lastname}} </h1>
 @endsection
 
 @section('main-content')
@@ -143,7 +143,7 @@ Add a new student
         <div class="visible-xs   col-xs-6" >  
                 <div class="row">
                 <br/>
-               {{'ครู'.$teacher->nickname}}
+               {{'ครู'.$teacher->user->nickname}}
             </div>
             <div class="row">
                 {{$teacher->experience}}
