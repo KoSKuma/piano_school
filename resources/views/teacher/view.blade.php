@@ -44,12 +44,24 @@ Add a new student
                         </form>
 </div>
 
+<div class="row">
+
+    <div class="col-md-2 col-sm-2 ">
+    </div>
+
+     <div class="col-md-2 col-sm-2 ">
+            <a href= "{{url('teacher')}}" class="btn btn- btn-default ">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                 Back
+            </a>
+    </div>
+
+</div>
 
 <div class="row">
         <div class="col-md-3 col-sm-2 ">
+           
         </div>
-
-        
 
         <div class="col-md-2 col-sm-3 hidden-xs ">
                 @if(empty($teacher->user->picture))

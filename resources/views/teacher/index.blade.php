@@ -157,6 +157,7 @@ List of all Teachers
 								<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="glyphicon glyphicon-th"></span>
 								</button>
+								
 								<ul class="dropdown-menu dropdown-menu-right">
 									@if (Entrust::can('view-teacher'))
 									<li><a href= "{{url('teacher/'.$teacher->id)}}">View</a></li>
@@ -175,8 +176,6 @@ List of all Teachers
 										Delete
 									</a></li>
 									@endif
-
-									
 								</ul>
 							</div>
 

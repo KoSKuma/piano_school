@@ -7,7 +7,7 @@ List of all classes
 
 
 @section('contentheader_title')
-<h1>Payment<small>List of all payment topup</small></h1>
+<h1>Topup<small>List of all topup</small></h1>
 @endsection
 
 
@@ -30,7 +30,7 @@ List of all classes
                 </div>
 
                 <div class="col-xs-12 col-sm-6 col-md-4  ">
-                    <div class="input-group ">
+                    <!-- <div class="input-group ">
                       <input type="text" class="form-control" name="search" placeholder="Search for...">
                       <span class="input-group-btn">
                         <button class="btn btn-default " type="submmit">
@@ -38,7 +38,7 @@ List of all classes
                             Search
                         </button>
                       </span>
-                    </div>
+                    </div> -->
                 </div>
                 @if (Entrust::can('create-student'))
                 <div class="col-sm-7  text-right hidden-xs col-md-8" >
@@ -86,11 +86,11 @@ List of all classes
                             </div>
                            
                             <div class="col-sm-2 col-header vcenter">
-                                <strong>Hours</strong>
+                                <strong>Topup Hours</strong>
                             </div>
                   
                          <div class="col-sm-2 col-header vcenter">
-                            <strong>Option</strong>
+                            <strong>Action</strong>
                         </div>
                       
                           
@@ -132,7 +132,7 @@ List of all classes
 
                                     <div class="col-sm-2 hidden-xs">     
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <a class="btn btn-default"  href="{{url('payment/'.$payment->id.'/edit')}}">
+                                            <a class="btn btn-default btn-flat btn-sm"  href="{{url('payment/'.$payment->id.'/edit')}}">
                                                 <i class="fa fa-edit"></i> Edit 
                                             </a>
                                     </div>

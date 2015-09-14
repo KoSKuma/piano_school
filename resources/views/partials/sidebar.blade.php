@@ -76,7 +76,7 @@
             <li>
                 <a href="{{url('payment')}}">
                     <i class="fa fa-credit-card"></i>
-                    <span>Payment</span>
+                    <span>Topup</span>
                 </a>
             </li>
             @endif

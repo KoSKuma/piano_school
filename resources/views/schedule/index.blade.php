@@ -188,14 +188,16 @@ List of all classes
 								ครู{{$schedule->teacher_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'><br /></span>
 								({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
-								@endif <br>
+								<br>
+								@endif 
 
 								@if (!Entrust::hasRole('student'))
 								{{$schedule->student_nickname}} 
 								<span class='visible-sm-inline visible-md-inline'></span>
 								({{$schedule->student_firstname}} {{$schedule->student_lastname}})
-								@endif
 								<br>
+								@endif
+								
 								@if (App\helpers\TextHelper::isStatus($schedule->status, 1))
 									<span class="class-finished">	
 								@elseif (App\helpers\TextHelper::isStatus($schedule->status, 2))

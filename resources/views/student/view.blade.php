@@ -44,6 +44,20 @@ Add a new student
 
 <div class="row">
 
+    <div class="col-md-2 col-sm-2 ">
+    </div>
+
+    <div class="col-md-2 col-sm-2 ">
+            <a href= "{{url('student')}}" class="btn btn- btn-default ">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                 Back
+            </a>
+    </div>
+
+</div>
+
+<div class="row">
+
 	 <div class="col-md-3 col-sm-1 ">
      </div>
 

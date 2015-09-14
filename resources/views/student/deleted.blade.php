@@ -23,7 +23,7 @@ Add a new student
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-md-4  ">
-					<div class="input-group ">
+					<!-- <div class="input-group ">
 					  <input type="text" class="form-control" name="search" placeholder="Search for...">
 				      <span class="input-group-btn">
 				        <button class="btn btn-default custom-to-black" type="submmit">
@@ -31,7 +31,7 @@ Add a new student
 				        	Search
 				        </button>
 				      </span>
-					</div>
+					</div> -->
 				</div>
 			
 			</form>
