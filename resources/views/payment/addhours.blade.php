@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Payment<small></small></h1>
+<h1>Topup<small></small></h1>
 @endsection
 
 
@@ -16,7 +16,7 @@ Add a new student
     <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Add Payment</h3>
+                <h3 class="box-title">Add Topup</h3>
             </div><!-- /.box-header -->
 
             <!-- form start -->
