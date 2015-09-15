@@ -56,7 +56,8 @@ List of all classes
 	                        	<b>Date : </b>{{date('j M Y', strtotime($schedule->start_time))}} <br>  
 	                        	<b>Time : </b>{{date('G:i', strtotime($schedule->start_time))}} -
 	                        	{{date('G:i', strtotime($schedule->end_time))}}<br>
-	                        	<b>Student : </b>{{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
+	                        	<b>Student : </b>{{$schedule->student_nickname}} 
+	                        	<span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 	                        </div>
 	                        <div class="row">
 	                        	<div class="col-xs-12 " style="height: 20px;">
