@@ -12,22 +12,9 @@ List of all classes
 
 
 @section('main-content')
-<style>
-.example-modal .modal {
-	position: relative;
-	top: auto;
-	bottom: auto;
-	right: auto;
-	left: auto;
-	display: block;
-	z-index: 1;
-}
-.example-modal .modal {
-	background: transparent!important;
-}
-</style>
 
-	<div class="box">
+
+	<div class="box box-solid box-default">
 		<div class="box-header">
 			<div class="row">
 				<div class="col-xs-6">
@@ -62,27 +49,41 @@ List of all classes
 
 						@foreach ($scheduleList as $schedule)
 						<div class="row">
-							<div class="col-xs-2 visible-xs">
-								Start:
+							<div class="col-md-2 hidden-xs">
+								{{date('j M Y G:i', strtotime($schedule->start_time))}} - {{date('G:i', strtotime($schedule->end_time))}}
 							</div>
-							<div class="col-md-2 col-xs-10">
-								{{date('j M y G:i', strtotime($schedule->start_time))}} - {{date('G:i', strtotime($schedule->end_time))}}
+							<div class="col-md-3 hidden-xs">
+								{{$schedule->teacher_nickname}} 
+								<span class='visible-sm-inline visible-md-inline'><br /></span>
+								({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
+
 							</div>
-							<div class="col-xs-2 visible-xs">
-								End:
-							</div>
-							
-							<div class="col-md-3 col-xs-12">
-								{{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
-							</div>
-							<div class="col-md-3 col-xs-12">
+							<div class="col-md-3 hidden-xs">
 								{{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 							</div>
+							<div class="col-md-3 hidden-xs">
+								{{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
+							</div>
+							
+								<div class="col-xs-12 visible-xs">
+									<span><b>Date : </b></span>{{date('j M Y G:i', strtotime($schedule->start_time))}} - {{date('G:i', strtotime($schedule->end_time))}}<br>
+									<span><b>Teacher : </b></span>{{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}}) <br>
+									<span><b>Student : </b></span>{{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 
-					
+								</div>
+							
+
+
+
 						</div>
+
 						<div class="row row-splitter visible-xs">
 							<div class="col-xs-12 visible-xs" style="height: 10px;">
+							</div>
+						</div>
+
+						<div class="row row-splitter hidden-xs">
+							<div class="col-xs-12 " style="height: 10px;">
 							</div>
 						</div>
 						@endforeach
