@@ -27,12 +27,14 @@ List of all classes
 }
 </style>
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
-		<div class="box ">
+	<div class="col-md-12 ">
+		<div class="box box-solid box-default ">
 			<div class="box-header">
 				<div class="row">
-					<div class="col-xs-6">
-						<h3 class="box-title">Schedule of student</h3>
+					<div class="col-xs-12">
+						<h3 class="box-title hidden-xs">Schedule of Student : {{Auth::user()->firstname.Auth::user()->lastname}}</h3>
+	                	<h4 class="box-title visible-xs">Schedule : {{Auth::user()->firstname.Auth::user()->lastname}}
+	                	</h5>
 					</div>
 
 				</div>
@@ -45,11 +47,11 @@ List of all classes
 						<div class="col-sm-12" id="schedule_list_table">
 
 							<div class="row hidden-xs" id="table_header">
-								<div class="col-sm-4">
-									<strong>Start Time</strong>
+								<div class="col-sm-3">
+									<strong>Class</strong>
 								</div>
 							
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<strong>Teacher</strong>
 								</div>
 
@@ -57,21 +59,22 @@ List of all classes
 
 							@foreach ($scheduleList as $schedule)
 							<div class="row">
-								<div class="col-xs-2 visible-xs">
-									Start:
+								<div  class="col-md-3 col-xs-10 hidden-xs">
+									{{date('j M Y G:i', strtotime($schedule->start_time))}}-{{date('G:i', strtotime($schedule->end_time))}}
 								</div>
-								<div class="col-md-4 col-xs-10">
-									{{date('j M y G:i', strtotime($schedule->start_time))}}
+								<div class="col-md-3 col-xs-12 hidden-xs">
+									{{$schedule->teacher_nickname}}
+									<span class='visible-sm-inline visible-md-inline'><br /></span>
+									({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
 								</div>
-								<div class="col-xs-2 visible-xs">
-									End:
+								<div class="col-xs-12 visible-xs">
+									<b>Date : </b>{{date('j M Y ', strtotime($schedule->start_time))}} <br>
+									<b>Time : </b>{{date('G:i', strtotime($schedule->start_time))}} -  {{date('G:i', strtotime($schedule->end_time))}} <br>
+									<b>Teacher : </b>{{$schedule->teacher_nickname}} 
+									<span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
 								</div>
-								<div class="col-md-4 col-xs-10">
-									{{date('j M y G:i', strtotime($schedule->end_time))}}
-								</div>
-								<div class="col-md-4 col-xs-12">
-									{{$schedule->teacher_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
-								</div>
+								
+					
 
 
 							</div>
