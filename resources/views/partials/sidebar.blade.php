@@ -99,6 +99,13 @@
             </li>
             @endif
 
+             <li >
+                <a href="{{url('newschedule')}}">
+                    <i class='fa fa-calendar-o'></i> 
+                    <span>New Schedule</span>
+                </a>
+            </li>
+
 
            
             

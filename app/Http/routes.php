@@ -56,6 +56,10 @@ Route::group(['middleware' => 'auth'] ,function()
 	Route::get('calendar',function () {
 		return view('calendar.calendar');
 	});
+
+	Route::resource('newschedule','NewScheduleController');
+
+
 });
 
 
