@@ -271,7 +271,7 @@ List of all classes
 												<input type="hidden" name="req" value="confirm">
 												
 													<button class="btn btn-default btn-block" type="submit" id="button_check" >
-														Confirm Status
+														Finished
 													</button>
 												</li>
 												@endif
