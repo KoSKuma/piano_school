@@ -13,7 +13,7 @@
 
 // Debug
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
+Route::get('config','ConfigController@index');
 // Initialize permission
 //Route::get('initializePermission', 'Initializer@initializePermissions');
 
