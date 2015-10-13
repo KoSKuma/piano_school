@@ -13,6 +13,9 @@ List of all classes
 @if(Entrust::hasRole('teacher'))
 <h1>Schedule <small>List of teacher's Schedule</small></h1>
 @endif
+@if(Entrust::hasRole('student'))
+<h1>Schedule <small>List of student's Schedule</small></h1>
+@endif
 @endsection
 
 
@@ -256,11 +259,12 @@ List of all classes
 								{!! csrf_field() !!}
 									<div class="btn-group ">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
+
 										<button type="button" class="btn btn-default btn-xs btn-flat dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<span class="glyphicon glyphicon-th"></span>
 										</button>
 										<ul class="dropdown-menu dropdown-menu-right">
-												@if (Entrust::can('confirm-taught-class') || (Auth::user()->teachers_id == $schedule->teachers_id) )
 												<li>
 												<input type="hidden" 
 													   id="attr_schedule_{{$schedule->id}}" 

@@ -13,8 +13,7 @@ List of all classes
 
 @section('main-content')
 
-
-	<div class="box ">
+	<div class="box box-solid box-default">
 	    <div class="box-header">
 	        <div class="row">
 	            <div class="col-xs-12">
@@ -36,9 +35,7 @@ List of all classes
 	                        <div class="col-sm-3">
 	                            <strong>Class Time</strong>
 	                        </div>
-	                        <div class="col-sm-3">
-	                            <strong>End Time</strong>
-	                        </div>
+	                     
 	                        <div class="col-sm-3">
 	                            <strong>Student</strong>
 	                        </div>
@@ -51,10 +48,7 @@ List of all classes
 	                        <div class="col-md-3 col-xs-10 hidden-xs">
 	                            {{date('j M Y  G:i', strtotime($schedule->start_time))}} - {{date('G:i', strtotime($schedule->end_time))}}
 	                        </div>
-	                      
-	                        <div class="col-md-3   col-xs-10 hidden-xs">
-	                            {{date('j M y G:i', strtotime($schedule->end_time))}}
-	                        </div>
+	                    
 	                        <div class="col-md-3 col-xs-12 hidden-xs">
 	                            {{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 	                        </div>
@@ -62,7 +56,8 @@ List of all classes
 	                        	<b>Date : </b>{{date('j M Y', strtotime($schedule->start_time))}} <br>  
 	                        	<b>Time : </b>{{date('G:i', strtotime($schedule->start_time))}} -
 	                        	{{date('G:i', strtotime($schedule->end_time))}}<br>
-	                        	<b>Student : </b>{{$schedule->student_nickname}} <span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
+	                        	<b>Student : </b>{{$schedule->student_nickname}} 
+	                        	<span class='visible-sm-inline visible-md-inline'><br /></span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
 	                        </div>
 	                        <div class="row">
 	                        	<div class="col-xs-12 " style="height: 20px;">
@@ -79,6 +74,7 @@ List of all classes
 	    	</div>
 		</div><!-- /.box-body -->
 	</div>
+
 
 
 @endsection
