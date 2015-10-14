@@ -16,6 +16,34 @@
 	<div class="box-header">
 	</div>
 	<div class="box-body">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="input-group ">
+				  <input type="text" class="form-control" name="search" placeholder="Search for..." value="">
+			      <span class="input-group-btn">
+			        <button class="btn btn-default " type="submmit">
+			        	 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			        	Search
+			        </button>
+			      </span>
+				</div>
+			</div>
+			<form action="{{url('newschedule')}}" method="POST" role="form">
+					{!! csrf_field() !!}
+					<div class="col-sm-6">
+						<div class="input-group">
+							<input type="text" class="form-control pull-right" id="reservationtime" name="date">
+					      	<span class="input-group-btn">
+					      		<input type="submit" class="btn btn-default">
+					      	</span>
+					      
+					    </div>
+					</div>
+				
+			</form>
+		
+		
+		</div>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -28,27 +56,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>จันทร์</td>
-				</tr>
-				<tr>
-					<td>อังคาร</td>
-				</tr>
-				<tr>
-					<td>พุธ</td>
-				</tr>
-				<tr>
-					<td>พฤหัสบดี</td>
-				</tr>
-				<tr>
-					<td>ศุกร์</td>
-				</tr>
-				<tr>
-					<td>เสาร์</td>
-				</tr>
-				<tr>
-					<td>อาทิตย์</td>
-				</tr>
+				
 
 			</tbody>
 		</table>
@@ -57,4 +65,12 @@
 </div>
 
 
+@endsection
+
+@section("script")
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#reservationtime').daterangepicker();
+		})
+	</script>
 @endsection

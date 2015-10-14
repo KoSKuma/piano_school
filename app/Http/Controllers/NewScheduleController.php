@@ -15,9 +15,12 @@ class NewScheduleController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $value = $request->date;
+        //print_r($request->date);die();
         $class_time = Config::get('piano.class_time');
+
         return view('newschedule.index',['time'=>$class_time]);
     }
 
