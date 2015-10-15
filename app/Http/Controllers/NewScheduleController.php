@@ -42,15 +42,16 @@ class NewScheduleController extends Controller
             $start_date_timestamp =  $start_date->format('Y-m-d H:i:s');
             $end_date_timestamp =  $end_date->format('Y-m-d H:i:s');
 
+            $dateArray[] = $start_date->format('l d F');
             for ($i=0; $i < $day_count ; $i++) { 
                 $start_date->add(new DateInterval('P1D'));
-                $dateArray[] = $start_date->format('l d F Y');
+                $dateArray[] = $start_date->format('l d F');
 
             }
 
 
             $schedule_of_teacher = Schedule::getTeacherSchedule($teacher_id,$start_date_timestamp,$end_date_timestamp);
-            //print_r($schedule_of_teacher);die();
+            // print_r($schedule_of_teacher);die();
         }
 
 

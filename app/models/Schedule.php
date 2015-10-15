@@ -5,6 +5,8 @@ namespace App\models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TimeHelper;
 use DB;
+use DateTime;
+use DateInterval;
 
 class Schedule extends Model
 {
@@ -207,7 +209,24 @@ class Schedule extends Model
 		->orderBy('students_teachers.start_time', 'asc')
 		->get();
 
-		return $schedules;
+		$schedules_table = array();
+
+		foreach ($schedules as $schedule) {
+			$start = new DateTime($schedule->start_time);
+			$end = new DateTime($schedule->end_time);
+			$hour_count = $end->diff($start)->format('%h');
+			$key = $start->format('l d F');
+
+			for($i=1; $i<=$hour_count; $i++) {
+				$time_key = $start->format('H.00');
+				$start->modify('+1 hour'); // Add 1 Hour
+				$time_key .= '-'.$start->format('H.00');
+				$schedules_table[$key][$time_key] = true;
+			}
+		}
+
+		// print_r($schedules_table);exit();
+		return $schedules_table;
 
 	}
 

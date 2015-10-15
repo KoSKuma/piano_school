@@ -43,7 +43,7 @@
 		
 		
 		</div>
-		<table class="table table-hover">
+		<table class="table table-hover table-bordered">
 			<thead>
 				<tr>
 					<th>Days/Time</th>
@@ -57,14 +57,34 @@
 			<tbody>
 				
 					<?php
-
+						
 					 foreach($dateArray as $day) {
 					?>
 						<tr>
-							<td><?php echo $day; ?></td>
+							<td>
+								<?php 
+									if(isset($schedule_of_teacher[$day])) {
+										echo '<b>'.$day.'</b>'; 
+									} else {
+										echo $day; 
+									}
+								?>
+							</td>
+							@foreach($time as $time_key)
+								<?php 
+									$bgcolor = '';
+									if(isset($schedule_of_teacher[$day][$time_key]))
+									{
+										$bgcolor = 'red';
+									}
+								?>
+								<td bgcolor="{{$bgcolor}}">
+
+								</td>
+							@endforeach
 						</tr>
 					<?php } ?>
-
+					
 			</tbody>
 		</table>
 	</div>
