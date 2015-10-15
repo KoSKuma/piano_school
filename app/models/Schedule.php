@@ -215,7 +215,7 @@ class Schedule extends Model
 			$start = new DateTime($schedule->start_time);
 			$end = new DateTime($schedule->end_time);
 			$hour_count = $end->diff($start)->format('%h');
-			$key = $start->format('l d F');
+			$key = $start->format('D d M');
 
 			for($i=1; $i<=$hour_count; $i++) {
 				$time_key = $start->format('H.00');

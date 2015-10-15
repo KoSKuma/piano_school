@@ -42,10 +42,10 @@ class NewScheduleController extends Controller
             $start_date_timestamp =  $start_date->format('Y-m-d H:i:s');
             $end_date_timestamp =  $end_date->format('Y-m-d H:i:s');
 
-            $dateArray[] = $start_date->format('l d F');
+            $dateArray[] = $start_date->format('D d M');
             for ($i=0; $i < $day_count ; $i++) { 
                 $start_date->add(new DateInterval('P1D'));
-                $dateArray[] = $start_date->format('l d F');
+                $dateArray[] = $start_date->format('D d M');
 
             }
 
