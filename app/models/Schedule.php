@@ -196,5 +196,20 @@ class Schedule extends Model
 		return $totalReservedClassTime;
 	}
 
+	public static function getTeacherSchedule($teacher_id, $start_date_timestamp, $end_date_timestamp)
+	{
+		$schedules = DB::table('students_teachers')
+		->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
+		->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
+		->where('teachers.teachers_id','=',$teacher_id)
+		->where('start_time','>=',$start_date_timestamp)
+		->where('end_time','<=',$end_date_timestamp)
+		->orderBy('students_teachers.start_time', 'asc')
+		->get();
+
+		return $schedules;
+
+	}
+
 
 }
