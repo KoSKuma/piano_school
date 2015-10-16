@@ -23,11 +23,15 @@
 					<div class="input-group ">
 						<select name="teacher" class="form-control">
 							@foreach ($teachers as $teacher)
-								<option value="{{$teacher->id}}">{{$teacher->firstname." ".$teacher->lastname}}</option>
+								<option value="{{$teacher->id}}" <?php
+									if($teacher->id == $teacher_id){
+										echo "selected";
+									}
+								 ?> >{{$teacher->firstname." ".$teacher->lastname}}</option>
 							@endforeach
 						</select>
 					</div>
-				</div>
+			</div>
 			
 					<div class="col-sm-6">
 						<div class="input-group">
@@ -37,13 +41,13 @@
 					      	</span>
 					      
 					    </div>
-					</div>
-				
-			</form>
-		
-		
+					</div>			
+				</form>
+			</div>
+		<div class="row">
+			<div class="col-sm-12" style="height:10px"></div>
 		</div>
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-bordered " >
 			<thead>
 				<tr>
 					<th>Days/Time</th>
@@ -72,10 +76,10 @@
 							</td>
 							@foreach($time as $time_key)
 								<?php 
-									$bgcolor = '';
+									$bgcolor = '#FEFCFF';
 									if(isset($schedule_of_teacher[$day][$time_key]))
 									{
-										$bgcolor = 'red';
+										$bgcolor = '#C0D0FF';
 									}
 								?>
 								<td bgcolor="{{$bgcolor}}">
@@ -95,9 +99,12 @@
 @endsection
 
 @section("script")
+
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#reservationtime').daterangepicker();
+			$('#reservationtime').daterangepicker("option","dateFormat","dd/mm/yyyy");
 		})
 	</script>
+
+
 @endsection

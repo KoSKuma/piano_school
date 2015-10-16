@@ -60,7 +60,8 @@ class NewScheduleController extends Controller
                 'dateArray'=>$dateArray,
                 'date'=>$value,
                 'teachers' => $teachers->get(),
-                'schedule_of_teacher' => $schedule_of_teacher
+                'schedule_of_teacher' => $schedule_of_teacher,
+                'teacher_id'=>$teacher_id
             ]
         );
     }
