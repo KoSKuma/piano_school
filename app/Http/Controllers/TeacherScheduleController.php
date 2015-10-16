@@ -12,7 +12,7 @@ use DateTime;
 use DateInterval;
 use App\models\Teacher;
 
-class NewScheduleController extends Controller
+class TeacherScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +21,10 @@ class NewScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        // $schedule = Schedule::dateOfSchedule();
-        // var_dump($schedule);
-        
-        //print_r($request->date);die();
+      
         $class_time = Config::get('piano.class_time');
         $teachers = Teacher::teacherList();
-       // print_r($teachers->get());die();
+       
 
         $value = $request->date;
         $teacher_id = $request->teacher;
@@ -55,7 +52,7 @@ class NewScheduleController extends Controller
         }
 
 
-        return view('newschedule.index',[
+        return view('teacherschedule.index',[
                 'time'=>$class_time, 
                 'dateArray'=>$dateArray,
                 'date'=>$value,

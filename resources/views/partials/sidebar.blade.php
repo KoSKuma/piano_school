@@ -100,9 +100,9 @@
             @endif
 
              <li >
-                <a href="{{url('newschedule')}}">
+                <a href="{{url('teacherschedule')}}">
                     <i class='fa fa-calendar-o'></i> 
-                    <span>New Schedule</span>
+                    <span>Teacher Schedule</span>
                 </a>
             </li>
 

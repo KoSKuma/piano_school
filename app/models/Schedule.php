@@ -203,6 +203,19 @@ class Schedule extends Model
 		$schedules = DB::table('students_teachers')
 		->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
 		->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
+		->select('students_teachers.id as id', 
+			'students_teachers.start_time as start_time', 
+			'students_teachers.end_time as end_time', 
+			'students_teachers.teachers_id as teachers_id', 
+			'students_teachers.students_id as students_id', 
+			'students.nickname as student_nickname', 
+			'students.firstname as student_firstname', 
+			'students.lastname as student_lastname', 
+			'teachers.nickname as teacher_nickname', 
+			'teachers.firstname as teacher_firstname', 
+			'teachers.lastname as teacher_lastname', 
+			'students_teachers.location as location',
+			'students_teachers.status as status')
 		->where('teachers.teachers_id','=',$teacher_id)
 		->where('start_time','>=',$start_date_timestamp)
 		->where('end_time','<=',$end_date_timestamp)
@@ -210,6 +223,7 @@ class Schedule extends Model
 		->get();
 
 		$schedules_table = array();
+		//print_r($schedules->student_nickname);die();
 
 		foreach ($schedules as $schedule) {
 			$start = new DateTime($schedule->start_time);
@@ -221,13 +235,12 @@ class Schedule extends Model
 				$time_key = $start->format('H.00');
 				$start->modify('+1 hour'); // Add 1 Hour
 				$time_key .= '-'.$start->format('H.00');
-				$schedules_table[$key][$time_key] = true;
+				$schedules_table[$key][$time_key] = $schedule->student_nickname;
 			}
 		}
 
 		// print_r($schedules_table);exit();
 		return $schedules_table;
-
 	}
 
 

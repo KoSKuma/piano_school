@@ -58,8 +58,8 @@ Route::group(['middleware' => 'auth'] ,function()
 	});
 
 	//Route::resource('newschedule','NewScheduleController');
-	Route::get('newschedule','NewScheduleController@index');
-	Route::post('newschedule','NewScheduleController@index');
+	Route::get('teacherschedule','TeacherScheduleController@index');
+	Route::post('teacherschedule','TeacherScheduleController@index');
 });
 
 

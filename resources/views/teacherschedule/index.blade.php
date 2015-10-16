@@ -7,7 +7,7 @@
 
 
 @section('contentheader_title')
-<h1>New Schedule <small>Schedule List</small></h1>
+<h1>Teacher Schedule <small>Schedule List</small></h1>
 @endsection
 
 
@@ -17,10 +17,11 @@
 	</div>
 	<div class="box-body">
 		<div class="row">
-			<div class="col-sm-6">
-				<form action="{{url('newschedule')}}" method="POST" role="form">
+			<div class="col-sm-7">
+				<form action="{{url('teacherschedule')}}" method="POST" role="form">
 					{!! csrf_field() !!}
 					<div class="input-group ">
+						<label>Select Teacher</label>
 						<select name="teacher" class="form-control">
 							@foreach ($teachers as $teacher)
 								<option value="{{$teacher->id}}" <?php
@@ -33,13 +34,16 @@
 					</div>
 			</div>
 			
-					<div class="col-sm-6">
+					<div class="col-sm-5">
+						<label>Select Date Range</label>
 						<div class="input-group">
-							<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date}}">
-					      	<span class="input-group-btn">
-					      		<input type="submit" class="btn btn-default">
-					      	</span>
-					      
+							<div class="input-group-addon">
+			                  <i class="fa fa-calendar"></i>
+			                </div>
+								<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date}}">
+						      	<span class="input-group-btn">
+						      		<input type="submit" class="btn btn-default">
+						      	</span>
 					    </div>
 					</div>			
 				</form>
@@ -50,44 +54,41 @@
 		<table class="table table-hover table-bordered " >
 			<thead>
 				<tr>
-					<th>Days/Time</th>
+					<th bgcolor="#736F6E"><font color="white">Days/Time</font></th>
 					@foreach($time as $time_array)
-					<th>
-						{{$time_array}}
-					</th>
+						<th  bgcolor="#736F6E">
+							<font color="white">{{$time_array}}</font>
+						</th>
 					@endforeach
 				</tr>
 			</thead>
 			<tbody>
-				
-					<?php
-						
-					 foreach($dateArray as $day) {
-					?>
+					@foreach($dateArray as $day)
 						<tr>
-							<td>
-								<?php 
-									if(isset($schedule_of_teacher[$day])) {
-										echo '<b>'.$day.'</b>'; 
-									} else {
-										echo $day; 
-									}
-								?>
+							<td bgcolor="#A0A0A0">	
+
+								@if(isset($schedule_of_teacher[$day])) 
+									<a href="{{url('schedule/create')}}" class="link-color"><b>{{$day}}</b></a>
+								@else
+									<a href="{{url('schedule/create')}}" class="link-color">{{$day}}</a>
+								@endif
 							</td>
+						
 							@foreach($time as $time_key)
 								<?php 
 									$bgcolor = '#FEFCFF';
+									$student_name ='';
+									
 									if(isset($schedule_of_teacher[$day][$time_key]))
 									{
 										$bgcolor = '#C0D0FF';
+										$student_name = $schedule_of_teacher[$day][$time_key];
 									}
 								?>
-								<td bgcolor="{{$bgcolor}}">
-
-								</td>
+								<td bgcolor="{{$bgcolor}}" align="center"><a href="#"><b>{{$student_name}}<b></a></td>
 							@endforeach
 						</tr>
-					<?php } ?>
+					@endforeach
 					
 			</tbody>
 		</table>
@@ -102,7 +103,10 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#reservationtime').daterangepicker("option","dateFormat","dd/mm/yyyy");
+			$('#reservationtime').daterangepicker();
+			$('td').click(function(){
+		
+			});
 		})
 	</script>
 

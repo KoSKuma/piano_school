@@ -88,3 +88,10 @@
 b.date {
     text-align: right;
 }
+
+.link-color{
+	color: #FFFFFF;
+}
+.link-color:hover{
+	color: #C0C0C0;
+}
