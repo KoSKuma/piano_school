@@ -22,7 +22,7 @@
 					{!! csrf_field() !!}
 					<div class="input-group ">
 						<label>Select Teacher</label>
-						<select name="teacher" class="form-control">
+						<select name="teacher" class="form-control" id="select_teacher" >
 							@foreach ($teachers as $teacher)
 								<option value="{{$teacher->id}}" <?php
 									if($teacher->id == $teacher_id){
@@ -63,15 +63,10 @@
 				</tr>
 			</thead>
 			<tbody>
-					@foreach($dateArray as $day)
+					@foreach($dateArray as  $key=>$day)
 						<tr>
 							<td bgcolor="#A0A0A0">	
-
-								@if(isset($schedule_of_teacher[$day])) 
-									<a href="{{url('schedule/create')}}" class="link-color"><b>{{$day}}</b></a>
-								@else
-									<a href="{{url('schedule/create')}}" class="link-color">{{$day}}</a>
-								@endif
+									<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b>{{$day}}</b></a>							      			
 							</td>
 						
 							@foreach($time as $time_key)
@@ -85,7 +80,7 @@
 										$student_name = $schedule_of_teacher[$day][$time_key];
 									}
 								?>
-								<td bgcolor="{{$bgcolor}}" align="center"><a href="#"><b>{{$student_name}}<b></a></td>
+								
 							@endforeach
 						</tr>
 					@endforeach
@@ -104,8 +99,15 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#reservationtime').daterangepicker();
-			$('td').click(function(){
-		
+
+			$('td').click(function(){				
+				var teacher = $("#select_teacher :selected").val();	
+				console.log(teacher);
+				/*var data = {teacher:teacher}
+				$.post( "schedule/create",data, function( data ) {
+				console.log(data)
+	            */
+
 			});
 		})
 	</script>

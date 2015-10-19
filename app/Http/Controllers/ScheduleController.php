@@ -28,6 +28,7 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        
         $searchResult = array();
 
         if($request->has('date'))
@@ -68,7 +69,8 @@ class ScheduleController extends Controller
             'count'     =>  $schedules->count(),
         );
 
-        return view('schedule.index', ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
+        return view('schedule.index', [
+            'schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 
     /**
@@ -76,12 +78,25 @@ class ScheduleController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(request $request)
     {
+
         $teacher = Teacher::teacherList()->get();
         $student = Student::studentList()->get();
+        $select_teacher = $request->teacher;
+        $select_day = $request->day;
+
+
+
+    
         //print_r($teacher);die();
-        return view('schedule.booking',['teacherlist'=>$teacher , 'studentlist'=>$student ]);
+        return view('schedule.booking',[
+            'teacherlist'=>$teacher , 
+            'studentlist'=>$student ,
+            'teacher_id'=>$select_teacher,
+            'day'=>$select_day
+        ]
+        );
         
     }
 
@@ -97,8 +112,9 @@ class ScheduleController extends Controller
 
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
+        print_r($schedule->students_id);exit();
         $schedule->start_time = $request->class_date . " " . $request->class_start_time;
-        $schedule->end_time = $request->class_date . " " . $request->class_end_time;
+        $schedule->end_time = $request->class_date. " " . $request->class_end_time;
         $schedule->location = $request->location;
         $schedule->save();
 

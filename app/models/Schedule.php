@@ -200,6 +200,7 @@ class Schedule extends Model
 
 	public static function getTeacherSchedule($teacher_id, $start_date_timestamp, $end_date_timestamp)
 	{
+
 		$schedules = DB::table('students_teachers')
 		->join('users as students', 'students.students_id', '=', 'students_teachers.students_id')
 		->join('users as teachers', 'teachers.teachers_id', '=', 'students_teachers.teachers_id')
@@ -222,13 +223,21 @@ class Schedule extends Model
 		->orderBy('students_teachers.start_time', 'asc')
 		->get();
 
+		//echo $teacher_id;
+		//echo $start_date_timestamp;
+		//echo $end_date_timestamp;
+		//exit();
+
 		$schedules_table = array();
-		//print_r($schedules->student_nickname);die();
+		//print_r($schedules);die();
 
 		foreach ($schedules as $schedule) {
+			//print_r($schedule->student_nickname);die();
+
+
 			$start = new DateTime($schedule->start_time);
 			$end = new DateTime($schedule->end_time);
-			$hour_count = $end->diff($start)->format('%h');
+			$hour_count = $end->diff($start)->format('%h'); 
 			$key = $start->format('D d M');
 
 			for($i=1; $i<=$hour_count; $i++) {
@@ -239,7 +248,6 @@ class Schedule extends Model
 			}
 		}
 
-		// print_r($schedules_table);exit();
 		return $schedules_table;
 	}
 

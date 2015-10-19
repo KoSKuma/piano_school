@@ -30,25 +30,26 @@ class TeacherScheduleController extends Controller
         $teacher_id = $request->teacher;
         $dateArray = array();
         $schedule_of_teacher = array();
-        if($value!=NULL){
+
+        if($value!=NULL){ 
             $date = explode(' - ', $value);
             $start_date = new DateTime($date[0]);
             $end_date = new DateTime($date[1]);
             $day_count = $end_date->diff($start_date)->format('%a');
 
-            $start_date_timestamp =  $start_date->format('Y-m-d H:i:s');
-            $end_date_timestamp =  $end_date->format('Y-m-d H:i:s');
+            $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
+            $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
 
             $dateArray[] = $start_date->format('D d M');
             for ($i=0; $i < $day_count ; $i++) { 
                 $start_date->add(new DateInterval('P1D'));
-                $dateArray[] = $start_date->format('D d M');
+                $dateArray[$start_date->format('Y-m-d')] = $start_date->format('D d M');
 
             }
 
 
             $schedule_of_teacher = Schedule::getTeacherSchedule($teacher_id,$start_date_timestamp,$end_date_timestamp);
-            // print_r($schedule_of_teacher);die();
+            //print_r($schedule_of_teacher);die();
         }
 
 

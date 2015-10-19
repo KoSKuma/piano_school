@@ -28,16 +28,35 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
-                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" />
+                            <select name="teachers_id" class="form-control" id="select_teacher" >
+                                @foreach ($teacherlist as $teacher)
+                                    <option value="{{$teacher->id}}" <?php
+                                        if($teacher->id == $teacher_id){
+                                            echo "selected";
+                                        }
+                                     ?> 
+                                     >{{$teacher->firstname." ".$teacher->lastname}}</option>
+                                @endforeach
+                            </select>
+                            <!-- <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
+                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" /> -->
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="student_name" id="student_name" readonly />
-                            <input type="hidden" value="" id="student_id_input" name="students_id"/>
+                             <select name="student_id" class="form-control" id="select_student" >
+                                    <option>select student</option>
+                                @foreach ($studentlist as $student)
+                                    <option value="{{$student->id}}">
+
+                                    {{$student->firstname." ".$student->lastname}}</option>
+
+                                @endforeach
+                            </select>
+                            <!-- <input type="text" class="form-control" name="student_name" id="student_name" readonly />
+                            <input type="hidden" value="" id="student_id_input" name="students_id"/> -->
                         </div>
                     </div>
 
@@ -45,11 +64,11 @@ Add a new student
                         <label class="col-sm-3 control-label" for="start_time">Class Date</label>
                         <div class="col-sm-8">
                             <div class="input-group">
-                            <input type="text" class="form-control" name="class_date_display" id="class_date_display" />
+                            <input type="text" class="form-control" name="class_date_display" id="class_date_display" value="{{$day}}"/>
                                 <div class="input-group-addon">
                                    <i class="fa fa-calendar"></i>
                                 </div>
-                            <input type="hidden" id="class_date" name="class_date" value=""/>
+                            <input type="hidden" id="class_date" name="class_date" value="{{$day}}"/>
                             </div>
                         </div>
                     </div>
