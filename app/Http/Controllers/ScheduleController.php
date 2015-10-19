@@ -84,6 +84,8 @@ class ScheduleController extends Controller
         $teacher = Teacher::teacherList()->get();
         $student = Student::studentList()->get();
         $select_teacher = $request->teacher;
+        $student_id = $request->student;
+
         $select_day = $request->day;
 
 
@@ -94,7 +96,8 @@ class ScheduleController extends Controller
             'teacherlist'=>$teacher , 
             'studentlist'=>$student ,
             'teacher_id'=>$select_teacher,
-            'day'=>$select_day
+            'day'=>$select_day,
+            'student_id'=>$student_id
         ]
         );
         
@@ -112,7 +115,6 @@ class ScheduleController extends Controller
 
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
-        print_r($schedule->students_id);exit();
         $schedule->start_time = $request->class_date . " " . $request->class_start_time;
         $schedule->end_time = $request->class_date. " " . $request->class_end_time;
         $schedule->location = $request->location;

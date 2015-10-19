@@ -46,10 +46,15 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                             <select name="student_id" class="form-control" id="select_student" >
+                             <select name="students_id" class="form-control" id="students_id" >
                                     <option>select student</option>
                                 @foreach ($studentlist as $student)
                                     <option value="{{$student->id}}">
+                                    <?php
+                                        if($student->id == $student_id){
+                                            echo "selected";
+                                        }
+                                     ?> 
 
                                     {{$student->firstname." ".$student->lastname}}</option>
 
