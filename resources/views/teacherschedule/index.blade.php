@@ -76,9 +76,10 @@
 									
 									if(isset($schedule_of_teacher[$day][$time_key]))
 									{
-										$bgcolor = '#C0D0FF';
-										$student_name = $schedule_of_teacher[$day][$time_key];
-									}
+										
+										$student_name = $schedule_of_teacher[$day][$time_key];  ?>
+										<td bgcolor="#C0D0FF"> {{$student_name}} </td>
+								<?php } 
 								?>
 								
 							@endforeach

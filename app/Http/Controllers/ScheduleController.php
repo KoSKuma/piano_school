@@ -120,7 +120,7 @@ class ScheduleController extends Controller
         $schedule->location = $request->location;
         $schedule->save();
 
-        return redirect('schedule');
+        return redirect('teacherschedule');
 
     }
 
