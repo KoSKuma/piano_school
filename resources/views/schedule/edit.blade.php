@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Schedule<small>booking</small></h1>
+<h1>Schedule<small>Update</small></h1>
 @endsection
 
 
@@ -16,7 +16,7 @@ Add a new student
     <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Booking</h3>
+                <h3 class="box-title">Update Schedule</h3>
             </div><!-- /.box-header -->
 
             <!-- form start -->
@@ -38,16 +38,35 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" value="{{'ครู'.' '.$scheduleById->teacher_nickname.' '.'('.$scheduleById->teacher_firstname.' '.$scheduleById->teacher_lastname.')'}}" readonly />
-                            <input type="hidden" value="{{$scheduleById->teachers_id}}" id="teacher_id_input" name="teachers_id" />
+                            <select name="teachers_id" class="form-control" id="teachers_id" >
+                                <option value="{{$scheduleById->teachers_id}}">{{'ครู'.' '.$scheduleById->teacher_nickname.' '.'('.$scheduleById->teacher_firstname.' '.$scheduleById->teacher_lastname.')'}}</option>
+                                                                 
+                                @foreach ($teacherlist as $teacher)
+                                    <option value="{{$teacher->id}}" > 
+                                           {{$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <!-- <input type="text" class="form-control" name="teacher_name" id="teacher_name" value="{{'ครู'.' '.$scheduleById->teacher_nickname.' '.'('.$scheduleById->teacher_firstname.' '.$scheduleById->teacher_lastname.')'}}" readonly />
+                            <input type="hidden" value="{{$scheduleById->teachers_id}}" id="teacher_id_input" name="teachers_id" /> -->
+                        
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="student_name" id="student_name" value="{{$scheduleById->student_nickname.'('.$scheduleById->student_firstname.' '.$scheduleById->student_lastname.')'  }}" readonly />
-                            <input type="hidden" value="{{$scheduleById->students_id}}" id="student_id_input" name="students_id"/>
+                            <select name="students_id" class="form-control" id="student_id_input" >
+                                <option value="{{$scheduleById->students_id}}">{{$scheduleById->student_nickname.'('.$scheduleById->student_firstname.' '.$scheduleById->student_lastname.')'  }}</optin>
+                                @foreach ($studentlist as $student)
+                                    <option value="{{$scheduleById->students_id}}">{{$student->nickname.'('.$student->firstname.' '.$student->lastname.')'}}</option>
+                                @endforeach
+                            </select>
+
+                           <!--  <input type="text" class="form-control" name="student_name" id="student_name" value="{{$scheduleById->student_nickname.'('.$scheduleById->student_firstname.' '.$scheduleById->student_lastname.')'  }}" readonly />
+                            <input type="hidden" value="{{$scheduleById->students_id}}" id="student_id_input" name="students_id"/> -->
+                        
                         </div>
                     </div>
 

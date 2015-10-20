@@ -141,20 +141,22 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(request $request ,$id)
     {
        $scheduleById = Schedule::scheduleById($id);
      
         $teacherlist = Teacher::teacherList()->get();
   
         $studentlist = Student::studentList()->get();
+        
+        //print_r($scheduleById);die();
       
 
        
         return view('schedule.edit',[
             'scheduleById'=>$scheduleById , 
             'teacherlist'=>$teacherlist   , 
-            'studentlist'=>$studentlist   
+            'studentlist'=>$studentlist   ,
             ]);
     }
     public function status(Request $request)

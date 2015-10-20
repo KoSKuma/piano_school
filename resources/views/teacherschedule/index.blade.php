@@ -28,7 +28,7 @@
 									if($teacher->id == $teacher_id){
 										echo "selected";
 									}
-								 ?> >{{$teacher->firstname." ".$teacher->lastname}}</option>
+								 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -51,7 +51,7 @@
 		<div class="row">
 			<div class="col-sm-12" style="height:10px"></div>
 		</div>
-		<table class="table table-hover table-bordered " >
+		<table class="table table-hover table-bordered" id="tabel-teacher-schedule">
 			<thead>
 				<tr>
 					<th bgcolor="#736F6E"><font color="white">Days/Time</font></th>
@@ -78,7 +78,9 @@
 							<?php	 if(isset($schedule_of_teacher[$day][$time_key]))
 									{	
 										$student_name = $schedule_of_teacher[$day][$time_key];  ?>
-										<td bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>
+										<td onclick="document.location.href='{{url('schedule/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_key}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>
+
+										
 							<?php   } 
 									else {
 									?>	<td bgcolor="#FFFFFF">{{$student_name}}</td>

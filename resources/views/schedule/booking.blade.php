@@ -29,13 +29,14 @@ Add a new student
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
                             <select name="teachers_id" class="form-control" id="select_teacher" >
+                                <option>Select Teacher</option>
                                 @foreach ($teacherlist as $teacher)
                                     <option value="{{$teacher->id}}" <?php
                                         if($teacher->id == $teacher_id){
                                             echo "selected";
                                         }
                                      ?> 
-                                     >{{$teacher->firstname." ".$teacher->lastname}}</option>
+                                     >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
                                 @endforeach
                             </select>
                             <!-- <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
@@ -47,7 +48,7 @@ Add a new student
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
                              <select name="students_id" class="form-control" id="students_id" >
-                                    <option>select student</option>
+                                    <option>Select Student</option>
                                 @foreach ($studentlist as $student)
                                     <option value="{{$student->id}}">
                                     <?php
@@ -56,7 +57,7 @@ Add a new student
                                         }
                                      ?> 
 
-                                    {{$student->firstname." ".$student->lastname}}</option>
+                                    {{ $student->nickname." "."(".$student->firstname." ".$student->lastname.")" }}</option>
 
                                 @endforeach
                             </select>
@@ -127,10 +128,6 @@ Add a new student
                 
             </form>  
             <!-- form end -->
-            
-
-
-            
             
 
         </div>

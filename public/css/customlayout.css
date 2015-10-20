@@ -95,3 +95,6 @@ b.date {
 .link-color:hover{
 	color: #C0C0C0;
 }
+td:hover {
+	background-color: #3090C7;
+}
