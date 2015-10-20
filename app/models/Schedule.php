@@ -22,8 +22,8 @@ class Schedule extends Model
 		);
 
 	public static $rules_update = array(
-		'teacher_name' => 'required' ,
-		'student_name' => 'required' ,
+		'teacher_id' => 'required' ,
+		'student_id' => 'required' ,
 		'class_date_display' => 'required' ,
 		'start_time_display' => 'required' ,
 		'end_time_display' => 'required' ,

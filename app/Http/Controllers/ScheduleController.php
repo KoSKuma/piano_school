@@ -51,7 +51,7 @@ class ScheduleController extends Controller
 
         if (Entrust::hasRole('admin'))
         {
-            $schedules = schedule::scheduleList($date, $search);
+            $schedules = Schedule::scheduleList($date, $search);
         }
         if (Entrust::hasRole('teacher'))
         {
@@ -149,7 +149,7 @@ class ScheduleController extends Controller
   
         $studentlist = Student::studentList()->get();
         
-        //print_r($scheduleById);die();
+        //print_r($scheduleById->teachers_id);die();
       
 
        
@@ -178,27 +178,20 @@ class ScheduleController extends Controller
     public function update(Request $request, $id)
     {
          $validator = Validator::make($request->all(), Schedule::$rules_update);
+         $data = $request->all();
+          
+                $schedule = Schedule::where('students_teachers.id',$id)->first();
+                //structure data is Array
+                $schedule->teachers_id = $data['teachers_id'];
+                $schedule->students_id = $data['students_id'];
+                $schedule->start_time = $data['class_date'] . " " . $data['class_start_time'];
+                $schedule->end_time = $data['class_date'] . " " . $data['class_end_time'];
+                $schedule->location = $data['location'];
 
-        if ($validator->fails()) {
-
-            return redirect('schedule/'.$id.'/edit')->withErrors($validator);
-
-        } 
-
-        else {
-
-            $schedule = Schedule::where('students_teachers.id',$id)->first();
-            
-            $schedule->teachers_id = $request->teachers_id;
-            $schedule->students_id = $request->students_id;
-            $schedule->start_time = $request->class_date . " " . $request->class_start_time;
-            $schedule->end_time = $request->class_date . " " . $request->class_end_time;
-            $schedule->location = $request->location;
-
-            $schedule->save();
-            
+                $schedule->save();
+        
         return  redirect( ('schedule?date='.date('Y-m-d', strtotime($schedule->start_time))) );
-        }
+        
     }
 
     /**
