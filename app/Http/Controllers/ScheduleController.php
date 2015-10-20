@@ -151,8 +151,11 @@ class ScheduleController extends Controller
       
 
        
-        return view('schedule.edit',['scheduleById'=>$scheduleById , 'teacherlist'=>$teacherlist , 'studentlist'=>$studentlist]);
-     
+        return view('schedule.edit',[
+            'scheduleById'=>$scheduleById , 
+            'teacherlist'=>$teacherlist   , 
+            'studentlist'=>$studentlist   
+            ]);
     }
     public function status(Request $request)
     {

@@ -70,17 +70,21 @@
 							</td>
 						
 							@foreach($time as $time_key)
-								<?php 
-									$bgcolor = '#FEFCFF';
+							<?php 
 									$student_name ='';
+							?>		
 									
-									if(isset($schedule_of_teacher[$day][$time_key]))
-									{
-										
+
+							<?php	 if(isset($schedule_of_teacher[$day][$time_key]))
+									{	
 										$student_name = $schedule_of_teacher[$day][$time_key];  ?>
-										<td bgcolor="#C0D0FF"> {{$student_name}} </td>
-								<?php } 
-								?>
+										<td bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>
+							<?php   } 
+									else {
+									?>	<td bgcolor="#FFFFFF">{{$student_name}}</td>
+							<?php		}
+
+							?>
 								
 							@endforeach
 						</tr>
