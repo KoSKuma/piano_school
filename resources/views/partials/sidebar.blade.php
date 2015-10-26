@@ -69,7 +69,7 @@
             <li >
                 <a href="{{url('schedule')}}">
                     <i class='fa fa-calendar-o'></i> 
-                    <span>Schedule</span>
+                    <span>Confirm Class</span>
                 </a>
             </li>
             @if (Entrust::can(['view-payment']))

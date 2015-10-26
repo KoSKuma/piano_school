@@ -72,14 +72,21 @@
 							@foreach($time as $time_key)
 							<?php 
 									$student_name ='';
+									$schedule_id = '';
 							?>		
 									
 
 							<?php	 if(isset($schedule_of_teacher[$day][$time_key]))
 									{	
-										$student_name = $schedule_of_teacher[$day][$time_key];  ?>
-										<td onclick="document.location.href='{{url('schedule/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_key}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>
+										$student_name = $schedule_of_teacher[$day][$time_key];  
+										$schedule_id = $schedules_id[$day][$time_key];
 
+										?>
+
+
+										<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_key}}' " bgcolor="#C0D0FF" align="center"> {{$student_name." ".$schedule_id}} </td>
+									
+										
 										
 							<?php   } 
 									else {
@@ -107,15 +114,7 @@
 		$(document).ready(function(){
 			$('#reservationtime').daterangepicker();
 
-			$('td').click(function(){				
-				var teacher = $("#select_teacher :selected").val();	
-				console.log(teacher);
-				/*var data = {teacher:teacher}
-				$.post( "schedule/create",data, function( data ) {
-				console.log(data)
-	            */
-
-			});
+		
 		})
 	</script>
 

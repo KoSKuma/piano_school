@@ -141,9 +141,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return Response
      */
+
     public function edit(request $request ,$id)
     {
-       $scheduleById = Schedule::scheduleById($id);
+        $scheduleById = Schedule::scheduleById($id);
      
         $teacherlist = Teacher::teacherList()->get();
   
@@ -159,6 +160,8 @@ class ScheduleController extends Controller
             'studentlist'=>$studentlist   ,
             ]);
     }
+
+
     public function status(Request $request)
     {
         $user = Auth::user();

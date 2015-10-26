@@ -24,12 +24,15 @@ class TeacherScheduleController extends Controller
       
         $class_time = Config::get('piano.class_time');
         $teachers = Teacher::teacherList();
+
+      
        
 
         $value = $request->date;
         $teacher_id = $request->teacher;
         $dateArray = array();
         $schedule_of_teacher = array();
+        $schedules_id = array();
 
         if($value!=NULL){ 
             $date = explode(' - ', $value);
@@ -49,7 +52,8 @@ class TeacherScheduleController extends Controller
 
 
             $schedule_of_teacher = Schedule::getTeacherSchedule($teacher_id,$start_date_timestamp,$end_date_timestamp);
-            //print_r($schedule_of_teacher);die();
+            $schedules_id = Schedule::getScheduleId($teacher_id, $start_date_timestamp, $end_date_timestamp);
+
         }
 
 
@@ -59,7 +63,8 @@ class TeacherScheduleController extends Controller
                 'date'=>$value,
                 'teachers' => $teachers->get(),
                 'schedule_of_teacher' => $schedule_of_teacher,
-                'teacher_id'=>$teacher_id
+                'teacher_id'=> $teacher_id ,
+                'schedules_id' =>$schedules_id         
             ]
         );
     }
@@ -104,7 +109,9 @@ class TeacherScheduleController extends Controller
      */
     public function edit($id)
     {
-        //
+ 
+
+
     }
 
     /**
