@@ -294,5 +294,21 @@ class Schedule extends Model
 		return$schedule_is_array;
 	}
 
+	public static function checkDateTimeSchedule($teacher_id, $start_date_timestamp, $end_date_timestamp) {
+
+		$schedule = DB::table('students_teachers')
+		->select ('students_teachers.*')
+		/*->where('students_teachers.teachers_id', '=' , 20)
+		->where('students_teachers.start_$end_date_timestamptime', '=' , '2015-09-04 13:00:00')
+		->where('students_teachers.end_time', '=' , '2015-09-04 15:00:00')*/
+		->where('students_teachers.teachers_id', '=' ,$teacher_id )
+		->where('students_teachers.start_time', '=' ,$start_date_timestamp)
+		->where('students_teachers.end_time', '=' ,$end_date_timestamp)
+		->get();
+		
+
+	return $schedule;
+	}
+
 
 }

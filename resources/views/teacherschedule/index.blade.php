@@ -84,7 +84,7 @@
 										?>
 
 
-										<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_key}}' " bgcolor="#C0D0FF" align="center"> {{$student_name." ".$schedule_id}} </td>
+										<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_key}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>
 									
 										
 										

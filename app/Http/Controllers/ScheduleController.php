@@ -31,12 +31,10 @@ class ScheduleController extends Controller
         
         $searchResult = array();
 
-        if($request->has('date'))
-        {
+        if($request->has('date')) {
             $date = $request->input('date');
         }
-        else
-        {
+        else {
             $date = date("Y-m-d");
         }
 
@@ -85,7 +83,6 @@ class ScheduleController extends Controller
         $student = Student::studentList()->get();
         $select_teacher = $request->teacher;
         $student_id = $request->student;
-
         $select_day = $request->day;
 
 
@@ -111,13 +108,22 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
+
         $schedule = new Schedule;
+
+
 
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
+       
+       
+
         $schedule->start_time = $request->class_date . " " . $request->class_start_time;
         $schedule->end_time = $request->class_date. " " . $request->class_end_time;
         $schedule->location = $request->location;
+        $schedule_time = $schedule->checkDateTimeSchedule($schedule->teachers_id, $schedule->start_time, $schedule->end_time);
+       print_r($schedule_time);die();
+      
         $schedule->save();
 
         return redirect('teacherschedule');
