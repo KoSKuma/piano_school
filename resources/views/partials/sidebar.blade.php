@@ -60,25 +60,25 @@
                 </ul>
             </li>
 
-            <li >
+           <!--  <li >
                 <a href="{{url('calendar')}}">
                     <i class='fa fa-calendar'></i> 
                     <span>Calendar</span>
                 </a>
-            </li>
-            <li >
+            </li> -->
+         <!--    <li >
                 <a href="{{url('schedule')}}">
                     <i class='fa fa-calendar-o'></i> 
                     <span>Confirm Class</span>
                 </a>
-            </li>
+            </li> -->
             @if (Entrust::can(['view-payment']))
-            <li>
+         <!--    <li>
                 <a href="{{url('payment')}}">
                     <i class="fa fa-credit-card"></i>
                     <span>Topup</span>
                 </a>
-            </li>
+            </li> -->
             @endif
 
             @if (Entrust::can(['delete-student']))
