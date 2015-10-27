@@ -24,6 +24,20 @@ Add a new student
 
                 {!! csrf_field() !!}
                 <div class="box-body">
+                    
+                @if(isset($booking_time_error))
+                    <div class="alert alert-danger">
+                        <strong>Time has already booked!!!</strong><br>
+                        @foreach ($booking_time_error as $booking_time_error)
+                            {{'Start Time :'.$booking_time_error->start_time}} 
+                            {{'End Time :'.$booking_time_error->end_time}}
+                            <br>
+                        @endforeach
+
+
+                    </div>
+                @endif
+                
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
@@ -121,6 +135,7 @@ Add a new student
                     </div>
 
                     <div class="box-footer text-center">
+
                         <input type="submit" class="btn btn-primary" name="Save" value="Save" />
                     </div>
 
