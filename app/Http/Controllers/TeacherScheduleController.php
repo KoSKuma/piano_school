@@ -22,33 +22,34 @@ class TeacherScheduleController extends Controller
     public function index(Request $request)
     {
       
-        $class_time = Config::get('piano.class_time');
+        $time_in_config = Config::get('piano.class_time');
         $teachers = Teacher::teacherList();
 
       
        
 
-        $value = $request->date;
+        $date_request = $request->date;
         $teacher_id = $request->teacher;
-        $dateArray = array();
+        $date_range_selected = array();
         $schedule_of_teacher = array();
         $schedules_id = array();
 
-        if($value!=NULL){ 
-            $date = explode(' - ', $value);
-            $start_date = new DateTime($date[0]);
-            $end_date = new DateTime($date[1]);
+        if($date_request!=NULL){ 
+            $split_date = explode(' - ', $date_request);
+            $start_date = new DateTime($split_date[0]);
+            $end_date = new DateTime($split_date[1]);
             $day_count = $end_date->diff($start_date)->format('%a');
 
             $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
             $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
 
-            $dateArray[] = $start_date->format('D d M');
+            $date_range_selected[] = $start_date->format('D d M');
             for ($i=0; $i < $day_count ; $i++) { 
                 $start_date->add(new DateInterval('P1D'));
-                $dateArray[$start_date->format('Y-m-d')] = $start_date->format('D d M');
-
+                $date_range_selected[$start_date->format('Y-m-d')] = $start_date->format('D d M');
+               // print_r($date_range_selected[$start_date->format('Y-m-d')]);die();
             }
+            
 
 
             $schedule_of_teacher = Schedule::getTeacherSchedule($teacher_id,$start_date_timestamp,$end_date_timestamp);
@@ -58,9 +59,9 @@ class TeacherScheduleController extends Controller
 
 
         return view('teacherschedule.index',[
-                'time'=>$class_time, 
-                'dateArray'=>$dateArray,
-                'date'=>$value,
+                'time_in_config'=>$time_in_config, 
+                'date_range_selected'=>$date_range_selected,
+                'date_request'=>$date_request,
                 'teachers' => $teachers->get(),
                 'schedule_of_teacher' => $schedule_of_teacher,
                 'teacher_id'=> $teacher_id ,

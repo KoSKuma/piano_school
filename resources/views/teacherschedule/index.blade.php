@@ -40,7 +40,7 @@ Teacher Schedule
 							<div class="input-group-addon">
 			                  <i class="fa fa-calendar"></i>
 			                </div>
-								<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date}}">
+								<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date_request}}">
 						      	<span class="input-group-btn">
 						      		<input type="submit" class="btn btn-default">
 						      	</span>
@@ -56,50 +56,44 @@ Teacher Schedule
 			<table class="table table-hover table-bordered " id="tabel-teacher-schedule">
 				<thead>
 					<tr>
-						<th bgcolor="#736F6E"><font color="white">Days/Time</font></th>
-						@foreach($time as $time_array)
+						<th bgcolor="#736F6E"><font color="white">Time/Days</font></th>
+						@foreach($date_range_selected as  $key=>$date)
 							<th  bgcolor="#736F6E">
-								<font color="#ffffff">{{$time_array}}</font>
+								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b>{{$date}}</b></a>
 							</th>
 						@endforeach
 					</tr>
+					
 				</thead>
 				<tbody>
-						@foreach($dateArray as  $key=>$day)
-							<tr>
-								<td bgcolor="#A0A0A0">	
-										<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b>{{$day}}</b></a>							      			
-								</td>
+					@foreach($time_in_config as $time_in_header)
+						<tr>
+							<td  bgcolor="#A0A0A0">
+								<font color="#ffffff">{{$time_in_header}}</font>
+							</td>
 							
-								@foreach($time as $time_key)
+								@foreach($date_range_selected as  $key=>$date)
 								<?php 
 										$student_name ='';
 										$schedule_id = '';
 								?>		
-										
-
-								<?php	 if(isset($schedule_of_teacher[$day][$time_key]))
+								<?php	 if(isset($schedule_of_teacher[$date][$time_in_header]))
 										{	
-											$student_name = $schedule_of_teacher[$day][$time_key];  
-											$schedule_id = $schedules_id[$day][$time_key];
-
+											$student_name = $schedule_of_teacher[$date][$time_in_header];  
+											$schedule_id = $schedules_id[$date][$time_in_header];
 											?>
-
-
-											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_key}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>
-										
-											
-											
+											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>			
 								<?php   } 
 										else {
 										?>	<td bgcolor="#FFFFFF">{{$student_name}}</td>
 								<?php		}
 
-								?>
-									
+								?>		
 								@endforeach
-							</tr>
-						@endforeach	
+						
+						</tr>
+					@endforeach
+					
 				</tbody>
 			</table>
 		</div>
