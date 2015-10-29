@@ -34,19 +34,19 @@ Teacher Schedule
 					</div>
 			</div>
 			
-					<div class="col-sm-5">
-						<label>Select Date Range</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-			                  <i class="fa fa-calendar"></i>
-			                </div>
-								<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date_request}}">
-						      	<span class="input-group-btn">
-						      		<input type="submit" class="btn btn-default">
-						      	</span>
-					    </div>
-					</div>			
-				</form>
+			<div class="col-sm-5">
+				<label>Select Date Range</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+	                  <i class="fa fa-calendar"></i>
+	                </div>
+						<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date_request}}">
+				      	<span class="input-group-btn">
+				      		<input type="submit" class="btn btn-default">
+				      	</span>
+			    </div>
+			</div>			
+		</form>
 			</div>
 		<div class="row">
 			<div class="col-sm-12" style="height:10px"></div>
@@ -56,10 +56,10 @@ Teacher Schedule
 			<table class="table table-hover table-bordered " id="tabel-teacher-schedule">
 				<thead>
 					<tr>
-						<th bgcolor="#736F6E"><font color="white">Time/Days</font></th>
+						<th bgcolor="#736F6E" style="text-align:center"><font color="white" >Time/Days</font></th>
 						@foreach($date_range_selected as  $key=>$date)
-							<th  bgcolor="#736F6E">
-								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b>{{$date}}</b></a>
+							<th  bgcolor="#736F6E" style="text-align:center">
+								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b >{{$date}}</b></a>
 							</th>
 						@endforeach
 					</tr>
@@ -68,7 +68,7 @@ Teacher Schedule
 				<tbody>
 					@foreach($time_in_config as $time_in_header)
 						<tr>
-							<td  bgcolor="#A0A0A0">
+							<td  bgcolor="#A0A0A0" align="center">
 								<font color="#ffffff">{{$time_in_header}}</font>
 							</td>
 							
