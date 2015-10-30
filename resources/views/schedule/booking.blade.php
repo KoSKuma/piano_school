@@ -24,20 +24,59 @@ Add a new student
 
                 {!! csrf_field() !!}
                 <div class="box-body">
+                    
+                @if(isset($booking_time_error))
+                    <div class="alert alert-danger">
+                        <strong>Time has already booked!!!</strong><br>
+                        @foreach ($booking_time_error as $booking_time_error)
+                            {{'Start Time :'.$booking_time_error->start_time}} 
+                            {{'End Time :'.$booking_time_error->end_time}}
+                            <br>
+                        @endforeach
+
+
+                    </div>
+                @endif
+                
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
-                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" />
+                            <select name="teachers_id" class="form-control" id="select_teacher" >
+                                <option>Select Teacher</option>
+                                @foreach ($teacherlist as $teacher)
+                                    <option value="{{$teacher->id}}" <?php
+                                        if($teacher->id == $teacher_id){
+                                            echo "selected";
+                                        }
+                                     ?> 
+                                     >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+                                @endforeach
+                            </select>
+                            <!-- <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
+                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" /> -->
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="student_name" id="student_name" readonly />
-                            <input type="hidden" value="" id="student_id_input" name="students_id"/>
+                             <select name="students_id" class="form-control" id="students_id" >
+                                    <option>Select Student</option>
+                                @foreach ($studentlist as $student)
+                                    <option value="{{$student->id}}">
+                                    <?php
+                                        if($student->id == $student_id){
+                                            echo "selected";
+                                        }
+                                     ?> 
+
+                                    {{ $student->nickname." "."(".$student->firstname." ".$student->lastname.")" }}</option>
+
+                                @endforeach
+                            </select>
+                            <!-- <input type="text" class="form-control" name="student_name" id="student_name" readonly />
+                            <input type="hidden" value="" id="student_id_input" name="students_id"/> -->
                         </div>
                     </div>
 
@@ -45,11 +84,11 @@ Add a new student
                         <label class="col-sm-3 control-label" for="start_time">Class Date</label>
                         <div class="col-sm-8">
                             <div class="input-group">
-                            <input type="text" class="form-control" name="class_date_display" id="class_date_display" />
+                            <input type="text" class="form-control" name="class_date_display" id="class_date_display" value="{{$day}}"/>
                                 <div class="input-group-addon">
                                    <i class="fa fa-calendar"></i>
                                 </div>
-                            <input type="hidden" id="class_date" name="class_date" value=""/>
+                            <input type="hidden" id="class_date" name="class_date" value="{{$day}}"/>
                             </div>
                         </div>
                     </div>
@@ -96,6 +135,7 @@ Add a new student
                     </div>
 
                     <div class="box-footer text-center">
+
                         <input type="submit" class="btn btn-primary" name="Save" value="Save" />
                     </div>
 
@@ -104,121 +144,6 @@ Add a new student
             </form>  
             <!-- form end -->
             
-
-
-            <div class="box-body">
-                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table 
-                            id="example2" 
-                            class="table table-bordered table-hover dataTable" 
-                            role="grid" aria-describedby="example2_info">
-                            <thead>
-                                <tr role="row">
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Teacher</th>
-
-
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Nick Name</th>
-
-
-                                    <th class="sorting" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Platform(s): activate to sort column ascending">Option</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($teacherlist as $teacher)
-                                <tr role="row" class="odd">
-                                    <td class="sorting_1">{{$teacher->firstname." ".$teacher->lastname}}</td>
-                                    <td>{{$teacher->nickname}}</td>
-                                    <td>
-
-                                        <button class="btn btn-default select-teacher" data-teacher-name="ครู {{$teacher->nickname}} ({{$teacher->firstname . ' ' . $teacher->lastname}})" data-teacher-id="{{$teacher->id}}">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
-                                        </button>
-                                    </td>
-
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-
-            <div class="box-body">
-                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table 
-                            id="example2" 
-                            class="table table-bordered table-hover dataTable" 
-                            role="grid" aria-describedby="example2_info">
-                            <thead>
-                                <tr role="row">
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Student</th>
-
-
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Nick Name</th>
-
-
-                                    <th class="sorting" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Platform(s): activate to sort column ascending">Option</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($studentlist as $student)
-                                <tr role="row" class="odd">
-                                    <td class="sorting_1">{{$student->firstname." ".$student->lastname}}</td>
-                                    <td>{{$student->nickname}}</td>
-                                    <td>
-
-                                        <button class="btn btn-default select-student" data-student-name="{{$student->nickname}} ({{$student->firstname . ' ' . $student->lastname}})" data-student-id="{{$student->id}}">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
-                                        </button>
-                                    </td>
-
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                </div>
-            </div>
 
         </div>
     </div>

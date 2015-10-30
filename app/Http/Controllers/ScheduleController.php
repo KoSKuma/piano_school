@@ -28,14 +28,13 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        
         $searchResult = array();
 
-        if($request->has('date'))
-        {
+        if($request->has('date')) {
             $date = $request->input('date');
         }
-        else
-        {
+        else {
             $date = date("Y-m-d");
         }
 
@@ -50,7 +49,7 @@ class ScheduleController extends Controller
 
         if (Entrust::hasRole('admin'))
         {
-            $schedules = schedule::scheduleList($date, $search);
+            $schedules = Schedule::scheduleList($date, $search);
         }
         if (Entrust::hasRole('teacher'))
         {
@@ -68,7 +67,8 @@ class ScheduleController extends Controller
             'count'     =>  $schedules->count(),
         );
 
-        return view('schedule.index', ['schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
+        return view('schedule.index', [
+            'schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 
     /**
@@ -76,12 +76,23 @@ class ScheduleController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(request $request)
     {
+        //print_r($request->day);die();
         $teacher = Teacher::teacherList()->get();
         $student = Student::studentList()->get();
-        //print_r($teacher);die();
-        return view('schedule.booking',['teacherlist'=>$teacher , 'studentlist'=>$student ]);
+        $select_teacher = $request->teacher;
+        $student_id = $request->student;
+        $select_day = $request->day;
+        
+        return view('schedule.booking',[
+            'teacherlist'=>$teacher , 
+            'studentlist'=>$student ,
+            'teacher_id'=>$select_teacher,
+            'day'=>$select_day,
+            'student_id'=>$student_id
+        ]
+        );
         
     }
 
@@ -93,17 +104,49 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $schedule = new Schedule;
+
+
 
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
         $schedule->start_time = $request->class_date . " " . $request->class_start_time;
-        $schedule->end_time = $request->class_date . " " . $request->class_end_time;
+        $schedule->end_time = $request->class_date. " " . $request->class_end_time;
         $schedule->location = $request->location;
-        $schedule->save();
 
-        return redirect('schedule');
 
+        $schedule_time = Schedule::checkDateTimeSchedule($schedule->teachers_id, $schedule->start_time, $schedule->end_time);
+        //print_r($schedule_time->start_time);die();
+
+        if ($schedule_time==NULL) {
+            $schedule->save();
+            return redirect('teacherschedule');
+        /*elseif ($schedule->start_time >=  ) {
+            # code...*/
+        }else {
+            $teacher = Teacher::teacherList()->get();
+            $student = Student::studentList()->get();
+         
+           return view('schedule.booking',[
+            'booking_time_error'=>$schedule_time,
+            'teacherlist'=>$teacher , 
+            'studentlist'=>$student ,
+            'teacher_id'=> $schedule->teachers_id,
+            'student_id'=>$schedule->students_id,
+            'day'=>$request->class_date
+            ]);
+
+           /* if ($schedule->start_time == $schedule_time->start_time && $schedule->end_time == $schedule_time->end_time) {
+                error
+            }*/
+
+        }
+      
+
+              
+       
     }
 
     /**
@@ -123,19 +166,27 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+
+    public function edit(request $request ,$id)
     {
-       $scheduleById = Schedule::scheduleById($id);
+        $scheduleById = Schedule::scheduleById($id);
      
         $teacherlist = Teacher::teacherList()->get();
   
         $studentlist = Student::studentList()->get();
+        
+        //print_r($scheduleById->teachers_id);die();
       
 
        
-        return view('schedule.edit',['scheduleById'=>$scheduleById , 'teacherlist'=>$teacherlist , 'studentlist'=>$studentlist]);
-     
+        return view('schedule.edit',[
+            'scheduleById'=>$scheduleById , 
+            'teacherlist'=>$teacherlist   , 
+            'studentlist'=>$studentlist   ,
+            ]);
     }
+
+
     public function status(Request $request)
     {
         $user = Auth::user();
@@ -155,27 +206,20 @@ class ScheduleController extends Controller
     public function update(Request $request, $id)
     {
          $validator = Validator::make($request->all(), Schedule::$rules_update);
+         $data = $request->all();
+          
+                $schedule = Schedule::where('students_teachers.id',$id)->first();
+                //structure data is Array
+                $schedule->teachers_id = $data['teachers_id'];
+                $schedule->students_id = $data['students_id'];
+                $schedule->start_time = $data['class_date'] . " " . $data['class_start_time'];
+                $schedule->end_time = $data['class_date'] . " " . $data['class_end_time'];
+                $schedule->location = $data['location'];
 
-        if ($validator->fails()) {
-
-            return redirect('schedule/'.$id.'/edit')->withErrors($validator);
-
-        } 
-
-        else {
-
-            $schedule = Schedule::where('students_teachers.id',$id)->first();
-            
-            $schedule->teachers_id = $request->teachers_id;
-            $schedule->students_id = $request->students_id;
-            $schedule->start_time = $request->class_date . " " . $request->class_start_time;
-            $schedule->end_time = $request->class_date . " " . $request->class_end_time;
-            $schedule->location = $request->location;
-
-            $schedule->save();
-            
+                $schedule->save();
+        
         return  redirect( ('schedule?date='.date('Y-m-d', strtotime($schedule->start_time))) );
-        }
+        
     }
 
     /**

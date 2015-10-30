@@ -7,7 +7,7 @@ Add a new student
 
 
 @section('contentheader_title')
-<h1>Schedule<small>booking</small></h1>
+<h1>Schedule<small>Update</small></h1>
 @endsection
 
 
@@ -16,7 +16,7 @@ Add a new student
     <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Booking</h3>
+                <h3 class="box-title">Update Schedule</h3>
             </div><!-- /.box-header -->
 
             <!-- form start -->
@@ -38,16 +38,38 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="teacher_name" id="teacher_name" value="{{'ครู'.' '.$scheduleById->teacher_nickname.' '.'('.$scheduleById->teacher_firstname.' '.$scheduleById->teacher_lastname.')'}}" readonly />
-                            <input type="hidden" value="{{$scheduleById->teachers_id}}" id="teacher_id_input" name="teachers_id" />
+                            <select name="teachers_id" class="form-control" id="teachers_id" >                                                                    
+                                @foreach ($teacherlist as $teacher)
+                                    <option value="{{$teacher->id}}" <?php
+                                        if($teacher->id == $scheduleById->teachers_id) {
+                                                echo "selected";
+                                        } ?>
+                                          > {{$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}
+                                    </option>
+
+                                @endforeach
+                            </select>
+
+                        
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="student_name" id="student_name" value="{{$scheduleById->student_nickname.'('.$scheduleById->student_firstname.' '.$scheduleById->student_lastname.')'  }}" readonly />
-                            <input type="hidden" value="{{$scheduleById->students_id}}" id="student_id_input" name="students_id"/>
+                           <select name="students_id" class="form-control" id="student_id" >                              
+                                @foreach ($studentlist as $student)
+                                    <option value="{{$student->id}}" <?php
+                                        if($student->id == $scheduleById->students_id) {
+                                                echo "selected";
+                                        } ?>
+                                          > {{$student->nickname." "."(".$student->firstname." ".$student->lastname.")"}}
+                                    </option>
+                                @endforeach
+                        </select>
+
+    
+                        
                         </div>
                     </div>
 
@@ -106,129 +128,13 @@ Add a new student
                     </div>
 
                     <div class="box-footer text-center">
-                        <input type="submit" class="btn btn-primary" name="Save" value="Update" />
+                        <input type="submit" class="btn btn-primary" name="Save" value="Update" id="save" />
                     </div>
 
                 </div>
                 
             </form>  
-            <!-- form end -->
-            
-
-
-            <div class="box-body">
-                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table 
-                            id="example2" 
-                            class="table table-bordered table-hover dataTable" 
-                            role="grid" aria-describedby="example2_info">
-                            <thead>
-                                <tr role="row">
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Teacher</th>
-
-
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Nick Name</th>
-
-
-                                    <th class="sorting" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Platform(s): activate to sort column ascending">Option</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($teacherlist as $teacher)
-                                <tr role="row" class="odd">
-                                    <td class="sorting_1">{{$teacher->firstname." ".$teacher->lastname}}</td>
-                                    <td>{{$teacher->nickname}}</td>
-                                    <td>
-
-                                        <button class="btn btn-default select-teacher" data-teacher-name="ครู {{$teacher->nickname}} ({{$teacher->firstname . ' ' . $teacher->lastname}})" data-teacher-id="{{$teacher->id}}">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
-                                        </button>
-                                    </td>
-
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-
-            <div class="box-body">
-                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table 
-                            id="example2" 
-                            class="table table-bordered table-hover dataTable" 
-                            role="grid" aria-describedby="example2_info">
-                            <thead>
-                                <tr role="row">
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Student</th>
-
-
-                                    <th 
-                                    class="sorting_asc" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Rendering engine: activate to sort column descending" 
-                                    aria-sort="ascending">Nick Name</th>
-
-
-                                    <th class="sorting" 
-                                    tabindex="0" 
-                                    aria-controls="example2" 
-                                    rowspan="1" colspan="1" 
-                                    aria-label="Platform(s): activate to sort column ascending">Option</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($studentlist as $student)
-                                <tr role="row" class="odd">
-                                    <td class="sorting_1">{{$student->firstname." ".$student->lastname}}</td>
-                                    <td>{{$student->nickname}}</td>
-                                    <td>
-
-                                        <button class="btn btn-default select-student" data-student-name="{{$student->nickname}} ({{$student->firstname . ' ' . $student->lastname}})" data-student-id="{{$student->id}}">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Select
-                                        </button>
-                                    </td>
-
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                </div>
-            </div>
+        
 
         </div>
     </div>
@@ -253,26 +159,27 @@ $(function () {
 
 <script>
 $(document).ready(function(){
-    $('.select-teacher').click(function(){
-        var teacher_name = $(this).attr('data-teacher-name');
+    $('#save').click(function(){
+        /*var teacher_name = $(this).attr('data-teacher-name');
         var teacher_id = $(this).attr('data-teacher-id');
 
-        console.log(teacher_name);
+        console.log(teacher_name);*/
 
-        $('#teacher_id').val(teacher_id);
+        var teacher = $("#teacher_id :selected").val(); 
+/*        $('#teacher_id').val(teacher_id);
         $('#teacher_name').val(teacher_name);
-        $('#teacher_id_input').val(teacher_id);
+        $('#teacher_id_input').val(teacher_id);*/
 
     });
 
     $('.select-student').click(function(){
-        var student_name = $(this).attr('data-student-name');
+/*        var student_name = $(this).attr('data-student-name');
         var student_id = $(this).attr('data-student-id');
 
         $('#student_id').val(student_id);
         $('#student_name').val(student_name);
         $('#student_id_input').val(student_id);
-
+*/
     });
 
     $('#class_date_display').daterangepicker({

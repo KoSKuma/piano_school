@@ -56,6 +56,10 @@ Route::group(['middleware' => 'auth'] ,function()
 	Route::get('calendar',function () {
 		return view('calendar.calendar');
 	});
+
+	//Route::resource('newschedule','NewScheduleController');
+	Route::get('teacherschedule','TeacherScheduleController@index');
+	Route::post('teacherschedule','TeacherScheduleController@index');
 });
 
 
@@ -69,5 +73,8 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 
 
-
+/*Event::listen('illuminate.query', function($query)
+{
+    var_dump($query);
+});*/
 

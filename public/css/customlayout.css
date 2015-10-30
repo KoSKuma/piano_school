@@ -79,8 +79,8 @@
 @media (min-width: 768px) {
   .btn-responsive {
 
-  }
-
+ 	}
+}
 .box.box-solid.box-danger > .box-header a, .box.box-solid.box-danger > .box-header .btn.custom-to-black {
     color: #000000;
 }
@@ -88,3 +88,17 @@
 b.date {
     text-align: right;
 }
+
+a.link-color{
+	color: #FFFFFF;
+}
+a.link-color:hover{
+	color: #C0C0C0;
+}
+td:hover {
+	background-color: #3090C7;
+}
+b:hover{
+	color: #FFFFCC;
+}
+
