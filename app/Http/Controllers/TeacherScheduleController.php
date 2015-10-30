@@ -43,12 +43,21 @@ class TeacherScheduleController extends Controller
             $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
             $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
 
+           
+            }else{
+                $start_date = new DateTime();
+                $end_date = new DateTime();
+
+                $day_count = $end_date->diff($start_date)->format('%a');
+
+                $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
+                $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
+            }
+
             $date_range_selected[] = $start_date->format('D d M');
             for ($i=0; $i < $day_count ; $i++) { 
                 $start_date->add(new DateInterval('P1D'));
                 $date_range_selected[$start_date->format('Y-m-d')] = $start_date->format('D d M');
-               // print_r($date_range_selected[$start_date->format('Y-m-d')]);die();
-            }
             
 
 

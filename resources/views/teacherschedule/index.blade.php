@@ -41,7 +41,16 @@ Teacher Schedule
 					<div class="input-group-addon">
 	                  <i class="fa fa-calendar"></i>
 	                </div>
-						<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date_request}}">
+						<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
+						value = <?php 
+							if($date_request!=NULL){
+								echo $date_request;
+							}else {
+								 $date = new DateTime();
+								 $today =$date->format('m/d/Y');
+								 echo $today;		
+							} ?> 
+						>
 				      	<span class="input-group-btn">
 				      		<!-- <input type="submit" class="btn btn-default"> -->
 				      	</span>
