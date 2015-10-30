@@ -3,6 +3,7 @@
 
 @section('htmlheader_title')
 Teacher Schedule
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -16,9 +17,9 @@ Teacher Schedule
 	<div class="box-header">
 	</div>
 	<div class="box-body">
+		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
 		<div class="row">
 			<div class="col-sm-7">
-				<form action="{{url('teacherschedule')}}" method="POST" role="form">
 					{!! csrf_field() !!}
 					<div class="input-group ">
 						<label>Select Teacher</label>
@@ -42,7 +43,7 @@ Teacher Schedule
 	                </div>
 						<input type="text" class="form-control pull-right" id="reservationtime" name="date" value="{{$date_request}}">
 				      	<span class="input-group-btn">
-				      		<input type="submit" class="btn btn-default">
+				      		<!-- <input type="submit" class="btn btn-default"> -->
 				      	</span>
 			    </div>
 			</div>			
@@ -111,11 +112,38 @@ Teacher Schedule
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#reservationtime').daterangepicker();
+			var now = moment();
+			var next_seven_day = moment().add(7, 'days');
 
-		
+
+			//var current_days = moment(now).format('YYYY-MM-DDTHH:mm:SSS');
+			//var sevendays = moment(next_seven_day).format('YYYY-MM-DDTHH:mm:SSS');
+
+			var current_days = moment(now).format('MM/DD/YYYY');
+			var sevendays = moment(next_seven_day).format('MM/DD/YYYY');
+
+			//current_days = current_days+'Z';
+			//sevendays = sevendays+'Z';
+			//var sevendays = moment(date).format(moment.ISO_8601);
+
+			
+
+
+			console.log(current_days);
+			$('#reservationtime').daterangepicker({
+				"ranges":{
+					"Today":[],
+					"7 Days":[
+						current_days,
+						sevendays
+					]
+					
+				}
+			});
+			$('#reservationtime').on('apply.daterangepicker' , function(ev, picker) { 
+				$("#dateform").submit();
+			});
+	
 		})
 	</script>
-
-
 @endsection
