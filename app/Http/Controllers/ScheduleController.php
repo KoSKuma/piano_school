@@ -218,7 +218,7 @@ class ScheduleController extends Controller
 
                 $schedule->save();
         
-        return  redirect( ('schedule?date='.date('Y-m-d', strtotime($schedule->start_time))) );
+        return  redirect('teacherschedule');
         
     }
 

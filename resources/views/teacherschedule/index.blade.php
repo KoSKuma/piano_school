@@ -80,9 +80,10 @@ Teacher Schedule
 							<td  bgcolor="#A0A0A0" align="center">
 								<font color="#ffffff">{{$time_in_header}}</font>
 							</td>
-							
+								
 								@foreach($date_range_selected as  $key=>$date)
 								<?php 
+
 										$student_name ='';
 										$schedule_id = '';
 								?>		
@@ -123,28 +124,11 @@ Teacher Schedule
 		$(document).ready(function(){
 			var now = moment();
 			var next_seven_day = moment().add(7, 'days');
-
-
-			//var current_days = moment(now).format('YYYY-MM-DDTHH:mm:SSS');
-			//var sevendays = moment(next_seven_day).format('YYYY-MM-DDTHH:mm:SSS');
-
 			var current_days = moment(now).format('MM/DD/YYYY');
 			var sevendays = moment(next_seven_day).format('MM/DD/YYYY');
-
-			//current_days = current_days+'Z';
-			//sevendays = sevendays+'Z';
-			//var sevendays = moment(date).format(moment.ISO_8601);
-
-			
-
-
-			console.log(current_days);
 			$('#reservationtime').daterangepicker({
 				"ranges":{
-					"Today":[
-						current_days,
-						current_days
-					],
+					"Today":[],
 					"7 Days":[
 						current_days,
 						sevendays
@@ -154,7 +138,6 @@ Teacher Schedule
 			$('#reservationtime').on('apply.daterangepicker' , function(ev, picker) { 
 				$("#dateform").submit();
 			});
-	
 		})
 	</script>
 @endsection
