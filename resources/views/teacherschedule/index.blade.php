@@ -64,7 +64,29 @@ Teacher Schedule
 	</div>
 	<div class="box-body">
 		
-		
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="col-xs-2 col-sm-4 text-right" style="height:34px;">
+					<span>
+						
+						<a href="#" class="btn btn-responsive btn-default btn-flat">
+							<i class="glyphicon glyphicon-chevron-left"></i>
+						</a>
+					</span>
+	            </div>
+				<div class="col-xs-8 col-sm-3">						
+		            <div align="center"><h5><?php //echo  $date->format('l d F Y');?></h5></div>	               	                
+	            </div>
+	            <div class="col-xs-2 col-sm-5 " style="height:34px;">
+	            	<span>
+	            	
+						<a href="#" class="btn btn-responsive btn-default btn-flat">
+							<i class="glyphicon glyphicon-chevron-right"></i>
+						</a>
+					</span>
+	            </div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-12" style="height:10px"></div>
 		</div>
@@ -76,7 +98,10 @@ Teacher Schedule
 						<th bgcolor="#736F6E" style="text-align:center"><font color="white" >Time/Days</font></th>
 						@foreach($date_range_selected as  $key=>$date)
 							<th  bgcolor="#736F6E" style="text-align:center">
-								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b >{{$date}}</b></a>
+								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" >
+									<i class="fa fa-plus-square-o"></i>
+									<b >{{$date}}</b>
+								</a>
 							</th>
 						@endforeach
 					</tr>
