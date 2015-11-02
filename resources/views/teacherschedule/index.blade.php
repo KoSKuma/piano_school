@@ -51,9 +51,7 @@ Teacher Schedule
 								 echo $today;		
 							} ?> 
 						>
-				      	<span class="input-group-btn">
-				      		<!-- <input type="submit" class="btn btn-default"> -->
-				      	</span>
+				      	
 			    </div>
 			</div>			
 		</form>
@@ -78,6 +76,7 @@ Teacher Schedule
 				<tbody>
 					@foreach($time_in_config as $time_in_header)
 						<tr>
+								
 							<td  bgcolor="#A0A0A0" align="center">
 								<font color="#ffffff">{{$time_in_header}}</font>
 							</td>
@@ -92,10 +91,11 @@ Teacher Schedule
 											$student_name = $schedule_of_teacher[$date][$time_in_header];  
 											$schedule_id = $schedules_id[$date][$time_in_header];
 											?>
-											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>			
+											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>	
+
 								<?php   } 
 										else {
-										?>	<td bgcolor="#FFFFFF">{{$student_name}}</td>
+										?>	<td bgcolor="#FFFFFF"></td>
 								<?php		}
 
 								?>		
@@ -141,12 +141,14 @@ Teacher Schedule
 			console.log(current_days);
 			$('#reservationtime').daterangepicker({
 				"ranges":{
-					"Today":[],
+					"Today":[
+						current_days,
+						current_days
+					],
 					"7 Days":[
 						current_days,
 						sevendays
 					]
-					
 				}
 			});
 			$('#reservationtime').on('apply.daterangepicker' , function(ev, picker) { 

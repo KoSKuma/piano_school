@@ -223,16 +223,13 @@ class Schedule extends Model
 		->orderBy('students_teachers.start_time', 'asc')
 		->get();
 
-		//echo $teacher_id;
-		//echo $start_date_timestamp;
-		//echo $end_date_timestamp;
-		//exit();
+
 
 		$schedules_table = array();
-		//print_r($schedules);die();
+		
 
 		foreach ($schedules as $schedule) {
-			//print_r($schedule->student_nickname);die();
+			
 
 
 			$start = new DateTime($schedule->start_time);
