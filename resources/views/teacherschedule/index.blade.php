@@ -3,7 +3,6 @@
 
 @section('htmlheader_title')
 Teacher Schedule
-<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -13,49 +12,59 @@ Teacher Schedule
 
 
 @section('main-content')
-<div class="box box-solid box-default">
+<div class="box  box-solid box-default">
 	<div class="box-header">
+			<div class="row" >
+				<div class="col-xs-12 col-sm-12">
+					<button type="button" class="btn  pull-right  btn-circle btn-xs" id="btn-show-hide">
+						
+						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+						
+					</button>
+				</div>
+			</div>
+			<div class="row" id="sliding">
+				<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
+					<div class="col-sm-7">
+							{!! csrf_field() !!}
+							<div class="input-group ">
+								<label>Select Teacher</label>
+								<select name="teacher" class="form-control" id="select_teacher" >
+									@foreach ($teachers as $teacher)
+										<option value="{{$teacher->id}}" <?php
+											if($teacher->id == $teacher_id){
+												echo "selected";
+											}
+										 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+									@endforeach
+								</select>
+							</div>
+					</div>
+					<div class="col-sm-5">
+						<label>Select Date Range</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+			                  <i class="fa fa-calendar"></i>
+			                </div>
+								<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
+								value = <?php 
+									if($date_request!=NULL){
+										echo $date_request;
+									}else {
+										 $date = new DateTime();
+										 $today =$date->format('m/d/Y');
+										 echo $today;		
+									} ?> 
+								>
+						      	
+					    </div>
+					</div>			
+				</form>
+			</div>
 	</div>
 	<div class="box-body">
-		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
-		<div class="row">
-			<div class="col-sm-7">
-					{!! csrf_field() !!}
-					<div class="input-group ">
-						<label>Select Teacher</label>
-						<select name="teacher" class="form-control" id="select_teacher" >
-							@foreach ($teachers as $teacher)
-								<option value="{{$teacher->id}}" <?php
-									if($teacher->id == $teacher_id){
-										echo "selected";
-									}
-								 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
-							@endforeach
-						</select>
-					</div>
-			</div>
-			
-			<div class="col-sm-5">
-				<label>Select Date Range</label>
-				<div class="input-group">
-					<div class="input-group-addon">
-	                  <i class="fa fa-calendar"></i>
-	                </div>
-						<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
-						value = <?php 
-							if($date_request!=NULL){
-								echo $date_request;
-							}else {
-								 $date = new DateTime();
-								 $today =$date->format('m/d/Y');
-								 echo $today;		
-							} ?> 
-						>
-				      	
-			    </div>
-			</div>			
-		</form>
-			</div>
+		
+		
 		<div class="row">
 			<div class="col-sm-12" style="height:10px"></div>
 		</div>
@@ -108,10 +117,6 @@ Teacher Schedule
 				</tbody>
 			</table>
 		</div>
-		
-			
-		
-	</div>
 
 </div>
 
@@ -138,6 +143,14 @@ Teacher Schedule
 			$('#reservationtime').on('apply.daterangepicker' , function(ev, picker) { 
 				$("#dateform").submit();
 			});
+
+			$("#sliding").hide();
+			$("#btn-show-hide").show();	
+			$("#btn-show-hide").click(function(){
+			$("#sliding").slideToggle();
+
+			});	
+
 		})
 	</script>
 @endsection
