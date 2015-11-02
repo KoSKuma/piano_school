@@ -309,11 +309,19 @@ class Schedule extends Model
 				or 
 				(`end_time` >= :start_date_timestamp2 and  `end_time` < :end_date_timestamp2)) '
 		), $parameter);
-		
-
-
 	return $schedule;
 	}
 
 
+	public static function getTeacherScheduleFromSelectedDate ($start_date,$day_count) {
+		
+     $date_range_selected[$start_date->format('Y-m-d')] = $start_date->format('D d M');
+        for ($i=0; $i < $day_count ; $i++) { 
+            $start_date->add(new DateInterval('P1D'));
+            $date_range_selected[$start_date->format('Y-m-d')] = $start_date->format('D d M');   
+        }
+
+        return $date_range_selected;
+    }
+	
 }

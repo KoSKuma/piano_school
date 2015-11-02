@@ -20,44 +20,33 @@ use App\models\TimeHelper;
 
 class ScheduleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    
     public function index(Request $request)
     {
         $user = Auth::user();
-        
         $searchResult = array();
 
         if($request->has('date')) {
             $date = $request->input('date');
-        }
-        else {
+        }else {
             $date = date("Y-m-d");
         }
 
-        if($request->has('search'))
-        {
+        if($request->has('search')) {
             $search = $request->input('search');
-        }
-        else
-        {
+        }else {
             $search = NULL;
         }
 
-        if (Entrust::hasRole('admin'))
-        {
+        if (Entrust::hasRole('admin')){
             $schedules = Schedule::scheduleList($date, $search);
         }
-        if (Entrust::hasRole('teacher'))
-        {
+
+        if (Entrust::hasRole('teacher')) {
             $schedules = Teacher::scheduleOfTeacher($user->teachers_id, $date);
-       
         }
-        if (Entrust::hasRole('student'))
-        {
+
+        if (Entrust::hasRole('student')) {
             $schedules = Student::scheduleOfStudent($user->students_id, $date);
         }
 
@@ -71,14 +60,9 @@ class ScheduleController extends Controller
             'schedules' => $schedules->paginate(25)])->with( 'date', $date )->with('searchResult', $searchResult);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create(request $request)
     {
-        //print_r($request->day);die();
+        
         $teacher = Teacher::teacherList()->get();
         $student = Student::studentList()->get();
         $select_teacher = $request->teacher;
@@ -96,20 +80,10 @@ class ScheduleController extends Controller
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
     public function store(Request $request)
     {
         
-
         $schedule = new Schedule;
-
-
-
         $schedule->teachers_id = $request->teachers_id;
         $schedule->students_id = $request->students_id;
         $schedule->start_time = $request->class_date . " " . $request->class_start_time;
@@ -118,13 +92,11 @@ class ScheduleController extends Controller
 
 
         $schedule_time = Schedule::checkDateTimeSchedule($schedule->teachers_id, $schedule->start_time, $schedule->end_time);
-        //print_r($schedule_time->start_time);die();
+      
 
         if ($schedule_time==NULL) {
             $schedule->save();
             return redirect('teacherschedule');
-        /*elseif ($schedule->start_time >=  ) {
-            # code...*/
         }else {
             $teacher = Teacher::teacherList()->get();
             $student = Student::studentList()->get();
@@ -138,47 +110,22 @@ class ScheduleController extends Controller
             'day'=>$request->class_date
             ]);
 
-           /* if ($schedule->start_time == $schedule_time->start_time && $schedule->end_time == $schedule_time->end_time) {
-                error
-            }*/
-
-        }
-      
-
-              
-       
+        }  
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+
 
     public function edit(request $request ,$id)
     {
         $scheduleById = Schedule::scheduleById($id);
-     
         $teacherlist = Teacher::teacherList()->get();
-  
         $studentlist = Student::studentList()->get();
         
-        //print_r($scheduleById->teachers_id);die();
-      
-
-       
         return view('schedule.edit',[
             'scheduleById'=>$scheduleById , 
             'teacherlist'=>$teacherlist   , 
@@ -187,24 +134,19 @@ class ScheduleController extends Controller
     }
 
 
-    public function status(Request $request)
-    {
+    public function status(Request $request) {
         $user = Auth::user();
-       
         $check  = Schedule::where('students_teachers.id',$request->id)->first();
+
         if(!Entrust::hasRole('admin') && $user->teachers_id != $check->teachers_id){
             abort(403);
         }
-
         $schedule = Schedule::setStatus($request);
         
         return redirect('schedule?date='.$request->date)->with('status', $schedule);
     }
 
-
-   
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
          $validator = Validator::make($request->all(), Schedule::$rules_update);
          $data = $request->all();
           
@@ -222,20 +164,10 @@ class ScheduleController extends Controller
         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        
+    public function destroy($id) {
         $schedule = Schedule::find($id);
         $schedule->delete();
 
         return redirect('schedule');
     }
-    
-
  }
