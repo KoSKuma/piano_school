@@ -3,61 +3,119 @@
 
 @section('htmlheader_title')
 Teacher Schedule
-<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
 @section('contentheader_title')
-<h1>Teacher Schedule <small>Schedule List</small></h1>
+<h1>Teacher Schedule <small> 
+	@foreach ($teachers as $teacher) 
+		@if($teacher->id == $teacher_id)
+			{{"ครู".$teacher->nickname}} 
+		@endif
+	@endforeach
+
+</small></h1>
 @endsection
 
 
 @section('main-content')
-<div class="box box-solid box-default">
+<div class="box  box-solid box-default">
 	<div class="box-header">
-	</div>
-	<div class="box-body">
 		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
-		<div class="row">
-			<div class="col-sm-7">
+			<div class="row hidden-xs">
+				<div class="col-sm-7">
+						{!! csrf_field() !!}
+						<div class="input-group ">
+							<label>Select Teacher</label>
+							<select name="teacher" class="form-control" id="select_teacher" >
+								@foreach ($teachers as $teacher)
+									<option value="{{$teacher->id}}" <?php
+										if($teacher->id == $teacher_id){
+											echo "selected";
+										}
+									 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+								@endforeach
+							</select>
+
+						</div>
+				</div>
+				<div class="col-sm-5">
+					<label>Select Date Range</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+		                  <i class="fa fa-calendar"></i>
+		                </div>
+							<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
+							value =" <?php 
+								if($date_request!=NULL){
+									echo $date_request;
+								}else {
+									 $date = new DateTime();
+									 $today =$date->format('m/d/Y');
+									 echo $today.' - '.$today;	
+										
+								} ?> " 
+							>
+					      
+				    </div>
+				</div>	
+			</div>		
+		</form>
+		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform-mobile">
+			<div class="row visible-xs" >
 					{!! csrf_field() !!}
-					<div class="input-group ">
-						<label>Select Teacher</label>
-						<select name="teacher" class="form-control" id="select_teacher" >
-							@foreach ($teachers as $teacher)
-								<option value="{{$teacher->id}}" <?php
-									if($teacher->id == $teacher_id){
-										echo "selected";
-									}
-								 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
-							@endforeach
-						</select>
+					<div class="col-xs-10">
+						<div class="input-group">
+							 <span class="input-group-btn">
+						        <button class="btn btn-default" type="button" id="prevday">
+						        	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></span>
+						        </button>
+						      </span>
+							<input type="text" class="form-control" id="reservationtime-mobile" name="date" 
+								value = "<?php 
+									if($date_request!=NULL){
+										echo $date_request;
+									}else {
+										 $date = new DateTime();
+										 $today =$date->format('m/d/Y');
+										 echo $today.' - '.$today;		
+									} ?>">
+							<span class="input-group-btn">
+						         <button class="btn btn-default" type="button" id="nextday">
+						        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" ></span>
+						        </button>
+						    </span>
+					    </div>
+					</div>
+					<div class="col-xs-2">
+						<button type="button" class="btn  pull-right  btn-circle btn-xs" id="btn-show-hide">
+							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+						</button>
 					</div>
 			</div>
-			
-			<div class="col-sm-5">
-				<label>Select Date Range</label>
-				<div class="input-group">
-					<div class="input-group-addon">
-	                  <i class="fa fa-calendar"></i>
-	                </div>
-						<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
-						value = <?php 
-							if($date_request!=NULL){
-								echo $date_request;
-							}else {
-								 $date = new DateTime();
-								 $today =$date->format('m/d/Y');
-								 echo $today;		
-							} ?> 
-						>
-				      	<span class="input-group-btn">
-				      		<!-- <input type="submit" class="btn btn-default"> -->
-				      	</span>
-			    </div>
-			</div>			
-		</form>
+			<div class="row" id="sliding">
+					<div class="col-sm-7">
+							<div class="input-group ">
+								<label>Select Teacher</label>
+								<select name="teacher" class="form-control" id="select_teacher" >
+									@foreach ($teachers as $teacher)
+										<option value="{{$teacher->id}}" <?php
+											if($teacher->id == $teacher_id){
+												echo "selected";
+											} 
+										 ?> >
+										 {{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}
+										</option>
+									@endforeach
+								</select>
+							</div>
+								<button type="submit" class="btn btn-default btn-block">Submit</button>
+					</div>
 			</div>
+		</form>
+	</div>
+	<div class="box-body">
+		
 		<div class="row">
 			<div class="col-sm-12" style="height:10px"></div>
 		</div>
@@ -69,7 +127,10 @@ Teacher Schedule
 						<th bgcolor="#736F6E" style="text-align:center"><font color="white" >Time/Days</font></th>
 						@foreach($date_range_selected as  $key=>$date)
 							<th  bgcolor="#736F6E" style="text-align:center">
-								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" ><b >{{$date}}</b></a>
+								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" >
+									<i class="fa fa-plus-square-o"></i>
+									<b >{{$date}}</b>
+								</a>
 							</th>
 						@endforeach
 					</tr>
@@ -78,12 +139,14 @@ Teacher Schedule
 				<tbody>
 					@foreach($time_in_config as $time_in_header)
 						<tr>
+								
 							<td  bgcolor="#A0A0A0" align="center">
 								<font color="#ffffff">{{$time_in_header}}</font>
 							</td>
-							
+								
 								@foreach($date_range_selected as  $key=>$date)
 								<?php 
+
 										$student_name ='';
 										$schedule_id = '';
 								?>		
@@ -92,10 +155,11 @@ Teacher Schedule
 											$student_name = $schedule_of_teacher[$date][$time_in_header];  
 											$schedule_id = $schedules_id[$date][$time_in_header];
 											?>
-											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>			
+											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>	
+
 								<?php   } 
 										else {
-										?>	<td bgcolor="#FFFFFF">{{$student_name}}</td>
+										?>	<td bgcolor="#FFFFFF"></td>
 								<?php		}
 
 								?>		
@@ -107,10 +171,6 @@ Teacher Schedule
 				</tbody>
 			</table>
 		</div>
-		
-			
-		
-	</div>
 
 </div>
 
@@ -123,22 +183,12 @@ Teacher Schedule
 		$(document).ready(function(){
 			var now = moment();
 			var next_seven_day = moment().add(7, 'days');
-
-
-			//var current_days = moment(now).format('YYYY-MM-DDTHH:mm:SSS');
-			//var sevendays = moment(next_seven_day).format('YYYY-MM-DDTHH:mm:SSS');
+			
 
 			var current_days = moment(now).format('MM/DD/YYYY');
 			var sevendays = moment(next_seven_day).format('MM/DD/YYYY');
-
-			//current_days = current_days+'Z';
-			//sevendays = sevendays+'Z';
-			//var sevendays = moment(date).format(moment.ISO_8601);
-
 			
-
-
-			console.log(current_days);
+			
 			$('#reservationtime').daterangepicker({
 				"ranges":{
 					"Today":[],
@@ -146,13 +196,57 @@ Teacher Schedule
 						current_days,
 						sevendays
 					]
-					
 				}
 			});
 			$('#reservationtime').on('apply.daterangepicker' , function(ev, picker) { 
 				$("#dateform").submit();
 			});
-	
+
+
+			$('#reservationtime-mobile').daterangepicker({
+				"ranges":{
+					"Today":[],
+					"7 Days":[
+						current_days,
+						sevendays
+					]
+				}
+			});
+			$('#reservationtime-mobile').on('apply.daterangepicker' , function(ev, picker) { 
+				$("#sliding").slideToggle();
+			});
+		
+
+			$("#sliding").hide();
+			$("#btn-show-hide").show();	
+			$("#btn-show-hide").click(function(){
+				$("#sliding").slideToggle();
+			});	
+
+			$("#prevday").click(function(){
+				var date = $('#reservationtime-mobile').daterangepicker().val();
+				var split = date.split(' - ');
+				var start_date = split[0];
+				var prevday = moment(start_date).subtract(1, 'days').format('MM/DD/YYYY');
+				var concat_prevday = prevday.concat(' - ',prevday);
+				var str_prevday = String(concat_prevday);
+			$('#reservationtime-mobile').daterangepicker().val(str_prevday);
+			$("#dateform-mobile").submit();
+			});
+
+			$("#nextday").click(function(){
+				var date = $('#reservationtime-mobile').daterangepicker().val();
+				var split = date.split(' - ');
+				var start_date = split[0];
+				var prevday = moment(start_date).add(1, 'days').format('MM/DD/YYYY');
+				var concat_prevday = prevday.concat(' - ',prevday);
+				var str_prevday = String(concat_prevday);
+			$('#reservationtime-mobile').daterangepicker().val(str_prevday);
+			$("#dateform-mobile").submit();
+			});
+
+
+
 		})
 	</script>
 @endsection

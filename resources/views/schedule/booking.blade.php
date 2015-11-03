@@ -53,8 +53,7 @@ Add a new student
                                      >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
                                 @endforeach
                             </select>
-                            <!-- <input type="text" class="form-control" name="teacher_name" id="teacher_name" readonly />
-                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" /> -->
+                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" /> 
                         </div>
                     </div>
 
@@ -70,13 +69,10 @@ Add a new student
                                             echo "selected";
                                         }
                                      ?> 
-
                                     {{ $student->nickname." "."(".$student->firstname." ".$student->lastname.")" }}</option>
-
                                 @endforeach
                             </select>
-                            <!-- <input type="text" class="form-control" name="student_name" id="student_name" readonly />
-                            <input type="hidden" value="" id="student_id_input" name="students_id"/> -->
+                            <input type="hidden" value="" id="student_id_input" name="students_id"/> 
                         </div>
                     </div>
 
