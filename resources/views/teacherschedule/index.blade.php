@@ -14,76 +14,8 @@ Teacher Schedule
 @section('main-content')
 <div class="box  box-solid box-default">
 	<div class="box-header">
-		<div class="row hidden-xs">
-			<div class="col-sm-7">
-					{!! csrf_field() !!}
-					<div class="input-group ">
-						<label>Select Teacher</label>
-						<select name="teacher" class="form-control" id="select_teacher" >
-							@foreach ($teachers as $teacher)
-								<option value="{{$teacher->id}}" <?php
-									if($teacher->id == $teacher_id){
-										echo "selected";
-									}
-								 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
-							@endforeach
-						</select>
-					</div>
-			</div>
-			<div class="col-sm-5">
-				<label>Select Date Range</label>
-				<div class="input-group">
-					<div class="input-group-addon">
-	                  <i class="fa fa-calendar"></i>
-	                </div>
-						<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
-						value = <?php 
-							if($date_request!=NULL){
-								echo $date_request;
-							}else {
-								 $date = new DateTime();
-								 $today =$date->format('m/d/Y');
-								 echo $today;		
-							} ?> 
-						>
-				      	<span class="input-group-btn">
-				      		<!-- <input type="submit" class="btn btn-default"> -->
-				      	</span>
-			    </div>
-			</div>	
-		</div>		
-		<div class="row visible-xs" >
-			<div class="col-xs-10">
-				<div class="input-group">
-					 <span class="input-group-btn">
-				        <button class="btn btn-default" type="button">
-				        	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				        </button>
-				      </span>
-					<input type="text" class="form-control" id="reservationtime" name="date" 
-						value = <?php 
-							if($date_request!=NULL){
-								echo $date_request;
-							}else {
-								 $date = new DateTime();
-								 $today =$date->format('m/d/Y');
-								 echo $today;		
-							} ?>>
-					<span class="input-group-btn">
-				         <button class="btn btn-default" type="button">
-				        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				        </button>
-				    </span>
-			    </div>
-			</div>
-			<div class="col-xs-2">
-				<button type="button" class="btn  pull-right  btn-circle btn-xs" id="btn-show-hide">
-					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-				</button>
-			</div>
-		</div>
-		<div class="row" id="sliding">
-			<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
+		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
+			<div class="row hidden-xs">
 				<div class="col-sm-7">
 						{!! csrf_field() !!}
 						<div class="input-group ">
@@ -99,9 +31,78 @@ Teacher Schedule
 							</select>
 						</div>
 				</div>
-						
-			</form>
-		</div>
+				<div class="col-sm-5">
+					<label>Select Date Range</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+		                  <i class="fa fa-calendar"></i>
+		                </div>
+							<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
+							value =" <?php 
+								if($date_request!=NULL){
+									echo $date_request;
+								}else {
+									 $date = new DateTime();
+									 $today =$date->format('m/d/Y');
+									 echo $today;
+										
+								} ?> " 
+							>
+					      
+				    </div>
+				</div>	
+			</div>		
+		</form>
+		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform-mobile">
+			<div class="row visible-xs" >
+					{!! csrf_field() !!}
+					<div class="col-xs-10">
+						<div class="input-group">
+							 <span class="input-group-btn">
+						        <button class="btn btn-default" type="button">
+						        	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						        </button>
+						      </span>
+							<input type="text" class="form-control" id="reservationtime-mobile" name="date" 
+								value = "<?php 
+									if($date_request!=NULL){
+										echo $date_request;
+									}else {
+										 $date = new DateTime();
+										 $today =$date->format('m/d/Y');
+										 echo $today;		
+									} ?>">
+							<span class="input-group-btn">
+						         <button class="btn btn-default" type="button">
+						        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						        </button>
+						    </span>
+					    </div>
+					</div>
+					<div class="col-xs-2">
+						<button type="button" class="btn  pull-right  btn-circle btn-xs" id="btn-show-hide">
+							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+						</button>
+					</div>
+			</div>
+			<div class="row" id="sliding">
+					<div class="col-sm-7">
+							<div class="input-group ">
+								<label>Select Teacher</label>
+								<select name="teacher" class="form-control" id="select_teacher" >
+									@foreach ($teachers as $teacher)
+										<option value="{{$teacher->id}}" <?php
+											if($teacher->id == $teacher_id){
+												echo "selected";
+											}
+										 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+									@endforeach
+								</select>
+							</div>
+								<button type="submit" class="btn btn-default btn-block">Submit</button>
+					</div>
+			</div>
+		</form>
 	</div>
 	<div class="box-body">
 		
@@ -186,12 +187,16 @@ Teacher Schedule
 			$('#reservationtime').on('apply.daterangepicker' , function(ev, picker) { 
 				$("#dateform").submit();
 			});
+			$('#reservationtime-mobile').daterangepicker();
+			$('#reservationtime-mobile').on('apply.daterangepicker' , function(ev, picker) { 
+				$("#sliding").slideToggle();
+			});
+		
 
 			$("#sliding").hide();
 			$("#btn-show-hide").show();	
 			$("#btn-show-hide").click(function(){
-			$("#sliding").slideToggle();
-
+				$("#sliding").slideToggle();
 			});	
 
 		})
