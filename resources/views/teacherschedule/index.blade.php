@@ -7,86 +7,104 @@ Teacher Schedule
 
 
 @section('contentheader_title')
-<h1>Teacher Schedule <small>Schedule List</small></h1>
+<h1>Teacher Schedule <small>ครูชาคริต</small></h1>
 @endsection
 
 
 @section('main-content')
 <div class="box  box-solid box-default">
 	<div class="box-header">
-			<div class="row" >
-				<div class="col-xs-12 col-sm-12">
-					<button type="button" class="btn  pull-right  btn-circle btn-xs" id="btn-show-hide">
-						
-						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-						
-					</button>
-				</div>
-			</div>
-			<div class="row" id="sliding">
-				<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
-					<div class="col-sm-7">
-							{!! csrf_field() !!}
-							<div class="input-group ">
-								<label>Select Teacher</label>
-								<select name="teacher" class="form-control" id="select_teacher" >
-									@foreach ($teachers as $teacher)
-										<option value="{{$teacher->id}}" <?php
-											if($teacher->id == $teacher_id){
-												echo "selected";
-											}
-										 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
-									@endforeach
-								</select>
-							</div>
+		<div class="row hidden-xs">
+			<div class="col-sm-7">
+					{!! csrf_field() !!}
+					<div class="input-group ">
+						<label>Select Teacher</label>
+						<select name="teacher" class="form-control" id="select_teacher" >
+							@foreach ($teachers as $teacher)
+								<option value="{{$teacher->id}}" <?php
+									if($teacher->id == $teacher_id){
+										echo "selected";
+									}
+								 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+							@endforeach
+						</select>
 					</div>
-					<div class="col-sm-5">
-						<label>Select Date Range</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-			                  <i class="fa fa-calendar"></i>
-			                </div>
-								<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
-								value = <?php 
-									if($date_request!=NULL){
-										echo $date_request;
-									}else {
-										 $date = new DateTime();
-										 $today =$date->format('m/d/Y');
-										 echo $today;		
-									} ?> 
-								>
-						      	
-					    </div>
-					</div>			
-				</form>
 			</div>
+			<div class="col-sm-5">
+				<label>Select Date Range</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+	                  <i class="fa fa-calendar"></i>
+	                </div>
+						<input type="text" class="form-control pull-right" id="reservationtime" name="date" 
+						value = <?php 
+							if($date_request!=NULL){
+								echo $date_request;
+							}else {
+								 $date = new DateTime();
+								 $today =$date->format('m/d/Y');
+								 echo $today;		
+							} ?> 
+						>
+				      	<span class="input-group-btn">
+				      		<!-- <input type="submit" class="btn btn-default"> -->
+				      	</span>
+			    </div>
+			</div>	
+		</div>		
+		<div class="row visible-xs" >
+			<div class="col-xs-10">
+				<div class="input-group">
+					 <span class="input-group-btn">
+				        <button class="btn btn-default" type="button">
+				        	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				        </button>
+				      </span>
+					<input type="text" class="form-control" id="reservationtime" name="date" 
+						value = <?php 
+							if($date_request!=NULL){
+								echo $date_request;
+							}else {
+								 $date = new DateTime();
+								 $today =$date->format('m/d/Y');
+								 echo $today;		
+							} ?>>
+					<span class="input-group-btn">
+				         <button class="btn btn-default" type="button">
+				        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				        </button>
+				    </span>
+			    </div>
+			</div>
+			<div class="col-xs-2">
+				<button type="button" class="btn  pull-right  btn-circle btn-xs" id="btn-show-hide">
+					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+				</button>
+			</div>
+		</div>
+		<div class="row" id="sliding">
+			<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
+				<div class="col-sm-7">
+						{!! csrf_field() !!}
+						<div class="input-group ">
+							<label>Select Teacher</label>
+							<select name="teacher" class="form-control" id="select_teacher" >
+								@foreach ($teachers as $teacher)
+									<option value="{{$teacher->id}}" <?php
+										if($teacher->id == $teacher_id){
+											echo "selected";
+										}
+									 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+								@endforeach
+							</select>
+						</div>
+				</div>
+						
+			</form>
+		</div>
 	</div>
 	<div class="box-body">
 		
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="col-xs-2 col-sm-4 text-right" style="height:34px;">
-					<span>
-						
-						<a href="#" class="btn btn-responsive btn-default btn-flat">
-							<i class="glyphicon glyphicon-chevron-left"></i>
-						</a>
-					</span>
-	            </div>
-				<div class="col-xs-8 col-sm-3">						
-		            <div align="center"><h5><?php //echo  $date->format('l d F Y');?></h5></div>	               	                
-	            </div>
-	            <div class="col-xs-2 col-sm-5 " style="height:34px;">
-	            	<span>
-	            	
-						<a href="#" class="btn btn-responsive btn-default btn-flat">
-							<i class="glyphicon glyphicon-chevron-right"></i>
-						</a>
-					</span>
-	            </div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-sm-12" style="height:10px"></div>
 		</div>
