@@ -21,7 +21,7 @@ class TeacherScheduleController extends Controller
      */
     public function index(Request $request)
     {
-      
+       
         $time_in_config = Config::get('piano.class_time');
         $teachers = Teacher::teacherList();
         $date_request = $request->date;
