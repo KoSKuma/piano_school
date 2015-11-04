@@ -13,52 +13,7 @@ List of all classes
 
 @section('main-content')
 
-
-	<div class="box box-solid box-default">
-		<div class="box-header">
-			<div class="row">
-				<div class="col-xs-6">
-					<h3 class="box-title">All Schedule</h3>
-				</div>
-			<!-- 	<div class="col-xs-6 text-right">
-					<a href= "{{url('schedule/create')}}" class="btn btn-default" >
-						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-					</a>
-				</div> -->
-			</div>
-		</div><!-- /.box-header -->
-
-		<div class="box-body">
-			<table class="table table-hover table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>Class Time</th>
-						<th>Teacher</th>
-						<th>Student</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach ($scheduleList as $schedule)
-					<tr>
-						<td >{{date('j M Y G:i', strtotime($schedule->start_time))}} - {{date('G:i', strtotime($schedule->end_time))}}</td>
-						<td>{{$schedule->teacher_nickname}} 
-							<span class='visible-sm-inline visible-md-inline'><br /></span>
-							({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
-						</td>
-						<td>
-							{{$schedule->student_nickname}} 
-							<span class='visible-sm-inline visible-md-inline'><br />
-							</span>({{$schedule->student_firstname}} {{$schedule->student_lastname}})
-						</td>
-						
-					</tr>
-					@endforeach
-				</tbody>
-			</table>
-
-			</div>
-		</div>
-	</div><!-- /.box-body -->
+<h1>Comming Soon.....</h1>
 
 
 @endsection
