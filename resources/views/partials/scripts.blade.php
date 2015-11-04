@@ -15,6 +15,8 @@
 <script src="{{ asset('/plugins/input-mask/jquery.inputmask.extensions.js')}}" type="text/javascript"></script>
 
 <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+<script src="{{url("plugins/daterangepicker/daterangepicker.js")}}" type="text/javascript"></script>
+<script src="{{url("plugins/timepicker/bootstrap-timepicker.js")}}" type="text/javascript"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the

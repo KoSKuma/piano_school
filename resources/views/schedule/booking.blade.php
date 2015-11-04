@@ -24,13 +24,21 @@ Add a new student
 
                 {!! csrf_field() !!}
                 <div class="box-body">
-                    
+
+                @if ($errors->has())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                    {{ $error }} <br>
+                    @endforeach
+                </div>
+                @endif
                 @if(isset($booking_time_error))
                     <div class="alert alert-danger">
                         <strong>Time has already booked!!!</strong><br>
                         @foreach ($booking_time_error as $booking_time_error)
                             {{'Start Time :'.$booking_time_error->start_time}} 
                             {{'End Time :'.$booking_time_error->end_time}}
+
                             <br>
                         @endforeach
 
@@ -53,7 +61,7 @@ Add a new student
                                      >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
                                 @endforeach
                             </select>
-                            <input type="hidden" value="" id="teacher_id_input" name="teachers_id" /> 
+                          
                         </div>
                     </div>
 
@@ -72,12 +80,12 @@ Add a new student
                                     {{ $student->nickname." "."(".$student->firstname." ".$student->lastname.")" }}</option>
                                 @endforeach
                             </select>
-                            <input type="hidden" value="" id="student_id_input" name="students_id"/> 
+                             
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="start_time">Class Date</label>
+                        <label class="col-sm-3 control-label" >Class Date</label>
                         <div class="col-sm-8">
                             <div class="input-group">
                             <input type="text" class="form-control" name="class_date_display" id="class_date_display" value="{{$day}}"/>
@@ -92,33 +100,26 @@ Add a new student
 
 
                     <div class="form-group">
-
-                        <label class="col-sm-3 control-label" for="start_time">Class Time</label>
+                        <label class="col-sm-3 control-label" >Class Time</label>
                         <div class="col-sm-3">
-                            <div class="bootstrap-timepicker">
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="start_time_display" id="start_time_picker" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                <input type="hidden" id="class_start_time" name="class_start_time" value=""/>
-                                </div>
-                            </div>
+                            <select name="start_time" id="start_time" class="form-control">
+                                @foreach($time_in_config as $time)
+                                <option value="{{$time.':'.'00'}}">{{$time}}</option>
+                                @endforeach
+                            </select>
+                
                         </div>
                         <div class="col-sm-1 center-text">
                             to
                         </div>
 
                         <div class="col-sm-3">
-                            <div class="bootstrap-timepicker">
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control" name="end_time_display" id="end_time_picker" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                <input type="hidden" id="class_end_time" name="class_end_time" value=""/>
-                                </div>
-                            </div>
+                            <select name="end_time" id="end_time" class="form-control" >
+                                @foreach($time_in_config as $time)
+                                <option value="{{$time.':'.'00'}}}">{{$time}}</option>
+                                @endforeach
+                            </select>
+                            
                         </div>
 
                     </div>
@@ -149,12 +150,8 @@ Add a new student
 
 
 @section('script')
-<!-- InputMask -->
-<script src="{{url("plugins/input-mask/jquery.inputmask.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.date.extensions.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/input-mask/jquery.inputmask.extensions.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/daterangepicker/daterangepicker.js")}}" type="text/javascript"></script>
-<script src="{{url("plugins/timepicker/bootstrap-timepicker.js")}}" type="text/javascript"></script>
+
+
 <script type="text/javascript">
 $(function () {
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
@@ -193,22 +190,17 @@ $(document).ready(function(){
         "minDate": moment(),
         "format": 'DD/MM/YYYY',
     }, function(date){
-        //console.log('Class date: ' + date.format('YYYY-MM-DD'));
+        
         $("#class_date").val(date.format('YYYY-MM-DD'));
     });
 
-    //$("#start_time_picker").timepicker();
+    
     $("#start_time_picker").timepicker(
         {
             showMeridian: false
         }).on('hide.timepicker', function(e) {
-    // console.log('The time is ' + e.time.value);
-    // console.log('The hour is ' + e.time.hours);
-    // console.log('The minute is ' + e.time.minutes);
-    // console.log('The meridian is ' + e.time.meridian);
-
-    $("#class_start_time").val( ("0" + e.time.hours).slice(-2) + ":" + ("0" + e.time.minutes).slice(-2) + ":" + "00");
-  });
+            $("#class_start_time").val( ("0" + e.time.hours).slice(-2) + ":" + ("0" + e.time.minutes).slice(-2) + ":" + "00");
+          });
 
 
     
