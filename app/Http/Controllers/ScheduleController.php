@@ -84,34 +84,41 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-       
-        $time_in_config = Config::get('piano.class_time');
-        $schedule = new Schedule;
-        $schedule->teachers_id = $request->teachers_select_id;
-        $schedule->students_id = $request->students_select_id;
-        $schedule->start_time = $request->class_date . " " . $request->start_time;
-        $schedule->end_time = $request->class_date. " " . $request->end_time;
-        $schedule->location = $request->location;
+        $validator = Validator::make($request->all(), Schedule::$rules );
+        if ($validator->fails()) {
 
-        $schedule_time = Schedule::checkDateTimeSchedule($schedule->teachers_id, $schedule->start_time, $schedule->end_time);
-      
+            return redirect('schedule/create')->withErrors($validator);
 
-        if ($schedule_time==NULL) {
-            $schedule->save();
-            return redirect('teacherschedule');
-        }else {
-            $teacher = Teacher::teacherList()->get();
-            $student = Student::studentList()->get();
-         
-           return view('schedule.booking',[
-            'booking_time_error'=>$schedule_time,
-            'teacherlist'=>$teacher , 
-            'studentlist'=>$student ,
-            'teacher_id'=> $schedule->teachers_id,
-            'student_id'=>$schedule->students_id,
-            'day'=>$request->class_date,
-            'time_in_config'=>$time_in_config
-            ]);
+        }else{
+                $time_in_config = Config::get('piano.class_time');
+                $schedule = new Schedule;
+                $schedule->teachers_id = $request->teachers_id;
+                $schedule->students_id = $request->students_id;
+                $schedule->start_time = $request->class_date . " " . $request->start_time;
+                $schedule->end_time = $request->class_date. " " . $request->end_time;
+                $schedule->location = $request->location;
+
+                $schedule_time = Schedule::checkDateTimeSchedule($schedule->teachers_id, $schedule->start_time, $schedule->end_time);
+                if ($schedule_time==NULL) {
+                    $schedule->save();
+                    return redirect('teacherschedule');
+                }else {
+                    $teacher = Teacher::teacherList()->get();
+                    $student = Student::studentList()->get();
+                 
+                   return view('schedule.booking',[
+                    'booking_time_error'=>$schedule_time,
+                    'teacherlist'=>$teacher , 
+                    'studentlist'=>$student ,
+                    'teacher_id'=> $schedule->teachers_id,
+                    'student_id'=>$schedule->students_id,
+                    'day'=>$request->class_date,
+                    'time_in_config'=>$time_in_config
+                    ]);
+                } 
+
+
+        
 
         }  
     }
@@ -151,7 +158,10 @@ class ScheduleController extends Controller
 
     public function update(Request $request, $id){
          $validator = Validator::make($request->all(), Schedule::$rules_update);
-         $data = $request->all();
+        if ($validator->fails()) {
+            return redirect('schedule/create')->withErrors($validator);
+        }else {
+                 $data = $request->all();
           
                 $schedule = Schedule::where('students_teachers.id',$id)->first();
                 //structure data is Array
@@ -163,7 +173,9 @@ class ScheduleController extends Controller
 
                 $schedule->save();
         
-        return  redirect('teacherschedule');
+                return  redirect('teacherschedule');
+        }
+               
         
     }
 

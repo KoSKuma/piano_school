@@ -24,13 +24,21 @@ Add a new student
 
                 {!! csrf_field() !!}
                 <div class="box-body">
-                    
+
+                @if ($errors->has())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                    {{ $error }} <br>
+                    @endforeach
+                </div>
+                @endif
                 @if(isset($booking_time_error))
                     <div class="alert alert-danger">
                         <strong>Time has already booked!!!</strong><br>
                         @foreach ($booking_time_error as $booking_time_error)
                             {{'Start Time :'.$booking_time_error->start_time}} 
                             {{'End Time :'.$booking_time_error->end_time}}
+
                             <br>
                         @endforeach
 
@@ -42,7 +50,7 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="teacher_name">Teacher Name</label>
                         <div class="col-sm-8">
-                            <select name="teachers_select_id" class="form-control" id="select_teacher" >
+                            <select name="teachers_id" class="form-control" id="select_teacher" >
                                 <option>Select Teacher</option>
                                 @foreach ($teacherlist as $teacher)
                                     <option value="{{$teacher->id}}" <?php
@@ -60,7 +68,7 @@ Add a new student
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="student_name">Student Name</label>
                         <div class="col-sm-8">
-                             <select name="students_select_id" class="form-control" id="students_id" >
+                             <select name="students_id" class="form-control" id="students_id" >
                                     <option>Select Student</option>
                                 @foreach ($studentlist as $student)
                                     <option value="{{$student->id}}">
