@@ -99,13 +99,14 @@
             </li>
             @endif
 
+            @if (Entrust::hasRole('admin')) 
              <li >
                 <a href="{{url('teacherschedule')}}">
                     <i class='fa fa-calendar-o'></i> 
                     <span>Teacher Schedule</span>
                 </a>
             </li>
-
+            @endif
 
            
             
