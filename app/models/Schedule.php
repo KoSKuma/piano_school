@@ -238,7 +238,7 @@ class Schedule extends Model
 			$key = $start->format('D d M');
 
 			for($i=1; $i<=$hour_count; $i++) {
-				$time_key = $start->format('H.00');
+				$time_key = $start->format('H:00');
 				$start->modify('+1 hour'); // Add 1 Hour
 				//$time_key .= '-'.$start->format('H.00');
 				$schedules_table[$key][$time_key] = $schedule->student_nickname;
@@ -281,7 +281,7 @@ class Schedule extends Model
 			$key = $start->format('D d M');
 
 			for($i=1; $i<=$hour_count; $i++) {
-				$time_key = $start->format('H.00');
+				$time_key = $start->format('H:00');
 				$start->modify('+1 hour'); // Add 1 Hour
 				//$time_key .= '-'.$start->format('H.00');
 				$schedule_is_array[$key][$time_key] = $schedule->id;
