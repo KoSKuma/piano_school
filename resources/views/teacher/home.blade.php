@@ -10,7 +10,6 @@ List of all classes
 <h1>Homepage<small>{{"ครู".Auth::user()->nickname}} </small></h1>
 @endsection
 
-
 @section('main-content')
 
 <div class="box box-solid box-default">

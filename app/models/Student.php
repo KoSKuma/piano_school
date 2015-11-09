@@ -7,7 +7,7 @@ use App\models\TimeHelper;
 use DB;
 use App\models\Schedule;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use DateTime;
 class Student extends Model
 {
     use SoftDeletes;
@@ -105,6 +105,10 @@ class Student extends Model
 
     public static function scheduleOfStudent($students_id, $date = NULL) 
     {
+        $now = new DateTime();
+
+        $date = $now->format('Y-m-d 00:00:00');
+
         $schedules = Schedule::_scheduleOfTeacher_Student(null ,$students_id, $date);
 
         return $schedules;

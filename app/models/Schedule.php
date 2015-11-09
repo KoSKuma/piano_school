@@ -94,7 +94,7 @@ class Schedule extends Model
 		return $scheduleById;
 	}
 
-	public static function _scheduleOfTeacher_Student($teachers_id = null, $students_id = null, $date = null, $mode = null)
+	public static function _scheduleOfTeacher_Student($teachers_id = null, $students_id = null, $date, $mode = null)
 	{
 
 		$schedules = DB::table('students_teachers')
@@ -115,28 +115,10 @@ class Schedule extends Model
 			'students_teachers.status as status')
 		->orderBy('students_teachers.start_time', 'asc');
 
-		if (!is_null($teachers_id)) 
-		{
-			$schedules->where('students_teachers.teachers_id', '=', $teachers_id);
-		}
-		elseif(!is_null($students_id)) 
-		{
-			$schedules->where('students_teachers.students_id', '=', $students_id);
-		}
+		
+		$schedules = $schedules->where('start_time', '>=', $date);
 
-		if(!is_null($date))
-		{
-			$schedules = $schedules->where('start_time', '>', $date . " 00:00:00")
-			->where('end_time', '<', $date . " 23:59:59");
-		}
-
-		if(!is_null($mode))
-		{
-			if($mode == "From Now")
-			{
-				$schedules = $schedules->where('start_time', '>', date("Y-m-d") . " 00:00:00");
-			}
-		}
+		
 
 		return $schedules;
 	}
