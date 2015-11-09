@@ -101,6 +101,9 @@ td:hover {
 b:hover{
 	color: #FFFFCC;
 }
+b.bold-text{
+	color: white;
+}
 
 .btn-circle {
   width: 25px;

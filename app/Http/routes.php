@@ -34,6 +34,7 @@ Entrust::routeNeedsPermission('schedule/confirm', 'confirm-taught-class');
 Route::group(['middleware' => 'auth'] ,function()
 {
 	Route::get('/home', 'HomeController@dashboard');
+	Route::post('/home', 'HomeController@dashboard');
 
 	Route::post('student/restore','StudentController@restore');
 	Route::get('student/deleted','StudentController@viewDeletedStudent');
