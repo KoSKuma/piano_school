@@ -33,6 +33,7 @@ List of all classes
 						<tr>
 							<th>Class Date</th>
 							<th>Teacher</th>
+							<th>Location</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,6 +43,7 @@ List of all classes
 								{{date('j M Y G:i', strtotime($schedule->start_time))}}-{{date('G:i', strtotime($schedule->end_time))}}
 							 </td>
 							 <td>{{"ครู".$schedule->teacher_nickname}}</td>
+							 <td>{{$schedule->location}}</td>
 						</tr>
 						@endforeach
 					</tbody>
