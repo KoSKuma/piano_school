@@ -18,7 +18,7 @@ List of all classes
 		<form action="{{url('home')}}" method="POST" role="form" id="dateform">
 			{!! csrf_field() !!}
 			<div class="row">
-				<div class="col-xs-12 col-sm-4 pull-left">
+				<div class="col-xs-12 col-sm-4 pull-left hidden-xs">
 					<label>Select Date Range</label>
 						<div class="input-group">
 							<div class="input-group-addon">
@@ -37,8 +37,38 @@ List of all classes
 								>
 						</div>
 				</div>
+				
 			</div>
 		</form>
+		<form action="{{url('home')}}" method="POST" role="form" id="dateform-mobile">
+			{!! csrf_field() !!}
+			<div class="row">
+				<div class="col-xs-12 visible-xs">
+					<div class="input-group">
+						 <span class="input-group-btn">
+					        <button class="btn btn-default" type="button" id="prevday">
+					        	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></span>
+					        </button>
+					      </span>
+						<input type="text" class="form-control" id="reservationtime-mobile" name="date" 
+							value = "<?php 
+								if($date_request!=NULL){
+									echo $date_request;
+								}else {
+									 $date = new DateTime();
+									 $today =$date->format('m/d/Y');
+									 echo $today.' - '.$today;		
+								} ?>">
+						<span class="input-group-btn">
+					         <button class="btn btn-default" type="button" id="nextday">
+					        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" ></span>
+					        </button>
+					    </span>
+					    </div>
+				</div>
+			</div>
+		</form>
+
 	</div>
 
 	<div class="box-body"> 

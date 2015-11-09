@@ -32,6 +32,7 @@ class HomeController extends Controller
         }
         if (Entrust::hasRole('teacher')) {
             $teacherschedule = TeacherSchedule::getTeacherScheduleById($request,$user->teachers_id);
+            
             return view('teacher.home' , $teacherschedule);
 
         }
