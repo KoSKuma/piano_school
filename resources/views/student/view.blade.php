@@ -38,16 +38,6 @@ Add a new student
             			</a>
             			@endif
 
-            			@if (Entrust::can('delete-student'))
-            			<a class="btn btn-danger btn-flat btn-sm"
-            			   data-toggle="modal" 
-            			   data-target="#myModal" 
-            			   student_id="{{$student->id}}" 
-            			   student_name="{{$student->nickname . '(' . $student->firstname . ' ' . $student->lastname . ')'}}">
-            			   <i class="fa fa-trash"></i>
-            			   Delete
-            			</a>	
-            			@endif
             		</div>
 
         	</form>
@@ -128,11 +118,4 @@ Add a new student
 
 
 @section('script')
-<!-- InputMask -->
-<script type="text/javascript">
-$(function () {
-	$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-	$("[data-mask]").inputmask();
-});
-</script>
 @endsection
