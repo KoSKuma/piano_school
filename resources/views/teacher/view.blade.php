@@ -15,33 +15,22 @@ Add a new student
 
 <div class="row">
     <form action="{{url('teacher/restore')}}" method="post">
-                            {!! csrf_field() !!}
-                            <!-- Single button -->
-                            <div class="col-sm-11 text-right " >
+            {!! csrf_field() !!}
+            <!-- Single button -->
+            <div class="col-sm-11 text-right " >
 
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
-                            
-                                @if (Entrust::can('edit-teacher'))
-                                <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
-                                    <i class="fa fa-edit"></i>
-                                    Edit
-                                </a>
-                                @endif
-                                @if (Entrust::can('delete-teacher'))
-                                <a 
-                                    class="btn btn-flat btn-danger btn-sm"
-                                    data-toggle="modal" 
-                                    data-target="#myModal" 
-                                    teacher_id="{{$teacher->id}}" 
-                                    teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
-                                    <i class="fa fa-trash"></i>
-                                    Delete
-                                </a>
-                                @endif
-
-                            </div>
-                        </form>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
+            
+                @if (Entrust::can('edit-teacher'))
+                <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
+                    <i class="fa fa-edit"></i>
+                    Edit
+                </a>
+                @endif
+             
+            </div>
+    </form>
 </div>
 
 <div class="row">
@@ -187,75 +176,7 @@ Add a new student
     <div class="col-md-2">
 </div>
     
-    <div class="col-md-8">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-               <div> 
-                    <h3 class="box-title">Schedule</h3>
-                        <div class="col-xs-12 text-right">
-                            <a href= "{{url('schedule/create')}}" class="btn btn-primary" >
-                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                Booking
-                            </a>
-                        </div>
-                   
-             </div>
-           
-            <div class="box-body">
-
-                <div class="col-sm-12 col-md-12 " id="schedule_list_table">
-                    <div class="row hidden-xs hidden-sm" id="table_header">
-                    
-                        <div class="col-md-4">
-                            <strong>Class Date</strong>
-                        </div>
-
-                        <div class="col-md-4">
-                            <strong>Student</strong>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <strong>Status</strong>
-                        </div>
-                              
-                    </div> 
-                </div>
-
-
-                <div class="row">
-                    @foreach($schedules as $schedule)
-                        
-                            <div class="col-md-4 col-xs-10">              
-                                {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}                     
-
-                            </div>
-                            
-
-                            <div class="col-md-4 col-xs-12">
-                                {{$schedule->student_nickname}}
-                                <span class='visible-sm-inline visible-md-inline'>
-                                    <br/>
-                                </span>
-                                ({{$schedule->student_firstname}} {{$schedule->student_lastname}})
-                            </div>
-                        
-                            <div class="col-md-4 col-xs-12">
-                                {{$schedule->status}}
-                            </div>
-
-                            <div class="row">
-                                    <div class="col-xs-12" style="height:10px">
-                                    </div>
-                            </div>
-                           
-
-                    @endforeach        
-                </div>   
-
-            </div>
-        </div>
-    </div>
-
+   
     <form action="" method="POST" id="confirm-delete"> 
 
                 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

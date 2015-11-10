@@ -110,11 +110,7 @@ Add a new student
             <div class="row">
                 {{date('j F Y' ,strtotime($student->user->date_of_birth))}}
             </div>
-            <div class="row">
- 				 @foreach($times as $time)  
-                     {{$time['textHours']}} 
-                 @endforeach					            
-            </div>
+         
             <div class="row">    
             </div>
         </div>
@@ -152,9 +148,7 @@ Add a new student
                     <div class="row">
                         <b>DateofBirth</b>
                     </div>
-                    <div class="row">
-                        <b>hours.</b>
-                    </div>
+                  
              </div>  
 
             <div class="visible-xs   col-xs-6" >  
@@ -171,18 +165,8 @@ Add a new student
                 <div class="row">
                    {{$student->user->email}}
                 </div>
-                 <div class="row">
-                    @foreach($times as $time)  
-                         {{$time['textHours']}}
-                    @endforeach
-                </div>
               </div>
 
-<div class="row">
-    </br>
-    <div class="col-md-2">
-    </div>
-</div>
 
 <div class="col-md-2">
 	</br>
@@ -214,31 +198,7 @@ Add a new student
                 </div>
 
 
-                <div class="row">
-                    @foreach($schedules as $schedule)
-                            <div class="col-md-4 col-xs-10">
-                                {{date('j M y H:i', strtotime($schedule->start_time))}} - {{date('H:i', strtotime($schedule->end_time))}}                      
-
-                            </div>
-                            
-                            <div class="col-md-4 col-xs-10">
-                                {{'ครู'.$schedule->teacher_nickname}}
-                                <span class='visible-sm-inline visible-md-inline'><br /></span>
-                                ({{$schedule->teacher_firstname}} {{$schedule->teacher_lastname}})
-                            </div>
-                        
-                            <div class="col-md-4 col-xs-12">
-                                {{$schedule->status}}
-                            </div>
-
-                            <div class="row">
-                                    <div class="col-xs-12" style="height:10px">
-                                    </div>
-                            </div>
-
-
-                  @endforeach          
-                </div>   
+         
 
             </div>
         </div>
