@@ -78,7 +78,7 @@ Add a new student
                              <td>{{$student->user->email}}</td>
                          </tr>
                          <tr>
-                             <td><b>DateofBirth</b></td>
+                             <td><b>Date of Birth</b></td>
                              <td>{{date('j F Y' ,strtotime($student->user->date_of_birth))}}</td>
                          </tr>
                      </tbody>

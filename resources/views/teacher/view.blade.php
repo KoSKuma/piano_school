@@ -11,172 +11,98 @@ Add a new student
 @endsection
 
 @section('main-content')
+<div class="box box-default">
+    <div class="box-body">
+        <div class="row">
+            <form action="{{url('teacher/restore')}}" method="post">
+                    {!! csrf_field() !!}
+                    <!-- Single button -->
+                      <div class="col-sm-1 pull-left">
+                        <a href= "{{url('teacher')}}" class="btn btn-flat btn-sm btn-default ">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                             Back
+                        </a>
+                    </div>
+                    <div class="col-sm-11 text-right " >
 
-
-<div class="row">
-    <form action="{{url('teacher/restore')}}" method="post">
-            {!! csrf_field() !!}
-            <!-- Single button -->
-            <div class="col-sm-11 text-right " >
-
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
+                    
+                        @if (Entrust::can('edit-teacher'))
+                        <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </a>
+                        @endif
+                     
+                    </div>
+            </form>
+        </div>
+        <div class="row" style="height:10px"></div>
+        <div class="row">
+            <div class="col-sm-4 text-center">
+                    @if(empty($teacher->user->picture))
+                        <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" width="200" />
+                    @else
+                        <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->user->picture}}" width="200" />
+                    @endif
+            </div>
+             <div class="row" style="height:10px"></div>
+             <div class="col-xs-12 col-sm-8 pull-center">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td>
+                                {{$teacher->user->firstname.'   '.$teacher->user->lastname.'  '.'('.$teacher->user->nickname.')'}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telephone</strong></td>
+                            <td>
+                                {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}
+                            </td>
+                        </tr>
+                         <tr>
+                            <td><strong>E-mail</strong></td>
+                            <td>
+                                {{$teacher->user->email}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Experience</strong></td>
+                            <td>
+                                {{$teacher->experience}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Degrees</strong></td>
+                            <td>
+                                {{$teacher->degrees}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Institute</strong></td>
+                            <td>
+                                {{$teacher->institute}} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date of Birth</strong></td>
+                            <td>
+                                {{date('j F Y' ,strtotime($teacher->date_of_birth))}} 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+             </div>
             
-                @if (Entrust::can('edit-teacher'))
-                <a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
-                    <i class="fa fa-edit"></i>
-                    Edit
-                </a>
-                @endif
-             
-            </div>
-    </form>
-</div>
+        </div>
 
-<div class="row">
-
-    <div class="col-md-2 col-sm-2 ">
     </div>
-
-     <div class="col-md-2 col-sm-2 ">
-            <a href= "{{url('teacher')}}" class="btn btn- btn-default ">
-                <span class="glyphicon glyphicon-arrow-left"></span>
-                 Back
-            </a>
-    </div>
-
 </div>
 
-<div class="row">
-        <div class="col-md-3 col-sm-2 ">
-           
-        </div>
-
-        <div class="col-md-2 col-sm-3 hidden-xs ">
-                @if(empty($teacher->user->picture))
-                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
-                @else
-                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->user->picture}}" height="200" />
-                @endif
-        </div>
-
-        <div class="col-md-1 col-sm-2 hidden-xs ">
-                <br/>
-                <div class="row">
-                    <b>Name</b>
-                </div>
-                <div class="row">
-                    <b>Telephone</b>
-                </div>
-                 <div class="row">
-                    <b>E-mail</b>
-                </div>
-                <div class="row">
-                    <b>Experience</b>
-                </div>
-                <div class="row">
-                    <b>Degrees</b>
-                </div>
-                <div class="row">
-                    <b>Institute:</b>
-                </div>
-                <div class="row">
-                    <b>DateofBirth</b>
-                </div>
-        </div>
-
-        <div class="col-md-3 col-sm-5 hidden-xs ">
-            <div class="row">
-                <br/>
-                {{$teacher->user->firstname.'   '.$teacher->user->lastname.'  '.'('.$teacher->user->nickname.')'}}
-            </div>
-            <div class="row hidden-xs">
-                {{substr($teacher->teacher_phone,0,3)."-".substr($teacher->teacher_phone,3,3)."-".substr($teacher->teacher_phone,6)}}
-            </div>
-             <div class="row">
-                {{$teacher->user->email}}
-            </div>
-
-            <div class="row">
-                {{$teacher->experience}}
-            </div>
-            <div class="row">
-                {{$teacher->degrees}}
-            </div>
-            <div class="row">
-                {{$teacher->institute}} 
-            </div>
-             <div class="row">
-                {{date('j F Y' ,strtotime($teacher->date_of_birth))}} 
-            </div>
-        </div>
-
-
-        <div class="visible-xs  col-xs-12" >
-            <div class="visible-xs visible-sm  col-xs-3">
-            </div>
-            <div class="visible-xs   col-xs-6">
-                @if(empty($teacher->user->picture))
-                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/default.jpg')}}" height="200" />
-                @else
-                     <img  class="img-responsive img-thumbnail img-teacher" src="{{url('/uploads/profile_pictures/').'/'.$teacher->user->picture}}" height="200" />
-                @endif
-            </div>
-            <div class="visible-xs  col-xs-3">
-            </div>
-        </div>
-
-       <div class="visible-xs  col-xs-1">
-        </div>
-
-        <div class="visible-xs  col-xs-4" >
-            <br/>
-               <div class="row">
-                    <b>Name</b>
-                </div>
-                <div class="row">
-                    <b>Experience</b>
-                </div>
-                <div class="row">
-                    <b>Degrees</b>
-                </div>
-                <div class="row">
-                    <b>Institute:</b>
-                </div>
-                <div class="row">
-                    <b>DateofBirth</b>
-                </div>
-        </div>  
-
-        <div class="visible-xs   col-xs-6" >  
-                <div class="row">
-                <br/>
-               {{'ครู'.$teacher->user->nickname}}
-            </div>
-            <div class="row">
-                {{$teacher->experience}}
-            </div>
-            <div class="row">
-                {{$teacher->degrees}}
-            </div>
-            <div class="row">
-                {{$teacher->institute}} 
-            </div>
-             <div class="row">
-                {{date('j F Y' ,strtotime($teacher->date_of_birth))}} 
-            </div>
-        </div>
-</div>
-<div class="row">
-    </br>
-    </div>
-
-
-<div class="row">
-    <div class="col-md-2">
-</div>
-    
-   
+  
     <form action="" method="POST" id="confirm-delete"> 
 
                 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
