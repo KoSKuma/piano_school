@@ -155,7 +155,7 @@ Teacher Schedule
 											$student_name = $schedule_of_teacher[$date][$time_in_header];  
 											$schedule_id = $schedules_id[$date][$time_in_header];
 											?>
-											<td onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>	
+											<td class="schedule-on-table" onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>	
 
 								<?php   } 
 										else {
