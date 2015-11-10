@@ -30,7 +30,7 @@ List of all Students
 					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-4  ">
+				<div class="col-xs-12 col-sm-6">
 					<div class="input-group ">
 					  <input type="text" class="form-control" name="search" placeholder="Search for..." value="@if(!is_null($searchResult['keyword'])){{$searchResult['keyword']}}@endif">
 				      <span class="input-group-btn">
@@ -42,7 +42,7 @@ List of all Students
 					</div>
 				</div>
 				@if (Entrust::can('create-student'))
-				<div class="col-sm-7  text-right hidden-xs col-md-8" >
+				<div class="col-sm-6  text-right hidden-xs col-md-8" >
 					<a href= "{{url('student/create')}}" class="btn btn-primary custom-font" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
