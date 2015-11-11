@@ -11,6 +11,8 @@ use Auth;
 use App\models\Teacher;
 use App\models\Student;
 use App\models\Schedule;
+use App\models\TeacherSchedule;
+
 
 class HomeController extends Controller
 {
@@ -19,18 +21,20 @@ class HomeController extends Controller
      *
      * @return Response
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $user = Auth::user();
         //print_r($user);die();
 
         if (Entrust::hasRole('admin')) {
-            $schedule = schedule::scheduleList();
-            return view('admin.home' , ['scheduleList' => $schedule->get()]);
+            $teacherschedule = TeacherSchedule::getTeacherSchedule($request);
+            return view('admin.home' , $teacherschedule);
         }
         if (Entrust::hasRole('teacher')) {
-            $teacher_schedule = Teacher::scheduleOfTeacher($user->teachers_id);
-            return view('teacher.home',['scheduleList'=>$teacher_schedule->get()]);
+            $teacherschedule = TeacherSchedule::getTeacherScheduleById($request,$user->teachers_id);
+            
+            return view('teacher.home' , $teacherschedule);
+
         }
         if (Entrust::hasRole('student')) {
             $student_schedule = Student::scheduleOfStudent($user->students_id);

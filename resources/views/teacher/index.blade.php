@@ -21,7 +21,7 @@ List of all Teachers
 			<form action="{{url('/teacher')}}" method="GET">
 				@if (Entrust::can('create-teacher'))
 				<div class="col-xs-12  text-left visible-xs" >
-					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" id="btn_add_teacher_mobile">
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>
@@ -31,7 +31,7 @@ List of all Teachers
 					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-4  ">
+				<div class="col-xs-12 col-sm-6 ">
 					<div class="input-group ">
 					  <input type="text" class="form-control" name="search" placeholder="Search for..." value="@if(!is_null($searchResult['keyword'])){{$searchResult['keyword']}}@endif">
 				      <span class="input-group-btn">
@@ -43,8 +43,8 @@ List of all Teachers
 					</div>
 				</div>
 				@if (Entrust::can('create-teacher'))
-				<div class="col-sm-7  text-right hidden-xs col-md-8" >
-					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" >
+				<div class="col-sm-6  text-right hidden-xs" >
+					<a href= "{{url('teacher/create')}}" class="btn btn-primary bg-primary custom-font" id="btn_add_teacher">
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>

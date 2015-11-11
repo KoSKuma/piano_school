@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\models\Schedule;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DateTime;
 
 class Teacher extends Model
 {
@@ -98,7 +99,9 @@ class Teacher extends Model
 
     public function scheduleFromNow()
     {
-        $schedules = Schedule::_scheduleOfTeacher_Student($this->user->teachers_id , null, null, "From Now");
+        $now = new DateTime();
+        $date = $now->format('Y-m-d');
+        $schedules = Schedule::_scheduleOfTeacher_Student($this->user->teachers_id , null, null, $date);
 
         return $schedules;
     }

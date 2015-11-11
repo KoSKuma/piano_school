@@ -14,6 +14,7 @@
 <script src="{{ asset('/plugins/input-mask/jquery.inputmask.date.extensions.js')}}" type="text/javascript"></script>
 <script src="{{ asset('/plugins/input-mask/jquery.inputmask.extensions.js')}}" type="text/javascript"></script>
 
+
 <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
 <script src="{{url("plugins/daterangepicker/daterangepicker.js")}}" type="text/javascript"></script>
 <script src="{{url("plugins/timepicker/bootstrap-timepicker.js")}}" type="text/javascript"></script>

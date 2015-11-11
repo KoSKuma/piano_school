@@ -45,14 +45,14 @@
                 </a>
             </li> -->
             <li class="treeview">
-                <a href="#">
+                <a href="#" id="user_menu">
                     <i class='fa  fa-user-plus'></i> 
                     <span>User</span> 
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     @if (Entrust::can('view-teacher'))
-                    <li><a href="{{url('teacher')}}">Teacher</a></li>
+                    <li><a id="teacher_menu" href="{{url('teacher')}}">Teacher</a></li>
                     @endif
                     @if (Entrust::can('view-student'))
                     <li><a href="{{url('student')}}">Student</a></li>
@@ -99,13 +99,14 @@
             </li>
             @endif
 
+            @if (Entrust::hasRole('admin')) 
              <li >
                 <a href="{{url('teacherschedule')}}">
                     <i class='fa fa-calendar-o'></i> 
                     <span>Teacher Schedule</span>
                 </a>
             </li>
-
+            @endif
 
            
             

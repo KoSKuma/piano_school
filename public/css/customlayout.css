@@ -95,11 +95,14 @@ a.link-color{
 a.link-color:hover{
 	color: #C0C0C0;
 }
-td:hover {
+td.schedule-on-table:hover {
 	background-color: #3090C7;
 }
 b:hover{
 	color: #FFFFCC;
+}
+b.bold-text{
+	color: white;
 }
 
 .btn-circle {

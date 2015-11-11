@@ -2,3 +2,6 @@
 /node_modules
 Homestead.yaml
 .env
+/tests/automatetest/log.html
+/tests/automatetest/report.html
+/tests/automatetest/output.xml

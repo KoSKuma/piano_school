@@ -106,10 +106,8 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
     
-        $times = $student->remainingStudyTime();
-        $schedules = $student->scheduleFromNow();
 
-        return view('student.view', ['times'=>$times,'student'=>$student ,'schedules'=>$schedules->get()]);
+        return view('student.view', ['student'=>$student]);
     }
 
     /**
