@@ -8,16 +8,21 @@ Resource          keyword.robot
 ${LOGIN URL}		http://localhost:8000/
 
 ***test case****
-Valid Login
+Login
 	Open Browser to Login page		${LOGIN URL}
 	Maximize Browser Window
 	Input email
 	Input password
 	Submit Login
 	Welcome Page in home page
-View Profile
+
+Add Student Success
 	Go to Manage User page
-	Go to TeacherList
-	Click View Profile Teacher
-	Title Should Be 				 Piano School - Teacher Profile
+	Go to StudentList
+	Click Add Student
+	Back Studentlist page 
+
+Edit Student
+	Click Edit Student
+	Back Studentlist page 
 
