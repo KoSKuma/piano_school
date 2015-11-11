@@ -2,7 +2,7 @@
 
 
 @section('htmlheader_title')
-Add a new student
+Update Tacher
 @endsection
 
 
