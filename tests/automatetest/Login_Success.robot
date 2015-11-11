@@ -5,7 +5,7 @@ Library           Selenium2Library
 Resource          keyword.robot
 
 *** Variable ***
-${LOGIN URL}		http://localhost:8000/
+${LOGIN URL}		http://128.199.71.232
 
 ***test case****
 Valid Login

@@ -30,3 +30,18 @@ Go to TeacherList
 
 Click Button Add Teacher
  	Click Element		btn_add_teacher
+
+Click View Profile Teacher
+	Click Element		btn_teacher_profile
+
+Click Edit Teacher
+	Click Element		btn_edit_teacher
+
+Click delete Teacher
+	Click Element		btn_delete_teacher	
+
+Click confirm delete
+	Click Button		comfirm_delete_techer	
+
+Back Teacherlist page
+	Go To 				http://128.199.71.232/teacher

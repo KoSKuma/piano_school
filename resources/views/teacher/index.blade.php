@@ -121,13 +121,13 @@ List of all Teachers
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" id="delete_id" value="{{$teacher->id}}">
 								@if (Entrust::can('view-teacher'))
-								<a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn- btn-default btn-sm">
+								<a href= "{{url('teacher/'.$teacher->id)}}" class="btn btn- btn-default btn-sm" id="btn_teacher_profile">
 									<i class="fa fa-eye"></i>
 									View
 								</a>
 								@endif
 								@if (Entrust::can('edit-teacher'))
-								<a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm">
+								<a href= "{{url('teacher/'.$teacher->id.'/edit')}}" class="btn btn-flat btn-default btn-sm" id="btn_edit_teacher">
 									<i class="fa fa-edit"></i>
 									Edit
 								</a>
@@ -135,6 +135,7 @@ List of all Teachers
 								@if (Entrust::can('delete-teacher'))
 								<a 
 									class="btn btn-flat btn-danger btn-sm"
+									id="btn_delete_teacher"
 									data-toggle="modal" 
 									data-target="#myModal" 
 									teacher_id="{{$teacher->id}}" 
@@ -164,12 +165,12 @@ List of all Teachers
 									@endif
 
 									@if (Entrust::can('edit-teacher'))
-									<li><a href= "{{url('teacher/'.$teacher->id.'/edit')}}">Edit</a></li>
+									<li><a href= "{{url('teacher/'.$teacher->id.'/edit')}}" id="btn_edit_teacher_mobile">Edit</a></li>
 									@endif
 
 									@if (Entrust::can('delete-teacher'))
-									<li><a 
-										data-toggle="modal" 
+									<li><a data-toggle="modal" 
+										id="btn_delete_teacher_mobile"
 										data-target="#myModal" 
 										teacher_id="{{$teacher->id}}" 
 										teacher_name="{{$teacher->nickname . ' (' . $teacher->firstname . ' ' . $teacher->lastname . ')'}}">
@@ -223,7 +224,7 @@ List of all Teachers
 
 									<input type="hidden" name="_method" value="DELETE">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<button class="btn btn-danger" >
+									<button class="btn btn-danger" id="comfirm_delete_techer">
 										<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"> </span> Delete
 									</button>
 								</div>
