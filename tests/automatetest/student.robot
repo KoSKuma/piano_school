@@ -15,10 +15,14 @@ Login
 	Input password
 	Submit Login
 	Welcome Page in home page
-Add Teacher Success
+
+Add Student Success
 	Go to Manage User page
-	Go to TeacherList
-	Click Button Add Teacher
+	Go to StudentList
+	Click Add Student
+	Back Studentlist page 
 
-
+Edit Student
+	Click Edit Student
+	Back Studentlist page 
 

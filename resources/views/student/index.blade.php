@@ -19,8 +19,8 @@ List of all Students
 
 			<form action="{{url('/student')}}" method="GET">
 				@if (Entrust::can('create-student'))
-				<div class="col-xs-12  text-left visible-xs" >
-					<a href= "{{url('student/create')}}" class="btn btn-primary  custom-font" >
+				<div class="col-xs-12  text-left visible-xs " >
+					<a href= "{{url('student/create')}}" class="btn btn-primary  custom-font" id="add_student_mobile" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>
@@ -42,8 +42,8 @@ List of all Students
 					</div>
 				</div>
 				@if (Entrust::can('create-student'))
-				<div class="col-sm-6  text-right hidden-xs col-md-8" >
-					<a href= "{{url('student/create')}}" class="btn btn-primary custom-font" >
+				<div class="col-sm-6  text-right hidden-xs" >
+					<a href= "{{url('student/create')}}" class="btn btn-primary custom-font"  id="add_student" >
 						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
 					</a>
 				</div>
@@ -131,7 +131,7 @@ List of all Students
 							@endif
 								
 							@if (Entrust::can('edit-student'))
-							<a href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default btn-flat btn-sm">
+							<a id="edit_student" href= "{{url('student/'.$student->id.'/edit')}}" class="btn btn-default btn-flat btn-sm" >
 								<i class="fa fa-edit"></i>
 								Edit
 							</a>
@@ -139,6 +139,7 @@ List of all Students
 
 							@if (Entrust::can('delete-student'))
 							<a class="btn btn-danger btn-flat btn-sm"
+							   id="delete_student"
 							   data-toggle="modal" 
 							   data-target="#myModal" 
 							   student_id="{{$student->id}}" 
