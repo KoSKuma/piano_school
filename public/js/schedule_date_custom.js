@@ -40,6 +40,10 @@ $(document).ready(function(){
 				$("#sliding").slideToggle();
 			});	
 
+			$('#select_teacher').change(function(){
+				$('#reservationtime').trigger('click');
+				
+			});
 			$("#prevday").click(function(){
 				var date = $('#reservationtime-mobile').daterangepicker().val();
 				var split = date.split(' - ');

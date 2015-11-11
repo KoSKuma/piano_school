@@ -30,7 +30,7 @@ class TeacherSchedule extends Model
             $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
 
          }else {
-                $teacher_id = 20;
+             
                 $start_date = new DateTime();
                 $end_date = new DateTime();
                 $day_count = $end_date->diff($start_date)->format('%a');

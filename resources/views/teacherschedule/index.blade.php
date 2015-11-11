@@ -29,11 +29,13 @@ Teacher Schedule
 							<label>Select Teacher</label>
 							<select name="teacher" class="form-control" id="select_teacher" >
 								@foreach ($teachers as $teacher)
-									<option value="{{$teacher->id}}" <?php
+									<option  value="{{$teacher->id}}" 
+										<?php
 										if($teacher->id == $teacher_id){
 											echo "selected";
 										}
-									 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}</option>
+									 ?> >{{"ครู".$teacher->nickname." "."(".$teacher->firstname." ".$teacher->lastname.")"}}
+									</option>
 								@endforeach
 							</select>
 
