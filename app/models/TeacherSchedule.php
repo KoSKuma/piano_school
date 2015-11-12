@@ -31,6 +31,7 @@ class TeacherSchedule extends Model
 
          }else {
              
+                $teacher_id = 20;
                 $start_date = new DateTime();
                 $end_date = new DateTime();
                 $end_date->modify('+7 day');
@@ -76,7 +77,7 @@ class TeacherSchedule extends Model
             $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
 
          }else {
-                
+                $teacher_id = 20;
                 $start_date = new DateTime();
                 $end_date = new DateTime();
                 $end_date->modify('+7 day');
