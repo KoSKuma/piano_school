@@ -6,6 +6,7 @@
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/tableHeadFixer.js') }}" type="text/javascript"></script>
 
 <!-- <script src="{{ asset('/fullcalendar/lib/jquery.min.js') }}" type="text/javascript"></script> -->
 <script src="{{ asset('/fullcalendar/lib/moment.min.js') }}" type="text/javascript"></script>

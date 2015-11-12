@@ -66,4 +66,13 @@ $(document).ready(function(){
 			$("#dateform-mobile").submit();
 			});
 
-		})
+
+			$("#tabel-teacher-schedule").tableHeadFixer({'left' : 1});
+
+
+				
+			    
+
+})
+
+	
