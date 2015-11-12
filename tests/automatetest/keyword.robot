@@ -52,9 +52,13 @@ Go to StudentList
 
 Click Add Student
 	Click Element 		add_student
+	
 
 Back Studentlist page 
 	Go To 				http://localhost:8000/student
 
 Click Edit Student
-	Click Element		edit_student				
+	Click Element		edit_student	
+
+Click Delete Student
+	Click Element		delete_student			

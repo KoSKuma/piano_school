@@ -90,16 +90,16 @@ b.date {
 }
 
 a.link-color{
-	color: #FFFFFF;
+	color: #000000;
 }
 a.link-color:hover{
-	color: #C0C0C0;
+	color: #8D8585;
 }
 td.schedule-on-table:hover {
 	background-color: #3090C7;
 }
 b:hover{
-	color: #FFFFCC;
+	
 }
 b.bold-text{
 	color: white;
