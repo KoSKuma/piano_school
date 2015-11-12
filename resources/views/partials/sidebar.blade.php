@@ -55,7 +55,7 @@
                     <li><a id="teacher_menu" href="{{url('teacher')}}">Teacher</a></li>
                     @endif
                     @if (Entrust::can('view-student'))
-                    <li><a href="{{url('student')}}">Student</a></li>
+                    <li><a id="student_menu" href="{{url('student')}}">Student</a></li>
                     @endif
                 </ul>
             </li>

@@ -45,3 +45,20 @@ Click confirm delete
 
 Back Teacherlist page
 	Go To 				http://128.199.71.232/teacher
+	
+
+Go to StudentList
+	Click Element		student_menu
+
+Click Add Student
+	Click Element 		add_student
+	
+
+Back Studentlist page 
+	Go To 				http://localhost:8000/student
+
+Click Edit Student
+	Click Element		edit_student	
+
+Click Delete Student
+	Click Element		delete_student			

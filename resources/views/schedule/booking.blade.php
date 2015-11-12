@@ -34,7 +34,7 @@ Add a new student
                 @endif
                 @if(isset($booking_time_error))
                     <div class="alert alert-danger">
-                        <strong>Time has already booked!!!</strong><br>
+                        <strong>Booking Time Error Please Check</strong><br>
                         @foreach ($booking_time_error as $booking_time_error)
                             {{'Start Time :'.$booking_time_error->start_time}} 
                             {{'End Time :'.$booking_time_error->end_time}}

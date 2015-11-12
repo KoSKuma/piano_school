@@ -99,10 +99,11 @@ class ScheduleController extends Controller
                 $schedule->location = $request->location;
 
                 $schedule_time = Schedule::checkDateTimeSchedule($schedule->teachers_id, $schedule->start_time, $schedule->end_time);
-                if ($schedule_time==NULL) {
+                if ($schedule_time==NULL && ($schedule->start_time < $schedule->end_time)) {
                     $schedule->save();
                     return redirect('teacherschedule');
-                }else {
+                }
+                else {
                     $teacher = Teacher::teacherList()->get();
                     $student = Student::studentList()->get();
                  

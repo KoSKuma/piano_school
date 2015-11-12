@@ -15,20 +15,23 @@ Login
 	Input password
 	Submit Login
 	Welcome Page in home page
+
 Add Teacher Success
 	Go to Manage User page
 	Go to TeacherList
 	Click Button Add Teacher
+	Back Teacherlist page
 	
 View Profile
-	Back Teacherlist page
 	Click View Profile Teacher
 	Title Should Be 				 Piano School - Teacher Profile
 	Back Teacherlist page
+
 Edit Teacher
 	Click Edit Teacher
 	Title Should Be 				 Piano School - Update Tacher
 	Back Teacherlist page
+	
 Delete Tacher
 	Click delete Teacher
 	Sleep	3s

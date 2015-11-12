@@ -19,6 +19,9 @@ class Schedule extends Model
 		'start_time' => 'required' ,
 		'end_time' => 'required' ,
 		'location' => 'required',
+		
+
+		
 		);
 
 	public static $rules_update = array(
