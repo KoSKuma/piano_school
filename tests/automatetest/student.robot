@@ -25,4 +25,10 @@ Add Student Success
 Edit Student
 	Click Edit Student
 	Back Studentlist page 
+	Back Studentlist page
+	Sleep	3s
+
+Delete Student
+	Sleep	3s
+ 	Click Delete Student
 

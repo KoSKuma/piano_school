@@ -33,6 +33,7 @@ class TeacherSchedule extends Model
              
                 $start_date = new DateTime();
                 $end_date = new DateTime();
+                $end_date->modify('+7 day');
                 $day_count = $end_date->diff($start_date)->format('%a');
                 $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
                 $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
@@ -68,6 +69,7 @@ class TeacherSchedule extends Model
             $split_date = explode(' - ', $date_request);
             $start_date = new DateTime($split_date[0]);
             $end_date = new DateTime($split_date[1]);
+
             $day_count = $end_date->diff($start_date)->format('%a');
 
             $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
@@ -77,6 +79,7 @@ class TeacherSchedule extends Model
                 
                 $start_date = new DateTime();
                 $end_date = new DateTime();
+                $end_date->modify('+7 day');
                 $day_count = $end_date->diff($start_date)->format('%a');
                 $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
                 $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');

@@ -19,6 +19,7 @@ Teacher Schedule
 
 
 @section('main-content')
+
 <div class="box  box-solid box-default">
 	<div class="box-header">
 		<form action="{{url('teacherschedule')}}" method="POST" role="form" id="dateform">
@@ -126,9 +127,9 @@ Teacher Schedule
 			<table class="table table-hover table-bordered " id="tabel-teacher-schedule">
 				<thead>
 					<tr>
-						<th bgcolor="#736F6E" style="text-align:center"><font color="white" >Time/Days</font></th>
+						<th style="text-align:center">Time/Days</th>
 						@foreach($date_range_selected as  $key=>$date)
-							<th  bgcolor="#736F6E" style="text-align:center">
+							<th style="text-align:center">
 								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" >
 									<i class="fa fa-plus-square-o"></i>
 									<b >{{$date}}</b>
@@ -142,8 +143,8 @@ Teacher Schedule
 					@foreach($time_in_config as $time_in_header)
 						<tr>
 								
-							<td  bgcolor="#A0A0A0" align="center">
-								<font color="#ffffff">{{$time_in_header}}</font>
+							<td   align="center">
+								{{$time_in_header}}
 							</td>
 								
 								@foreach($date_range_selected as  $key=>$date)
@@ -157,11 +158,11 @@ Teacher Schedule
 											$student_name = $schedule_of_teacher[$date][$time_in_header];  
 											$schedule_id = $schedules_id[$date][$time_in_header];
 											?>
-											<td class="schedule-on-table" onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' " bgcolor="#C0D0FF" align="center"> {{$student_name}} </td>	
+											<td class="schedule-on-table" bgcolor="#3cd481" onclick="document.location.href='{{url('schedule/'.$schedule_id.'/edit')}}/?teacher={{$teacher_id}}&day={{$key}}&time={{$time_in_header}}' "  align="center"> <font color="white"><b>{{$student_name}}</b>  </font></td>	
 
 								<?php   } 
 										else {
-										?>	<td bgcolor="#FFFFFF"></td>
+										?>	<td ></td>
 								<?php		}
 
 								?>		
@@ -173,7 +174,6 @@ Teacher Schedule
 				</tbody>
 			</table>
 		</div>
-
 </div>
 
 
