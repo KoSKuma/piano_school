@@ -34,7 +34,7 @@ class TeacherSchedule extends Model
                 $teacher_id = 20;
                 $start_date = new DateTime();
                 $end_date = new DateTime();
-                $end_date->modify('+7 day');
+                $end_date = $end_date->modify('+7 day');
                 $day_count = $end_date->diff($start_date)->format('%a');
                 $start_date_timestamp =  $start_date->format('Y-m-d 00:00:00'); 
                 $end_date_timestamp =  $end_date->format('Y-m-d 23:59:59');
@@ -44,6 +44,7 @@ class TeacherSchedule extends Model
         $schedule_of_teacher = Schedule::getTeacherSchedule($teacher_id,$start_date_timestamp,$end_date_timestamp);
         $schedules_id = Schedule::getScheduleId($teacher_id, $start_date_timestamp, $end_date_timestamp);
 
+
         return [
                 'time_in_config'=>$time_in_config, 
                 'date_range_selected'=>$date_range_selected,
@@ -51,7 +52,9 @@ class TeacherSchedule extends Model
                 'teachers' => $teachers->get(),
                 'schedule_of_teacher' => $schedule_of_teacher,
                 'teacher_id'=> $teacher_id ,
-                'schedules_id' =>$schedules_id         
+                'schedules_id' =>$schedules_id,
+                'start_date' => $start_date,
+                'end_date' =>  $end_date         
             ];
     }
 

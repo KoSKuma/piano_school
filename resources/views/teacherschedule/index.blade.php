@@ -53,9 +53,10 @@ Teacher Schedule
 								if($date_request!=NULL){
 									echo $date_request;
 								}else {
-									 $date = new DateTime();
-									 $today =$date->format('m/d/Y');
-									 echo $today.' - '.$today;	
+									$start_date = new DateTime();
+									$start_date =$start_date->format('m/d/Y');
+									$end_date =$end_date->format('m/d/Y');
+									echo $start_date.' - '.$end_date;	
 										
 								} ?> " 
 							>
