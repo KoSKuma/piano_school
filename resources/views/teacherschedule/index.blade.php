@@ -125,12 +125,12 @@ Teacher Schedule
 		</div>
 		
 		<div class="table-responsive">
-			<table class="table table-hover table-bordered " id="tabel-teacher-schedule">
+			<table class="table table-bordered " id="tabel-teacher-schedule">
 				<thead>
 					<tr>
-						<th style="text-align:center">Time/Days</th>
+						<th style="text-align:center" bgcolor="#E9EAED">Time/Days</th>
 						@foreach($date_range_selected as  $key=>$date)
-							<th style="text-align:center">
+							<th style="text-align:center" >
 								<a href="{{url('schedule/create')}}/?teacher={{$teacher_id}}&day={{$key}}" class="link-color" >
 									<i class="fa fa-plus-square-o"></i>
 									<b >{{$date}}</b>
@@ -144,7 +144,7 @@ Teacher Schedule
 					@foreach($time_in_config as $time_in_header)
 						<tr>
 								
-							<td   align="center">
+							<td bgcolor="#E9EAED" align="center">
 								{{$time_in_header}}
 							</td>
 								
@@ -182,6 +182,7 @@ Teacher Schedule
 
 @section("script")
 
-<script src="{{ asset('/js/schedule_date_custom.js')}}" type="text/javascript"></script>
+<script src="{{ asset('/js/schedule_date_custom.js')}}" type="text/javascript">
 
+</script>
 @endsection
